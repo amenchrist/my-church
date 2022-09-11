@@ -7,6 +7,7 @@ function App() {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
   return (
     <>
+    
       <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} isMobileNavOpen={isMobileNavOpen} setMobileNavOpen={() => setMobileNavOpen } />
       <Router />
     </>
