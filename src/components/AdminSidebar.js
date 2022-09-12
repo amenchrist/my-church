@@ -3,13 +3,13 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Divider, Drawer, Hidden, List, Typography } from '@mui/material';
 import {
-  AlertCircle as AlertCircleIcon,
+  // AlertCircle as AlertCircleIcon,
+  // Lock as LockIcon,
+  // UserPlus as UserPlusIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
@@ -22,45 +22,50 @@ const user = {
 
 const items = [
   {
-    href: '/app/dashboard',
+    href: '/admin-dashboard/summary',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: 'Summary'
   },
   {
-    href: '/app/customers',
+    href: '/admin-dashboard/attendees',
     icon: UsersIcon,
-    title: 'Customers'
+    title: 'Attendees'
   },
   {
-    href: '/app/products',
+    href: '/admin-dashboard/first-timers',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'First Timers'
   },
   {
-    href: '/app/account',
+    href: '/admin-dashboard/absentees',
     icon: UserIcon,
-    title: 'Account'
+    title: 'Absentees'
   },
   {
-    href: '/app/settings',
+    href: '/admin-dashboard/giving-records',
     icon: SettingsIcon,
-    title: 'Settings'
+    title: 'Giving Records'
   },
   {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
+    href: '/admin-dashboard/members',
+    icon: UserIcon,
+    title: 'Members'
   },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
+  // {
+  //   href: '/login',
+  //   icon: LockIcon,
+  //   title: 'Login'
+  // },
+  // {
+  //   href: '/register',
+  //   icon: UserPlusIcon,
+  //   title: 'Register'
+  // },
+  // {
+  //   href: '/404',
+  //   icon: AlertCircleIcon,
+  //   title: 'Error'
+  // }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

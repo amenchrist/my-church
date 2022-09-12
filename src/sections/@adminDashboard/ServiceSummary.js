@@ -1,11 +1,11 @@
 import { Box, Container, Grid } from '@mui/material';
-import Budget from '../components/adminDashboard/Budget';
+import Budget from '../../components/adminDashboard/Budget';
 // import LatestOrders from '../components/adminDashboard/LatestOrders';
 // import LatestProducts from '../components/dashboard/LatestProducts';
 // import Sales from '../components/adminDashboard/Sales';
 // import TasksProgress from '../components/adminDashboard/TasksProgress';
-import TotalCustomers from '../components/adminDashboard/TotalCustomers';
-import TotalProfit from '../components/adminDashboard/TotalProfit';
+import TotalCustomers from '../../components/adminDashboard/TotalCustomers';
+import TotalProfit from '../../components/adminDashboard/TotalProfit';
 // import TrafficByDevice from '../components/adminDashboard/TrafficByDevice';
 
 const ServiceSummary = () => (

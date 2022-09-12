@@ -1,6 +1,6 @@
-import {  useRoutes, } from 'react-router-dom';
+import {  useRoutes, Navigate } from 'react-router-dom';
 import DashboardLayout from './components/DashboardLayout';
-import ServiceSummary from './compositions/ServiceSummary';
+import ServiceSummary from './sections/@adminDashboard/ServiceSummary';
 import WatchPage from './pages/WatchPage';
 // import WatchPage from "./pages/WatchPage";
 // import MemberDashboard from "./pages/memberDashboard/MemberDashboard";
@@ -26,8 +26,15 @@ export default function Router() {
       path: 'admin-dashboard',
       element: <DashboardLayout />,
       children: [
-          {path: 'hello', element: <h2>Hello o</h2> },
-          { path: 'summary', element: <ServiceSummary />}
+          { path: 'hello', element: <h2>Hello o</h2> },
+          { path: 'summary', element: <ServiceSummary />},
+          { path: 'attendees', element: <h2>Attendees</h2>  },
+          { path: 'first-timers', element: <h2>First Timers</h2>  },
+          { path: 'absentees', element: <h2>Absentees</h2> },
+          { path: 'giving-records', element: <h2>Givings</h2> },
+          { path: 'members', element: <h2>Members</h2> },
+          { path: 'overview', element: <h2>Overview</h2> },
+          { path: '/admin-dashboard', element: <Navigate to="/admin-dashboard/summary" /> },
       ]
     },
     // {
