@@ -35,9 +35,11 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit" size="large">
-            <InputIcon />
-          </IconButton>
+          <Link to="/member-dashboard">
+            <IconButton color="inherit" size="large">
+              <InputIcon />
+            </IconButton>
+          </Link>
           <Link to="/admin-dashboard">
             <IconButton color="inherit" size="large">
               <AdminPanelSettingsIcon />

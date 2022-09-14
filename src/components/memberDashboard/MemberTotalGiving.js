@@ -6,11 +6,12 @@ import {
   Grid,
   Typography
 } from '@mui/material';
+import { indigo } from '@mui/material/colors';
 import { green } from '@mui/material/colors';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-const TotalCustomers = (props) => (
+const MemberTotalGiving = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -24,24 +25,24 @@ const TotalCustomers = (props) => (
             gutterBottom
             variant="h6"
           >
-            FIRST-TIMERS
+            TOTAL GIVING
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            16
+            £6,283.45
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: green[600],
+              backgroundColor: indigo[600],
               height: 56,
               width: 56
             }}
           >
-            <PeopleIcon />
+            <AttachMoneyIcon />
           </Avatar>
         </Grid>
       </Grid>
@@ -73,4 +74,4 @@ const TotalCustomers = (props) => (
   </Card>
 );
 
-export default TotalCustomers;
+export default MemberTotalGiving;

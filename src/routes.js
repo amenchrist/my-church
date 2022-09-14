@@ -1,7 +1,9 @@
 import {  useRoutes, Navigate } from 'react-router-dom';
-import DashboardLayout from './components/DashboardLayout';
-import ServiceSummary from './sections/@adminDashboard/ServiceSummary';
-import WatchPage from './pages/WatchPage';
+import DashboardLayout from './components/adminDashboard/DashboardLayout';
+import MemberDashboardLayout from './components/memberDashboard/MemberDashboardLayout';
+import ServiceSummary from './pages/@adminDashboard/ServiceSummary';
+import GivingSummary from './pages/@memberDashboard/GivingSummary';
+import WatchPage from './pages/@watchPage/WatchPage';
 // import WatchPage from "./pages/WatchPage";
 // import MemberDashboard from "./pages/memberDashboard/MemberDashboard";
 // import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
@@ -35,6 +37,19 @@ export default function Router() {
           { path: 'members', element: <h2>Members</h2> },
           { path: 'overview', element: <h2>Overview</h2> },
           { path: '/admin-dashboard', element: <Navigate to="/admin-dashboard/summary" /> },
+      ]
+    },
+    {
+      path: 'member-dashboard',
+      element: <MemberDashboardLayout />,
+      children: [
+          { path: 'summary', element: <GivingSummary />},
+          { path: 'tithes', element: <h2>Tithes</h2>  },
+          { path: 'offerings', element: <h2>Offerings</h2>  },
+          { path: 'partnership', element: <h2>Partnership</h2> },
+          { path: 'special-seeds', element: <h2>Special Seeds</h2> },
+          { path: 'other-giving', element: <h2>Other Giving</h2> },
+          { path: '/member-dashboard', element: <Navigate to="/member-dashboard/summary" /> },
       ]
     },
     // {

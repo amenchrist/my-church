@@ -10,7 +10,7 @@ import { green } from '@mui/material/colors';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-const TotalCustomers = (props) => (
+const TotalOfferings = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -24,13 +24,13 @@ const TotalCustomers = (props) => (
             gutterBottom
             variant="h6"
           >
-            FIRST-TIMERS
+            TOTAL OFFERINGS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            16
+            £943.00
           </Typography>
         </Grid>
         <Grid item>
@@ -60,7 +60,7 @@ const TotalCustomers = (props) => (
             mr: 1
           }}
         >
-          16%
+          10%
         </Typography>
         <Typography
           color="textSecondary"
@@ -73,4 +73,4 @@ const TotalCustomers = (props) => (
   </Card>
 );
 
-export default TotalCustomers;
+export default TotalOfferings;

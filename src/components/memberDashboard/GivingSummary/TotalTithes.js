@@ -6,12 +6,15 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { green } from '@mui/material/colors';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import MoneyIcon from '@mui/icons-material/Money';
+import { red } from '@mui/material/colors';
 
-const TotalCustomers = (props) => (
-  <Card {...props}>
+const TotalTithes = (props) => (
+  <Card
+    sx={{ height: '100%' }}
+    {...props}
+  >
     <CardContent>
       <Grid
         container
@@ -24,43 +27,43 @@ const TotalCustomers = (props) => (
             gutterBottom
             variant="h6"
           >
-            FIRST-TIMERS
+            TOTAL TITHES
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            16
+            £1,247.45
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: green[600],
+              backgroundColor: red[600],
               height: 56,
               width: 56
             }}
           >
-            <PeopleIcon />
+            <MoneyIcon />
           </Avatar>
         </Grid>
       </Grid>
       <Box
         sx={{
-          alignItems: 'center',
+          pt: 2,
           display: 'flex',
-          pt: 2
+          alignItems: 'center'
         }}
       >
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
+        <ArrowDownwardIcon sx={{ color: red[900] }} />
         <Typography
-          variant="body2"
           sx={{
-            color: green[900],
+            color: red[900],
             mr: 1
           }}
+          variant="body2"
         >
-          16%
+          12%
         </Typography>
         <Typography
           color="textSecondary"
@@ -73,4 +76,4 @@ const TotalCustomers = (props) => (
   </Card>
 );
 
-export default TotalCustomers;
+export default TotalTithes;
