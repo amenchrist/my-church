@@ -1,14 +1,20 @@
 import {  useRoutes, Navigate } from 'react-router-dom';
 import DashboardLayout from './components/adminDashboard/DashboardLayout';
 import MemberDashboardLayout from './components/memberDashboard/MemberDashboardLayout';
-import Tithes from './pages/@memberDashboard/Tithes';
-import ServiceSummary from './pages/@adminDashboard/ServiceSummary';
-import GivingSummary from './pages/@memberDashboard/GivingSummary';
+import { Offerings, Tithes, Partnerships, SpecialSeeds, OtherGiving, GivingSummary } from './pages/@memberDashboard';
+import { ServiceSummary, Attendees, FirstTimers, Absentees, GivingRecord, Members, YearOverview } from './pages/@adminDashboard';
+// import GivingSummary from './pages/@memberDashboard/GivingSummary';
 import WatchPage from './pages/@watchPage/WatchPage';
-import Offerings from './pages/@memberDashboard/Offerings';
-import Partnerships from './pages/@memberDashboard/Partnerships';
-import SpecialSeeds from './pages/@memberDashboard/SpecialSeeds';
-import OtherGiving from './pages/@memberDashboard/OtherGiving';
+// import Offerings from './pages/@memberDashboard/Offerings';
+// import Partnerships from './pages/@memberDashboard/Partnerships';
+// import SpecialSeeds from './pages/@memberDashboard/SpecialSeeds';
+// import OtherGiving from './pages/@memberDashboard/OtherGiving';
+// import Attendees from './pages/@adminDashboard/Attendees';
+// import FirstTimers from './pages/@adminDashboard/FirstTimers';
+// import Absentees from './pages/@adminDashboard/Absentees';
+// import GivingRecord from './pages/@adminDashboard/GivingRecord';
+// import Members from './pages/@adminDashboard/Members';
+// import YearOverview from './pages/@adminDashboard/YearOverview';
 // import WatchPage from "./pages/WatchPage";
 // import MemberDashboard from "./pages/memberDashboard/MemberDashboard";
 // import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
@@ -33,14 +39,13 @@ export default function Router() {
       path: 'admin-dashboard',
       element: <DashboardLayout />,
       children: [
-          { path: 'hello', element: <h2>Hello o</h2> },
           { path: 'summary', element: <ServiceSummary />},
-          { path: 'attendees', element: <h2>Attendees</h2>  },
-          { path: 'first-timers', element: <h2>First Timers</h2>  },
-          { path: 'absentees', element: <h2>Absentees</h2> },
-          { path: 'giving-records', element: <h2>Givings</h2> },
-          { path: 'members', element: <h2>Members</h2> },
-          { path: 'overview', element: <h2>Overview</h2> },
+          { path: 'attendees', element: <Attendees />  },
+          { path: 'first-timers', element: <FirstTimers />  },
+          { path: 'absentees', element: <Absentees /> },
+          { path: 'giving-records', element: <GivingRecord /> },
+          { path: 'members', element: <Members /> },
+          { path: 'overview', element: <YearOverview /> },
           { path: '/admin-dashboard', element: <Navigate to="/admin-dashboard/summary" /> },
       ]
     },

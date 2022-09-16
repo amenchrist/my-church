@@ -9,8 +9,29 @@ export const ContextProvider = ({ children }) => {
   const [url, setUrl] = useState('');
   const [church, setChurch] = useState('');
   const [isSignedIn, setIsSignedIn] = useState(false);
-
   const [currentMember, setCurrentMember] = useState({});
+
+  const [attendanceRecords, setAttendanceRecords] = useState([]);
+  const [serviceDate, setServiceDate] = useState('');
+  const [dates, setDates] = useState([]);
+  const [lastWeekDate, setLastWeekDate] = useState('');
+  const [members, setMembers] = useState([]);
+  const [attendees, setAttendees] = useState([])
+  const [firstTimers, setFirstTimers] = useState([])
+  const [absentees, setAbsentees] = useState([]);
+  const [isRegistered, setIsRegistered] = useState(true);
+  const [isNewSite, setIsNewSite] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
+  
+  // const localHost = "http://localhost:5000";
+  const host = 'https://arcane-anchorage-41306.herokuapp.com';
+  let server = host;
+
+  // if(window.location.href.includes('localhost:3000')){
+  //   server = localHost
+  // }
+
   
   useEffect(() => {
     setUrl(getParentUrl())
@@ -41,27 +62,7 @@ export const ContextProvider = ({ children }) => {
     }
   }, [url])
 
-  const [attendanceRecords, setAttendanceRecords] = useState([]);
-  const [serviceDate, setServiceDate] = useState('');
-  const [dates, setDates] = useState([]);
-  const [lastWeekDate, setLastWeekDate] = useState('');
-  const [members, setMembers] = useState([]);
-  const [attendees, setAttendees] = useState([])
-  const [firstTimers, setFirstTimers] = useState([])
-  const [absentees, setAbsentees] = useState([]);
-  const [isRegistered, setIsRegistered] = useState(true);
-  const [isNewSite, setIsNewSite] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
   
-  // const localHost = "http://localhost:5000";
-  const host = 'https://arcane-anchorage-41306.herokuapp.com';
-  let server = host;
-
-  // if(window.location.href.includes('localhost:3000')){
-  //   server = localHost
-  // }
-
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -98,7 +99,8 @@ export const ContextProvider = ({ children }) => {
     setAbsentees(getAbsentees(members, serviceDate));
   },[serviceDate, members])
 
-
+  //EXPORT
+  
   const contextStateVars = {
 
     attendanceRecords, setAttendanceRecords,

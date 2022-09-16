@@ -14,12 +14,12 @@ function WatchPage() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, maxHeight: '100vh' }}>
         <Grid container>
           <Grid item xs={12} md={8}>        
                 <VideoPlayer />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} sx={{ overflowY: "hidden"}} >
           {/* <FullWidthTabs /> */}
             {attendanceSubmitted? <FullWidthTabs /> : <AttendanceForm /> }
           </Grid>

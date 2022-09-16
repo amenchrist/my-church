@@ -1,0 +1,6 @@
+export { default as Offerings } from "./Offerings"
+export { default as OtherGiving } from "./OtherGiving"
+export { default as Partnerships } from "./Partnerships"
+export { default as GivingSummary } from "./GivingSummary"
+export { default as SpecialSeeds } from "./SpecialSeeds"
+export { default as Tithes } from "./Tithes"
