@@ -54,9 +54,9 @@ export const ContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
   
-  const localHost = "http://localhost:5000";
-  // const host = 'https://arcane-anchorage-41306.herokuapp.com';
-  let server = localHost;
+  // const localHost = "http://localhost:5000";
+  const host = 'https://arcane-anchorage-41306.herokuapp.com';
+  let server = host;
 
   // if(window.location.href.includes('localhost:3000')){
   //   server = localHost

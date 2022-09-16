@@ -20,14 +20,14 @@ function Copyright(props) {
 }
 export default function AttendanceForm() {
 
-    const { server, setAttendanceSubmitted } = useStateContext();
+    const { server, setAttendanceSubmitted, currentMember, setCurrentMember } = useStateContext();
     const [ emailExists, setEmailExists ] = useState(false);
     const [ email, setEmail ] = useState('');
     const [ attendance, setAttendance ] = useState('');
 
     //Check if email exists
     useEffect(() => {
-      if(email.length > 5){
+      if(email.length > 5 && email !== currentMember.email){
       
         const extractedData = {
           email: email,
@@ -43,6 +43,7 @@ export default function AttendanceForm() {
           if(member.email){
             console.log(member)
             setEmailExists(true);
+            setCurrentMember({...currentMember, email: member.email})
           }else (
             console.log("Member not found")
           )
@@ -50,7 +51,7 @@ export default function AttendanceForm() {
           console.log(err)
         })
       }
-    }, [server, email])
+    }, [server, email, currentMember, setCurrentMember])
 
     const EmailForm = () => {
       function submitEmail(event){

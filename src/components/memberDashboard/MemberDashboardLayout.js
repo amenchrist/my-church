@@ -34,7 +34,8 @@ const DashboardLayoutContainer = styled('div')({
 const DashboardLayoutContent = styled('div')({
   flex: '1 1 auto',
   height: '100%',
-  overflow: 'auto'
+  overflow: 'auto',
+  paddingTop: '50px'
 });
 
 const MemberDashboardLayout = ({ isMobileNavOpen, setMobileNavOpen }) => {

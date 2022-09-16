@@ -1,9 +1,16 @@
-import {  Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography
+} from '@mui/material';
 import { green } from '@mui/material/colors';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-const TotalPartnership = (props) => (
+const TotalOfferings = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -17,13 +24,13 @@ const TotalPartnership = (props) => (
             gutterBottom
             variant="h6"
           >
-            TOTAL PARTNERSHIP
+            OFFERINGS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            £3,400.00
+            £943.00
           </Typography>
         </Grid>
         <Grid item>
@@ -53,7 +60,7 @@ const TotalPartnership = (props) => (
             mr: 1
           }}
         >
-          36%
+          10%
         </Typography>
         <Typography
           color="textSecondary"
@@ -66,4 +73,4 @@ const TotalPartnership = (props) => (
   </Card>
 );
 
-export default TotalPartnership;
+export default TotalOfferings;

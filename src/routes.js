@@ -1,9 +1,14 @@
 import {  useRoutes, Navigate } from 'react-router-dom';
 import DashboardLayout from './components/adminDashboard/DashboardLayout';
 import MemberDashboardLayout from './components/memberDashboard/MemberDashboardLayout';
+import Tithes from './pages/@memberDashboard/Tithes';
 import ServiceSummary from './pages/@adminDashboard/ServiceSummary';
 import GivingSummary from './pages/@memberDashboard/GivingSummary';
 import WatchPage from './pages/@watchPage/WatchPage';
+import Offerings from './pages/@memberDashboard/Offerings';
+import Partnerships from './pages/@memberDashboard/Partnerships';
+import SpecialSeeds from './pages/@memberDashboard/SpecialSeeds';
+import OtherGiving from './pages/@memberDashboard/OtherGiving';
 // import WatchPage from "./pages/WatchPage";
 // import MemberDashboard from "./pages/memberDashboard/MemberDashboard";
 // import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
@@ -44,11 +49,11 @@ export default function Router() {
       element: <MemberDashboardLayout />,
       children: [
           { path: 'summary', element: <GivingSummary />},
-          { path: 'tithes', element: <h2>Tithes</h2>  },
-          { path: 'offerings', element: <h2>Offerings</h2>  },
-          { path: 'partnership', element: <h2>Partnership</h2> },
-          { path: 'special-seeds', element: <h2>Special Seeds</h2> },
-          { path: 'other-giving', element: <h2>Other Giving</h2> },
+          { path: 'tithes', element: <Tithes />  },
+          { path: 'offerings', element: <Offerings />  },
+          { path: 'partnership', element: <Partnerships /> },
+          { path: 'special-seeds', element: <SpecialSeeds /> },
+          { path: 'other-giving', element: <OtherGiving /> },
           { path: '/member-dashboard', element: <Navigate to="/member-dashboard/summary" /> },
       ]
     },

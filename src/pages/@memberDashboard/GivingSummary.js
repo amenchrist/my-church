@@ -1,9 +1,10 @@
 import { Box, Container, Grid } from '@mui/material';
 import TotalTithes from '../../components/memberDashboard/GivingSummary/TotalTithes';
-import TotalOfferings from '../../components/memberDashboard/TotalOfferings';
-import TotalPartnership from '../../components/memberDashboard/TotalPartnership';
+import TotalOfferings from '../../components/memberDashboard/GivingSummary/TotalOfferings';
+import TotalPartnership from '../../components/memberDashboard/GivingSummary/TotalPartnership';
 import GivingTrend from '../../components/memberDashboard/GivingSummary/GivingTrend';
-import MemberTotalGiving from '../../components/memberDashboard/MemberTotalGiving';
+import MemberTotalGiving from '../../components/memberDashboard/GivingSummary/MemberTotalGiving';
+// import { TotalTithes, TotalOfferings, TotalPartnership, GivingTrend, MemberTotalGiving } from '../../components/memberDashboard/GivingSummary';
 
 const GivingSummary = () => (
   <>
@@ -65,7 +66,7 @@ const GivingSummary = () => (
           >
             {/* <LatestProducts sx={{ height: '100%' }} /> */}
             <GivingTrend
-              title="Website Visits"
+              title="Giving Trend"
               subheader="(+43%) than last year"
               chartLabels={[
                 '01/01/2003',
@@ -82,19 +83,19 @@ const GivingSummary = () => (
               ]}
               chartData={[
                 {
-                  name: 'Team A',
+                  name: 'Offerings',
                   type: 'column',
                   fill: 'solid',
                   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
                 },
                 {
-                  name: 'Team B',
+                  name: 'Tithe',
                   type: 'area',
                   fill: 'gradient',
                   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
                 },
                 {
-                  name: 'Team C',
+                  name: 'Partnership',
                   type: 'line',
                   fill: 'solid',
                   data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],

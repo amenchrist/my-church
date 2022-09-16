@@ -27,7 +27,7 @@ const TotalTithes = (props) => (
             gutterBottom
             variant="h6"
           >
-            TOTAL TITHES
+            TITHES
           </Typography>
           <Typography
             color="textPrimary"

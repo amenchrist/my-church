@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, TextField, InputLabel, MenuItem, FormControl, Select, Button, Link } from '@mui/material';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 function GivingForm() {
 
@@ -10,6 +11,8 @@ function GivingForm() {
   };
 
   function LoveworldPay(){
+    const { currentMember,  } = useStateContext();
+
     return (
       <div>
         <h2 >Giving</h2>
@@ -30,11 +33,11 @@ function GivingForm() {
             </Select>
 
             <TextField id="outlined-basic" label="Amount" variant="outlined" sx={{marginTop: '15px'}} />
-            <TextField id="outlined-basic" label="Email*" variant="outlined" sx={{marginTop: '15px'}} />
+            <TextField id="outlined-basic" label="Email*" variant="outlined" sx={{marginTop: '15px'}} value={currentMember.email} />
 
             <Button variant="contained" sx={{marginTop: '15px', mb: '15px'}}>Approve Payment</Button>
           </FormControl>
-          <Link href="#" variant="body2" >
+          <Link href="/member-dashboard" variant="body2" >
             See Giving Records
           </Link>
         </Box>
