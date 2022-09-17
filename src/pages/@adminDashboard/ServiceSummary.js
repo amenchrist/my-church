@@ -7,7 +7,7 @@ import Budget from '../../components/adminDashboard/TotalAttendance';
 import TotalCustomers from '../../components/adminDashboard/TotalCustomers';
 import TotalGiving from '../../components/adminDashboard/TotalGiving';
 // import TrafficByDevice from '../../components/adminDashboard/ServiceSummary/TrafficByDevice'
-import AppWebsiteVisits from '../../components/adminDashboard/ServiceSummary/AppWebsiteVisits';
+import AppWebsiteVisits from '../../components/charts/AppWebsiteVisits';
 
 const ServiceSummary = () => (
   <>

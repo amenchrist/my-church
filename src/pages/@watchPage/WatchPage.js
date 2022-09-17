@@ -5,7 +5,7 @@ import FullWidthTabs from '../../components/WatchPage/FullWidthTabs'
 import VideoPlayer from '../../components/WatchPage/VideoPlayer'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import AttendanceForm from '../../components/WatchPage/AttendanceForm';
+import AttendancePage from './AttendancePage';
 import { useStateContext } from '../../contexts/ContextProvider';
 
 function WatchPage() {
@@ -21,7 +21,7 @@ function WatchPage() {
           </Grid>
           <Grid item xs={12} md={4} sx={{ overflowY: "hidden"}} >
           {/* <FullWidthTabs /> */}
-            {attendanceSubmitted? <FullWidthTabs /> : <AttendanceForm /> }
+            {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </Grid>
         </Grid>
       </Box>

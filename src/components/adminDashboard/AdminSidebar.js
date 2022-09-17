@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Divider, Drawer, Hidden, List, Typography } from '@mui/material';
 import {
   // AlertCircle as AlertCircleIcon,
-  // Lock as LockIcon,
+  Lock as LockIcon,
   // UserPlus as UserPlusIcon,
   BarChart as BarChartIcon,
   Settings as SettingsIcon,
@@ -51,11 +51,11 @@ const items = [
     icon: UserIcon,
     title: 'Members'
   },
-  // {
-  //   href: '/login',
-  //   icon: LockIcon,
-  //   title: 'Login'
-  // },
+  {
+    href: '/admin-dashboard/overview',
+    icon: LockIcon,
+    title: 'Yearly Overview'
+  },
   // {
   //   href: '/register',
   //   icon: UserPlusIcon,
