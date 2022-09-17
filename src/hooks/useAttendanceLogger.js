@@ -24,7 +24,7 @@ export default function useAttendanceLogger(attendanceRecords) {
             body: JSON.stringify(attendanceRecords[0])
           }
     
-          fetch(`${server}/attendees1`, options).then(res => res.json()).then( response => {
+          fetch(`${server}/attendees`, options).then(res => res.json()).then( response => {
             if(response){
                 setAttendanceLogged(true);
             }else {

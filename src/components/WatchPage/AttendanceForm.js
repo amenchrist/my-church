@@ -1,32 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, TextField,  Grid, Box,  } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
+import { getDateValues } from '../functions';
+import { attendanceRegex } from '../regex';
 
 export default function AttendanceForm() {
 
-    const { currentMember, churchName, url, setCurrentMember, geolocation } = useStateContext();
+    const { currentMember, churchName, url, setCurrentMember, geolocation } = useStateContext();    
 
+    const [ attendance, setAttendance ] = useState(1)
+    const [ valid, setValid ] = useState(true);
 
+    const handleValidation = (value) => {
+        //set email to user input
+        setAttendance(value);
+        
+        //define regex     
+        const reg = new RegExp(attendanceRegex); 
+        
+        //test whether input is valid
+        setValid(reg.test(value));
+    };
 
     function handleAttendance(event){
       event.preventDefault();
-      const data = new FormData(event.currentTarget);
+      handleValidation(attendance)
+      if(valid){
+        const data = new FormData(event.currentTarget);
 
-      const d = new Date()
+        const dateValues = getDateValues(new Date());
 
-      const payload = {
-        id: (d.getTime()/1000).toString(),
-        email: currentMember.email ,
-        date: d.getDate(),
-        day: d.getDay(),
-        time: d.getTime().toLocaleString(),
-        church: churchName,
-        attendees: data.get('attendance'),
-        origin: url,
-        ip: geolocation.IPv4
+        const payload = {
+            id: dateValues.time.toString(),
+            email: currentMember.email ,
+            date: dateValues.date,
+            day: dateValues.day,
+            time: dateValues.time,
+            church: churchName,
+            attendees: data.get('attendance'),
+            origin: url,
+            ip: geolocation.IPv4
+        }
+
+        setCurrentMember({...currentMember, attendanceRecords: [payload]})
       }
-
-      setCurrentMember({...currentMember, attendanceRecords: [payload]})
+      
     }
     
     return (
@@ -41,6 +59,7 @@ export default function AttendanceForm() {
               name="email"
               autoComplete="email"
               value={currentMember.email}
+              disabled
               
             />
           </Grid>
@@ -52,7 +71,10 @@ export default function AttendanceForm() {
               label="Number of People Watching"
               id="attendance"
               type='number'
+              value={attendance}
               autoFocus
+              onChange={(e) => handleValidation(e.target.value)}
+              error={!valid}
             />
           </Grid>
         </Grid>

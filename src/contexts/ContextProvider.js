@@ -32,6 +32,7 @@ export const ContextProvider = ({ children }) => {
   
   useEffect(() => {
     setUrl(getParentUrl())
+    console.log("Device Width is ", window.innerWidth)
   }, [])
 
   //get ip and location info
@@ -39,8 +40,6 @@ export const ContextProvider = ({ children }) => {
 
     const controller = new AbortController();
     const signal = controller.signal;
-
-    
 
     if(geolocation.IPv4 === undefined){
 
@@ -107,21 +106,21 @@ export const ContextProvider = ({ children }) => {
       signal: signal
     }
 
-    // if(isAdmin){
-    //   const allMembersUrl = `${server}/members/${church}`;
-    //   fetch(allMembersUrl, options).then(res => res.json()).then(res => {
-    //     setMembers(res);
-    //   }).catch(e => {
-    //     console.log(e);
-    //   });
-    // }
+    if(isAdmin){
+      const allMembersUrl = `${server}/members/${church}`;
+      fetch(allMembersUrl, options).then(res => res.json()).then(res => {
+        setMembers(res);
+      }).catch(e => {
+        console.log(e);
+      });
+    }
 
-    // const allMembersUrl = `${server}/members/${church}`;
-    //   fetch(allMembersUrl, options).then(res => res.json()).then(res => {
-    //     setMembers(res);
-    //   }).catch(e => {
-    //     console.log(e);
-    //   });
+    const allMembersUrl = `${server}/members/${church}`;
+      fetch(allMembersUrl, options).then(res => res.json()).then(res => {
+        setMembers(res);
+      }).catch(e => {
+        console.log(e);
+      });
 
     return () => {
       //cancel the request before the component unmounts
@@ -130,11 +129,11 @@ export const ContextProvider = ({ children }) => {
   }, [server, church, isAdmin]);
 
 
-  // useEffect(() => {
-  //   setAttendees(getAttendees(members, serviceDate));
-  //   setFirstTimers(getFirstTimers(members, serviceDate));
-  //   setAbsentees(getAbsentees(members, serviceDate));
-  // },[serviceDate, members])
+  useEffect(() => {
+    setAttendees(getAttendees(members, serviceDate));
+    setFirstTimers(getFirstTimers(members, serviceDate));
+    setAbsentees(getAbsentees(members, serviceDate));
+  },[serviceDate, members])
 
   //EXPORT
   

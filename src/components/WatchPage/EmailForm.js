@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Grid, Box } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
+import { emailRegex } from '../regex';
 
 export default function EmailForm() {
 
     const { setCurrentMember } = useStateContext();
 
+    const [ email, setEmail ] = useState('')
+    const [ valid, setValid ] = useState(true);
+
+    const handleValidation = (value) => {
+        //set email to user input
+        setEmail(value.toLowerCase());
+        
+        //define regex     
+        const reg = new RegExp(emailRegex); 
+        
+        //test whether input is valid
+        setValid(reg.test(value));
+    };
+
     function submitEmail(event){
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const userEmail = data.get('email').toLowerCase();
-        
-        if (userEmail.length > 5){
-            setCurrentMember({email: userEmail});
+        handleValidation(email)
+        if(valid){
+          const data = new FormData(event.currentTarget);
+          const userEmail = data.get('email').toLowerCase();
+          setCurrentMember({email: userEmail})
         }
       }
 
@@ -27,7 +42,10 @@ export default function EmailForm() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                error={!valid}
                 autoFocus
+                onChange={(e) => handleValidation(e.target.value)}
               />
             </Grid>
           </Grid>
