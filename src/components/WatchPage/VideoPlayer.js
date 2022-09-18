@@ -4,20 +4,23 @@ import { useStateContext } from '../../contexts/ContextProvider';
 
 function VideoPlayer() {
 
+  console.log("Mounting Video Player")
+
   const { attendanceSubmitted } = useStateContext();
 
   const aspectRatio = 0.5625;
 
 //   let youtube = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-//   const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
-  const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8"
+  const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
+  // const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8"
   // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
   
-  const videoSource = barking2
+  const videoSource = barking;
   
   const [width, setWidth] = useState('100');
   const [height, setHeight] = useState(width*aspectRatio)
   const [divHeight, setDivHeight] = useState('100%')
+  const [playing, setPlaying] = useState(false)
 
   function changeDivHeight(){
     if(window.innerWidth > 900){
@@ -25,9 +28,11 @@ function VideoPlayer() {
     } else {
       setDivHeight('')
     }
+    setPlaying(true)
   }
 
   useEffect(()=>{
+    console.log("Videoplayer will mount")
     let videoWidth = document.getElementById("video-player").clientWidth
     setWidth(videoWidth)
     window.addEventListener("resize", function(){
@@ -36,17 +41,28 @@ function VideoPlayer() {
       setHeight(videoWidth*aspectRatio);
     });
     changeDivHeight()
+    setPlaying(true)
+    return () => {
+      setPlaying(false)
+      console.log("Unmounting Video Player")
+    }
   }, [])
 
   useEffect(()=>{
+    console.log("setting height")
     setHeight(width*aspectRatio);
     
     changeDivHeight()
+    setPlaying(true)
+    return () => {
+      setPlaying(false)
+      console.log("Unmounting Video Player")
+    }
   }, [width])
 
   function MutedVideoPlayer() {
     return (
-      <ReactPlayer url={videoSource} playing={true} width={"100%"} height={height} id={"video-player"} volume={0} muted={true} />
+      <ReactPlayer url={videoSource} width={"100%"} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={(e)=> console.log(e)} />
     )
   }
 
@@ -54,7 +70,7 @@ function VideoPlayer() {
     <>
       <div style={{backgroundColor: "black", display:"flex", height:divHeight, flexDirection: 'column', justifyContent: 'center'}}>
         {attendanceSubmitted? 
-        <ReactPlayer url={videoSource} playing={true} width={"100%"} height={height} controls id={"video-player"} />
+        <ReactPlayer url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={playing} light={true} />
         :
         <MutedVideoPlayer />
         }

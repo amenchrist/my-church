@@ -58,7 +58,7 @@ export default function FirstTimersForm() {
         day: dateValues.day,
         time: dateValues.time,
         church: churchName,
-        attendees: data.get('attendance'),
+        attendance: parseInt(data.get('attendance')),
         origin: url,
         primaryAttendee: data.get('firstName'),
         lastName: data.get('lastName'),

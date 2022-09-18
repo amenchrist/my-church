@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Avatar, Box, Divider, Drawer, Hidden, List, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Grid, Hidden, List, MenuItem, TextField, Typography } from '@mui/material';
 import {
   // AlertCircle as AlertCircleIcon,
   Lock as LockIcon,
@@ -13,6 +13,7 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from '../NavItem';
+import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -71,11 +72,20 @@ const items = [
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
 
+  const { setServiceDate, setLastWeeksServiceDate, serviceDate } = useAdminStateContext()
+
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
   }, [openMobile, onMobileClose, location.pathname]);
+
+  let services = [
+    "Midweek Service - Wednesday, 29th June 2022",
+    "Sunday Service - Sunday, 26th June 2022",
+    "Midweek Service - Wednesday, 23rd June 2022",
+    "Sunday Service - Sunday, 19th June 2022"
+  ]
 
   const content = (
     <Box
@@ -118,6 +128,13 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
+        <Grid container>
+        <Grid item xs={12} >
+            <TextField required select fullWidth id="service-date" label="Select Date" name="service-date" value={serviceDate} autoComplete="title" autoFocus onChange={(e) => setServiceDate(e.target.value)} >
+              {services.map((title, i) => (<MenuItem key={i} value={title}>{title}</MenuItem>))}
+            </TextField>
+          </Grid>
+        </Grid>
         <List>
           {items.map((item) => (
             <NavItem

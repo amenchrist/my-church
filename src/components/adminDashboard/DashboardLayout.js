@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material';
 // import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './AdminSidebar';
+import { AdminContextProvider } from '../../contexts/AdminContextProvider';
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -41,20 +42,22 @@ const DashboardLayout = ({ isMobileNavOpen, setMobileNavOpen }) => {
   // const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <DashboardLayoutRoot>
-      {/* <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} /> */}
-      <DashboardSidebar
-        onMobileClose={() => setMobileNavOpen(false)}
-        openMobile={isMobileNavOpen}
-      />
-      <DashboardLayoutWrapper>
-        <DashboardLayoutContainer>
-          <DashboardLayoutContent>
-            <Outlet />
-          </DashboardLayoutContent>
-        </DashboardLayoutContainer>
-      </DashboardLayoutWrapper>
-    </DashboardLayoutRoot>
+    <AdminContextProvider>
+      <DashboardLayoutRoot>
+        {/* <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} /> */}
+        <DashboardSidebar
+          onMobileClose={() => setMobileNavOpen(false)}
+          openMobile={isMobileNavOpen}
+        />
+        <DashboardLayoutWrapper>
+          <DashboardLayoutContainer>
+            <DashboardLayoutContent>
+              <Outlet />
+            </DashboardLayoutContent>
+          </DashboardLayoutContainer>
+        </DashboardLayoutWrapper>
+      </DashboardLayoutRoot>
+    </AdminContextProvider> 
   );
 };
 

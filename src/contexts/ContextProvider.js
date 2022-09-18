@@ -115,12 +115,12 @@ export const ContextProvider = ({ children }) => {
       });
     }
 
-    const allMembersUrl = `${server}/members/${church}`;
-      fetch(allMembersUrl, options).then(res => res.json()).then(res => {
-        setMembers(res);
-      }).catch(e => {
-        console.log(e);
-      });
+    // const allMembersUrl = `${server}/members/${church}`;
+    //   fetch(allMembersUrl, options).then(res => res.json()).then(res => {
+    //     setMembers(res);
+    //   }).catch(e => {
+    //     console.log(e);
+    //   });
 
     return () => {
       //cancel the request before the component unmounts

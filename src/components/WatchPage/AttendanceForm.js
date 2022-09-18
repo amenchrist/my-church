@@ -37,7 +37,7 @@ export default function AttendanceForm() {
             day: dateValues.day,
             time: dateValues.time,
             church: churchName,
-            attendees: data.get('attendance'),
+            attendance: parseInt(data.get('attendance')),
             origin: url,
             ip: geolocation.IPv4
         }
