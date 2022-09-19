@@ -3,7 +3,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAttendanceLogger(attendanceRecords) {
 
-  const {server} = useStateContext();
+  const {server,  } = useStateContext();
 
   const [attendanceLogged, setAttendanceLogged] = useState(false);
   
@@ -24,7 +24,7 @@ export default function useAttendanceLogger(attendanceRecords) {
             body: JSON.stringify(attendanceRecords[0])
           }
     
-          fetch(`${server}/attendees`, options).then(res => res.json()).then( response => {
+          fetch(`${server}/attendance`, options).then(res => res.json()).then( response => {
             if(response){
                 setAttendanceLogged(true);
             }else {

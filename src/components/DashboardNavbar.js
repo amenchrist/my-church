@@ -7,22 +7,30 @@ import {
   Box,
   Hidden,
   IconButton,
-  Toolbar
+  Toolbar,
+  Typography
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
 import InputIcon from '@mui/icons-material/Input';
 import Logo from './Logo';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { useStateContext } from '../contexts/ContextProvider';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
+  const { churchName } = useStateContext()
 
   return (
     <AppBar position='relative' >
       <Toolbar>
         <Link to="/">
           <Logo />
+        </Link>
+        <Link to="/" underline="none" >
+        <Box sx={{ paddingLeft: 1 , color: 'white'}}>
+          <Typography variant="h6" >{churchName}</Typography>
+        </Box>
         </Link>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden smDown>
@@ -35,7 +43,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <Link to="/member-dashboard">
+          <Link to="/member-dashboard" color='inherit'>
             <IconButton color="inherit" size="large">
               <InputIcon />
             </IconButton>

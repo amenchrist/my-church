@@ -70,14 +70,19 @@ export function getAttendanceRecords(membersArray, email){
 export function getParentUrl() {
   var parentUrl = (window.location !== window.parent.location)
   ? document.referrer
-  : document.location.href;
+  : document.location.origin;
+  parentUrl = parentUrl.replace(/http:\/\/|https:\/\//, "")
+  console.log(parentUrl)
   return parentUrl;
 }
 
 export function getTotalAttendance(membersArray, date){
   if(membersArray.length > 0){
-    const relevantMembers = membersArray.filter(member => member.attendanceRecords.filter(record => record.date === date ).length > 0 )
-    const relevantTotalAttendance = relevantMembers.map(e => e.attendanceRecords).flat().filter(e => e.date === date).map(e => e.attendees).reduce((a,b) =>a+b, 0);
+    //Get members with attendance records for the day
+    // const relevantMembers = membersArray.filter(member => member.attendanceRecords.filter(record => record.date === date ).length > 0);
+    // const relevantAttendance = membersArray.map(e => e.attendanceRecords).flat().filter(e => e.date === date);
+    // console.log(relevantAttendance)
+    const relevantTotalAttendance = membersArray.map(e => e.attendanceRecords).flat().filter(e => e.date === date).map(e => e.attendance).reduce((a,b) =>a+b, 0);
     return relevantTotalAttendance;
 
   } else {

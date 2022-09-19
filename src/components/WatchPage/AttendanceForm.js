@@ -39,7 +39,9 @@ export default function AttendanceForm() {
             church: churchName,
             attendance: parseInt(data.get('attendance')),
             origin: url,
-            ip: geolocation.IPv4
+            ip: geolocation.IPv4,
+            deviceWidth: window.innerWidth,
+            deviceHeight: window.innerHeight
         }
 
         setCurrentMember({...currentMember, attendanceRecords: [payload]})

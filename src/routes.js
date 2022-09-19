@@ -4,9 +4,13 @@ import MemberDashboardLayout from './components/memberDashboard/MemberDashboardL
 import { Offerings, Tithes, Partnerships, SpecialSeeds, OtherGiving, GivingSummary } from './pages/@memberDashboard';
 import { ServiceSummary, Attendees, FirstTimers, Absentees, GivingRecord, Members, YearOverview } from './pages/@adminDashboard';
 import WatchPage from './pages/@watchPage/WatchPage';
+import SignInSide from './pages/SignIn';
+import { useStateContext } from './contexts/ContextProvider';
 
 
 export default function Router() {
+
+  const { isAdmin, awaitingServerResponse } = useStateContext()
   const routes = [
     {
       path: '/',
@@ -14,7 +18,7 @@ export default function Router() {
     },
     {
       path: 'admin-dashboard',
-      element: <DashboardLayout />,
+      element: isAdmin && !awaitingServerResponse? <DashboardLayout />: <SignInSide />,
       children: [
           { path: 'summary', element: <ServiceSummary />},
           { path: 'attendees', element: <Attendees />  },
@@ -24,6 +28,7 @@ export default function Router() {
           { path: 'members', element: <Members /> },
           { path: 'overview', element: <YearOverview /> },
           { path: '/admin-dashboard', element: <Navigate to="/admin-dashboard/summary" /> },
+
       ]
     },
     {
@@ -38,7 +43,9 @@ export default function Router() {
           { path: 'other-giving', element: <OtherGiving /> },
           { path: '/member-dashboard', element: <Navigate to="/member-dashboard/summary" /> },
       ]
-    }
+    },
+    { path: 'sign-in', element: <SignInSide />}
+    
   ];
 
 

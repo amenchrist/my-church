@@ -1,15 +1,20 @@
 import { Box, Container, Grid } from '@mui/material';
-import Budget from '../../components/adminDashboard/TotalAttendance';
+import TotalAttendance from '../../components/adminDashboard/TotalAttendance';
 // import LatestOrders from '../components/adminDashboard/LatestOrders';
 // import LatestProducts from '../components/dashboard/LatestProducts';
 // import Sales from '../components/adminDashboard/Sales';
 // import TasksProgress from '../components/adminDashboard/TasksProgress';
-import TotalCustomers from '../../components/adminDashboard/TotalCustomers';
+import TotalFirstTimers from '../../components/adminDashboard/TotalFirstTimers';
 import TotalGiving from '../../components/adminDashboard/TotalGiving';
 // import TrafficByDevice from '../../components/adminDashboard/ServiceSummary/TrafficByDevice'
 import AppWebsiteVisits from '../../components/charts/AppWebsiteVisits';
+import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 
-const ServiceSummary = () => (
+const ServiceSummary = () => {
+  const { serviceSummary } = useAdminStateContext();
+  console.log(serviceSummary)
+
+  return (
   <>
     <Box
       sx={{
@@ -19,62 +24,23 @@ const ServiceSummary = () => (
       }}
     >
       <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={4}
-            sm={6}
-            xl={4}
-            xs={12}
-          >
-            <Budget />
+        <Grid container spacing={3} >
+          <Grid item lg={4} sm={6} xl={4} xs={12} >
+            <TotalAttendance />
           </Grid>
-          <Grid
-            item
-            lg={4}
-            sm={6}
-            xl={4}
-            xs={12}
-          >
-            <TotalCustomers />
+          <Grid item lg={4} sm={6} xl={4} xs={12} >
+            <TotalFirstTimers />
           </Grid>
-          <Grid
-            item
-            lg={4}
-            sm={6}
-            xl={4}
-            xs={12}
-          >
+          <Grid item lg={4} sm={6} xl={4} xs={12} >
             <TotalGiving sx={{ height: '100%' }} />
           </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
+          <Grid item lg={8} md={12} xl={9} xs={12} >
             {/* <Sales /> */}
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
+          <Grid item lg={4} sm={6} xl={3} xs={12} >
             {/* <TrafficByDevice sx={{ height: '100%' }} /> */}
           </Grid>
-          <Grid
-            item
-            lg={12}
-            md={12}
-            xl={12}
-            xs={12}
-          >
+          <Grid item lg={12} sm={12} xl={12} xs={12} >
             {/* <LatestProducts sx={{ height: '100%' }} /> */}
             <AppWebsiteVisits
               title="Website Visits"
@@ -127,6 +93,6 @@ const ServiceSummary = () => (
       </Container>
     </Box>
   </>
-);
+)};
 
 export default ServiceSummary;

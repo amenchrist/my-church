@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getAttendees, getFirstTimers, getGivingsList, getListOfMembers, getServiceDates, getTotalAttendance, getTotalGiven } from '../functions';
-import useMemberRetriever from '../hooks/useMemberRetriever';
+import useAttendanceRetriever from '../hooks/useAttendanceRetriever';
 
 const StateContext = createContext();
 
@@ -8,31 +8,50 @@ export const AdminContextProvider = ({ children }) => {
 
     //Retrieves members and creates service summary object
 
-    const [ membersRetrieved, fullMemberRecords ] = useMemberRetriever();
+    const [ membersRetrieved, fullMemberRecords ] = useAttendanceRetriever();
     const [ serviceDate, setServiceDate ] = useState('')
     const [ lastWeeksServiceDate, setLastWeeksServiceDate ] = useState('');
-    const [ dates, setDates ] = useState([]);
     const [ membersList, setMembersList ] = useState([]);
-    const [ serviceSummary, setServiceSummary ] = useState({});
+    const [ serviceSummary, setServiceSummary ] = useState({
+      serviceDate: "",
+      totalAttendance: 0,
+      lastWeeksTotalAttendance: 0,
+      attendanceList: [],
+      firstTimersList: [],
+      lastWeeksFirstTimersTotal: 0,
+      totalGiven: 0,
+      lastWeeksTotalGiven: 0,
+      givingsList: []
+  });
 
-    if(!membersRetrieved){
-        // setDates(getServiceDates(fullMemberRecords));
-        // setMembersList(getListOfMembers(fullMemberRecords));
-        // setServiceSummary({
-        //     serviceDate: serviceDate,
-        //     totalAttendance: getTotalAttendance(fullMemberRecords, serviceDate),
-        //     lastWeeksTotalAttendance: getTotalAttendance(fullMemberRecords, lastWeeksServiceDate),
-        //     attendanceList: getAttendees(fullMemberRecords, serviceDate),
-        //     firstTimersList: getFirstTimers(fullMemberRecords, serviceDate),
-        //     totalGiven: getTotalGiven(serviceDate),
-        //     lastWeeksTotalGiven: getTotalGiven(lastWeeksServiceDate),
-        //     givingsList: getGivingsList(serviceDate)
-        // })
-    }
+    useEffect(()=> {
+      if(membersRetrieved){
+        setMembersList(getListOfMembers(fullMemberRecords));
+        setServiceSummary({
+            serviceDate: serviceDate,
+            totalAttendance: getTotalAttendance(fullMemberRecords, serviceDate),
+            lastWeeksTotalAttendance: getTotalAttendance(fullMemberRecords, lastWeeksServiceDate),
+            attendanceList: getAttendees(fullMemberRecords, serviceDate),
+            firstTimersList: getFirstTimers(fullMemberRecords, serviceDate),
+            lastWeeksFirstTimersTotal: getFirstTimers(fullMemberRecords, lastWeeksServiceDate).length,
+            totalGiven: getTotalGiven(serviceDate),
+            lastWeeksTotalGiven: getTotalGiven(lastWeeksServiceDate),
+            givingsList: getGivingsList(serviceDate)
+        })
+        
+      }
+      
+    }, [serviceDate, fullMemberRecords, lastWeeksServiceDate, membersRetrieved])
+
+    console.log(serviceSummary)
+    // console.log(fullMemberRecords)
+
+    
 
 
   const contextStateVars = {
-    dates, membersList, serviceSummary, setServiceDate, setLastWeeksServiceDate
+    membersList, serviceSummary, serviceDate, setServiceDate, setLastWeeksServiceDate, lastWeeksServiceDate
+
   }
 
   return (

@@ -14,6 +14,7 @@ import {
 } from 'react-feather';
 import NavItem from '../NavItem';
 import { useAdminStateContext } from '../../contexts/AdminContextProvider';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -71,14 +72,14 @@ const items = [
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
-
-  const { setServiceDate, setLastWeeksServiceDate, serviceDate } = useAdminStateContext()
-
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
   }, [openMobile, onMobileClose, location.pathname]);
+
+  const { serviceDateObjects, awaitingServerResponse } = useStateContext();
+  const { setServiceDate, serviceDate, setLastWeeksServiceDate, } = useAdminStateContext();
 
   let services = [
     "Midweek Service - Wednesday, 29th June 2022",
@@ -86,6 +87,19 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
     "Midweek Service - Wednesday, 23rd June 2022",
     "Sunday Service - Sunday, 19th June 2022"
   ]
+
+  useEffect(() => {
+    if(!serviceDate.length && serviceDateObjects[0] && !awaitingServerResponse){
+      setServiceDate(serviceDateObjects[0].date)
+      setLastWeeksServiceDate(serviceDateObjects[0].weekBeforeDate)
+    }
+  }, [setServiceDate, serviceDateObjects, serviceDate, setLastWeeksServiceDate, awaitingServerResponse])
+
+  function changeDate(e){
+    const selectedServiceDate = e.target.value;
+    setServiceDate(selectedServiceDate);
+    setLastWeeksServiceDate(serviceDateObjects.find(dateObj => dateObj.date === selectedServiceDate).weekBeforeDate)
+  }
 
   const content = (
     <Box
@@ -129,9 +143,9 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box sx={{ p: 2 }}>
         <Grid container>
-        <Grid item xs={12} >
-            <TextField required select fullWidth id="service-date" label="Select Date" name="service-date" value={serviceDate} autoComplete="title" autoFocus onChange={(e) => setServiceDate(e.target.value)} >
-              {services.map((title, i) => (<MenuItem key={i} value={title}>{title}</MenuItem>))}
+          <Grid item xs={12} >
+            <TextField required select fullWidth id="service-date" label="Select Date" name="service-date" value={serviceDate} autoFocus onChange={(e) => changeDate(e)} >
+              {serviceDateObjects.map((date, i) => (<MenuItem key={i} value={date.date}>{date.fullDateString}</MenuItem>))}
             </TextField>
           </Grid>
         </Grid>

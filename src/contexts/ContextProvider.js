@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
 
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [serviceDate, setServiceDate] = useState('');
+  const [ serviceDateObjects, setServiceDateObjects ] = useState([])
   const [dates, setDates] = useState([]);
   const [lastWeekDate, setLastWeekDate] = useState('');
   const [members, setMembers] = useState([]);
@@ -24,6 +25,8 @@ export const ContextProvider = ({ children }) => {
   const [isNewSite, setIsNewSite] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
+
+  const [ awaitingServerResponse, setAwaitingServerResponse ] = useState(false)
 
   const localHost = "http://localhost:5000";
   const host = 'https://arcane-anchorage-41306.herokuapp.com';
@@ -48,6 +51,8 @@ export const ContextProvider = ({ children }) => {
       const options = {
         signal: signal,
         method: 'GET',
+        mode: 'no-cors', //no-cors
+        referrerPolicy: 'strict-origin-when-cross-origin',//no-referrer
         headers: {
           'Content-Type': 'application/json'
         },
@@ -77,21 +82,25 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     switch(url){
-      case "https://christembassy-eastham.org/":
+      case "christembassy-eastham.org":
         setChurchName("Christ Embassy East Ham");
         setChurch("East-Ham")
       break;
-      case "https://ceilford.org/":
+      case "ceilford.org/":
         setChurchName("Christ Embassy Ilford");
         setChurch("Ilford")
       break;
-      case "https://christembassybarking.org/":
+      case "christembassybarking.org":
         setChurchName("Christ Embassy Barking");
         setChurch("Barking")
       break;
-      case "https://christembassystratford.org/":
+      case "christembassystratford.org":
         setChurchName("Christ Embassy Stratford");
         setChurch("Stratford")
+      break;
+      case "localhost:3000":
+        setChurchName("Christ Embassy Barking");
+        setChurch("Barking")
       break;
       default:
         console.log("No church identified")
@@ -99,34 +108,34 @@ export const ContextProvider = ({ children }) => {
   }, [url])
 
   
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    const options = {
-      signal: signal
-    }
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   const signal = controller.signal;
+  //   const options = {
+  //     signal: signal
+  //   }
 
-    if(isAdmin){
-      const allMembersUrl = `${server}/members/${church}`;
-      fetch(allMembersUrl, options).then(res => res.json()).then(res => {
-        setMembers(res);
-      }).catch(e => {
-        console.log(e);
-      });
-    }
+  //   // if(isAdmin){
+  //   //   const allMembersUrl = `${server}/members/${church}`;
+  //   //   fetch(allMembersUrl, options).then(res => res.json()).then(res => {
+  //   //     setMembers(res);
+  //   //   }).catch(e => {
+  //   //     console.log(e);
+  //   //   });
+  //   // }
 
-    // const allMembersUrl = `${server}/members/${church}`;
-    //   fetch(allMembersUrl, options).then(res => res.json()).then(res => {
-    //     setMembers(res);
-    //   }).catch(e => {
-    //     console.log(e);
-    //   });
+  //   // const allMembersUrl = `${server}/members/${church}`;
+  //   //   fetch(allMembersUrl, options).then(res => res.json()).then(res => {
+  //   //     setMembers(res);
+  //   //   }).catch(e => {
+  //   //     console.log(e);
+  //   //   });
 
-    return () => {
-      //cancel the request before the component unmounts
-      controller.abort();
-    }
-  }, [server, church, isAdmin]);
+  //   return () => {
+  //     //cancel the request before the component unmounts
+  //     controller.abort();
+  //   }
+  // }, [server, church, isAdmin]);
 
 
   useEffect(() => {
@@ -141,6 +150,7 @@ export const ContextProvider = ({ children }) => {
 
     attendanceRecords, setAttendanceRecords,
     serviceDate, setServiceDate,
+    serviceDateObjects, setServiceDateObjects,
     server, url, geolocation,
     dates, setDates,
     members, setMembers,
@@ -148,6 +158,7 @@ export const ContextProvider = ({ children }) => {
     attendees, absentees, firstTimers, churchName,
     isSignedIn, setIsSignedIn, isRegistered, setIsRegistered, currentMember, setCurrentMember,
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
+    awaitingServerResponse, setAwaitingServerResponse
 
   }
 

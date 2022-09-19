@@ -6,11 +6,23 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { green } from '@mui/material/colors';
+import { green, red } from '@mui/material/colors';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 
-const TotalCustomers = (props) => (
+const TotalFirstTimers = (props) => {
+
+  const { serviceSummary } = useAdminStateContext();
+  const amount = serviceSummary.firstTimersList.length
+
+  const { lastWeeksFirstTimersTotal } = serviceSummary;
+
+  const percentageChange = Math.abs(Math.ceil((amount - lastWeeksFirstTimersTotal)/lastWeeksFirstTimersTotal * 100))
+
+
+  return (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -30,7 +42,7 @@ const TotalCustomers = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            16
+            {amount}
           </Typography>
         </Grid>
         <Grid item>
@@ -52,7 +64,8 @@ const TotalCustomers = (props) => (
           pt: 2
         }}
       >
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
+        {amount > lastWeeksFirstTimersTotal ? 
+          <ArrowUpwardIcon sx={{ color: green[900] }} /> : <ArrowDownwardIcon sx={{ color: red[900] }} />}
         <Typography
           variant="body2"
           sx={{
@@ -60,17 +73,17 @@ const TotalCustomers = (props) => (
             mr: 1
           }}
         >
-          16%
+          {percentageChange === Infinity  || isNaN(percentageChange) ? '' : `${percentageChange} %`}
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Since last week
         </Typography>
       </Box>
     </CardContent>
   </Card>
-);
+)};
 
-export default TotalCustomers;
+export default TotalFirstTimers;

@@ -64,14 +64,14 @@ export default function FirstTimersForm() {
         lastName: data.get('lastName'),
         primaryAttendeeTitle: data.get('title'),
         phone: data.get('phone'),
-        ip: geolocation.IPv4
+        ip: geolocation.IPv4,
+        deviceWidth: window.innerWidth,
+        deviceHeight: window.innerHeight
       }
 
       setCurrentMember({...currentMember, attendanceRecords: [attendanceRecord]})
     }
 
-    
-      
   };
 
   const titles = [

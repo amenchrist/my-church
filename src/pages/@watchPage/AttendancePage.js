@@ -13,11 +13,11 @@ import useAttendanceLogger from '../../hooks/useAttendanceLogger';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Brought to you by '}
+      {'Copyright © '}
       <Link color="inherit" href="#">
-        Evangel
+        Loveworldnation.org
       </Link>{' '}
-      {/* {new Date().getFullYear()} */}
+      {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
