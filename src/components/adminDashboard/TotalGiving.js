@@ -28,7 +28,7 @@ const TotalGiving = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            £2,200
+            £N/A
           </Typography>
         </Grid>
         <Grid item>

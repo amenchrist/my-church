@@ -74,17 +74,17 @@ function VideoPlayer() {
         :
         <MutedVideoPlayer />
         }
-        <div style={{border: '2px solid grey', width: '100%', height: '50px', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+        {/* <div style={{border: '2px solid grey', width: '100%', height: '50px', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
             <div style={{color: "white"}}>SHARE</div>
             <div style={{color: "white"}}>CHURCH DASHBOARD</div>
             <div style={{color: "white"}}>MY DASHBOARD</div>
-          {/* <Link to="/admin-dashboard" className="link">
+          <Link to="/admin-dashboard" className="link">
             <div style={{color: "white"}}>CHURCH DASHBOARD</div>
           </Link>
           <Link to="/my-dashboard" className="link">
             <div style={{color: "white"}}>MY DASHBOARD</div>
-          </Link> */}
-        </div>
+          </Link>
+        </div> */}
       </div>
     </>
   )

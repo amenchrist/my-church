@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useStateContext } from '../contexts/ContextProvider';
 import useServiceDatesRetriever from '../hooks/useServiceDatesRetriever';
 import { convertDateToDateStringObj } from '../functions';
+import useAuthenticator from '../hooks/useAuthenticator';
+import { emailRegex } from '../components/regex';
 
 function Copyright(props) {
   return (
@@ -32,10 +34,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+  const { setIsAdmin, serviceDateObjects, setServiceDateObjects, awaitingServerResponse, setAuthRequested } = useStateContext();
+  const [ serviceDatesReceived, serviceDatesList ] = useServiceDatesRetriever();
+  const [ payload, setPayload ] = useState({});
+  
+  const [ emailExists, responseReceived ] = useAuthenticator(payload);
 
-    const { setIsAdmin, serviceDateObjects, setServiceDateObjects, awaitingServerResponse } = useStateContext();
-
-    const [ serviceDatesReceived, serviceDatesList ] = useServiceDatesRetriever()
+  useEffect(() => {
+    if(emailExists) {
+      setIsAdmin(true)
+    }
+  }, [emailExists, setIsAdmin]);
 
   useEffect(() => {
     if (serviceDatesReceived && !serviceDateObjects.length && !awaitingServerResponse ) {
@@ -47,15 +56,51 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    console.log(awaitingServerResponse);
-    setTimeout(() => setIsAdmin(true), 1000)
+    if(valid){
+      const data = new FormData(event.currentTarget);
+    
+      setPayload({
+        email: data.get('email'),
+        password: data.get('password'),
+      });
+      // console.log(awaitingServerResponse);
+      setAuthRequested(true)
+
+      // setPayload({
+      //   email: data.get('email'),
+      //   password: data.get('password'),
+      // });
+    }
     
   };
+
+  const [ valid, setValid ] = useState(false);
+  const [ validEmail, setValidEmail ] = useState(false);
+  const [ validPassword, setValidPassword ] = useState(false);
+  const [ email, setEmail ] = useState('');
+  
+
+  useEffect(() => {
+    console.log("Valid = ", valid)
+    if(validEmail && validPassword){
+      setValid(true)
+    } else {
+      setValid(false)
+    }
+  }, [validEmail, validPassword, valid])
+
+
+  const handleValidation = (value) => {
+      //set email to user input
+      setEmail(value);
+      
+      //define regex     
+      const reg = new RegExp(emailRegex); 
+      
+      //test whether input is valid
+      setValidEmail(reg.test(value));
+  };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -100,7 +145,10 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
                 autoFocus
+                error={!validEmail}
+                onChange={(e) => handleValidation(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -111,6 +159,7 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => e.target.value.length < 3?  setValidPassword(false) : setValidPassword(true) }
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

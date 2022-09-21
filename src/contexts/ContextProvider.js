@@ -28,6 +28,8 @@ export const ContextProvider = ({ children }) => {
 
   const [ awaitingServerResponse, setAwaitingServerResponse ] = useState(false)
 
+  const [ authRequested, setAuthRequested ] = useState(false)
+
   const localHost = "http://localhost:5000";
   const host = 'https://arcane-anchorage-41306.herokuapp.com';
 
@@ -158,7 +160,7 @@ export const ContextProvider = ({ children }) => {
     attendees, absentees, firstTimers, churchName,
     isSignedIn, setIsSignedIn, isRegistered, setIsRegistered, currentMember, setCurrentMember,
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
-    awaitingServerResponse, setAwaitingServerResponse
+    awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested
 
   }
 
