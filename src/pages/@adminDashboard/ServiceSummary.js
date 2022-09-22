@@ -12,8 +12,6 @@ import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 
 const ServiceSummary = () => {
   const { serviceSummary } = useAdminStateContext();
-  console.log(serviceSummary.attendanceOverviewChartLabels)
-
   
   return (
   <>

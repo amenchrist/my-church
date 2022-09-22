@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material';
 // import DashboardNavbar from './DashboardNavbar';
-import DashboardSidebar from './AdminSidebar';
+import AdminSidebar from './AdminSidebar';
 import { AdminContextProvider } from '../../contexts/AdminContextProvider';
+import { useState } from 'react';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -38,14 +40,16 @@ const DashboardLayoutContent = styled('div')({
   overflow: 'auto'
 });
 
-const DashboardLayout = ({ isMobileNavOpen, setMobileNavOpen }) => {
-  // const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+const DashboardLayout = () => {
+
+  const { isMobileNavOpen, setMobileNavOpen } = useStateContext();
+  
 
   return (
     <AdminContextProvider>
       <DashboardLayoutRoot>
         {/* <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} /> */}
-        <DashboardSidebar
+        <AdminSidebar
           onMobileClose={() => setMobileNavOpen(false)}
           openMobile={isMobileNavOpen}
         />

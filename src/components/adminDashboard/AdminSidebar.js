@@ -70,13 +70,13 @@ const items = [
   // }
 ];
 
-const DashboardSidebar = ({ onMobileClose, openMobile }) => {
+const AdminSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
-  useEffect(() => {
-    if (openMobile && onMobileClose) {
-      onMobileClose();
-    }
-  }, [openMobile, onMobileClose, location.pathname]);
+  // useEffect(() => {
+  //   if (openMobile && onMobileClose) {
+  //     onMobileClose();
+  //   }
+  // }, [openMobile, onMobileClose, location.pathname]);
 
   const { serviceDateObjects, awaitingServerResponse } = useStateContext();
   const { setServiceDate, serviceDate, setLastWeeksServiceDate, } = useAdminStateContext();
@@ -201,15 +201,15 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   );
 };
 
-DashboardSidebar.propTypes = {
+AdminSidebar.propTypes = {
   onMobileClose: PropTypes.func,
   openMobile: PropTypes.bool
 };
 
-DashboardSidebar.defaultProps = {
+AdminSidebar.defaultProps = {
   onMobileClose: () => {
   },
   openMobile: false
 };
 
-export default DashboardSidebar;
+export default AdminSidebar;

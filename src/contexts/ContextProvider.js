@@ -4,6 +4,8 @@ import {getAttendees, getFirstTimers, getAbsentees, getParentUrl } from '../func
 const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
+
+  const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   
   const [churchName, setChurchName] = useState('Christ Embassy');
   const [url, setUrl] = useState('');
@@ -14,7 +16,7 @@ export const ContextProvider = ({ children }) => {
 
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [serviceDate, setServiceDate] = useState('');
-  const [ serviceDateObjects, setServiceDateObjects ] = useState([])
+  const [serviceDateObjects, setServiceDateObjects] = useState([])
   const [dates, setDates] = useState([]);
   const [lastWeekDate, setLastWeekDate] = useState('');
   const [members, setMembers] = useState([]);
@@ -160,7 +162,8 @@ export const ContextProvider = ({ children }) => {
     attendees, absentees, firstTimers, churchName,
     isSignedIn, setIsSignedIn, isRegistered, setIsRegistered, currentMember, setCurrentMember,
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
-    awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested
+    awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested,
+    isMobileNavOpen, setMobileNavOpen
 
   }
 
