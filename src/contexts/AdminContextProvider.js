@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getAttendees, getFirstTimers, getGivingsList, getListOfMembers, getServiceDates, getTotalAttendance, getTotalGiven } from '../functions';
+import { getAttendees, getAverageMonthlyAttendance, getFirstTimers, getGivingsList, getListOfMembers, getMonthsForChartLabel, getServiceDates, getTotalAttendance, getTotalGiven } from '../functions';
 import useAttendanceRetriever from '../hooks/useAttendanceRetriever';
 
 const StateContext = createContext();
@@ -21,10 +21,15 @@ export const AdminContextProvider = ({ children }) => {
       lastWeeksFirstTimersTotal: 0,
       totalGiven: 0,
       lastWeeksTotalGiven: 0,
-      givingsList: []
+      givingsList: [],
+      averageSundayAttendanceByMonth: [],
+      averageWednesdayAttendanceByMonth: []
   });
 
+
+
     useEffect(()=> {
+      
       if(membersRetrieved){
         setMembersList(getListOfMembers(fullMemberRecords));
         setServiceSummary({
@@ -36,8 +41,13 @@ export const AdminContextProvider = ({ children }) => {
             lastWeeksFirstTimersTotal: getFirstTimers(fullMemberRecords, lastWeeksServiceDate).length,
             totalGiven: getTotalGiven(serviceDate),
             lastWeeksTotalGiven: getTotalGiven(lastWeeksServiceDate),
-            givingsList: getGivingsList(serviceDate)
+            givingsList: getGivingsList(serviceDate),
+            averageSundayAttendanceByMonth: getAverageMonthlyAttendance(fullMemberRecords),
+            averageWednesdayAttendanceByMonth: getAverageMonthlyAttendance(fullMemberRecords, 3),
+            attendanceOverviewChartLabels: getMonthsForChartLabel(getAverageMonthlyAttendance(fullMemberRecords).length)
         })
+
+        getAverageMonthlyAttendance(fullMemberRecords)
         
       }
       
@@ -45,9 +55,6 @@ export const AdminContextProvider = ({ children }) => {
 
     console.log(serviceSummary)
     // console.log(fullMemberRecords)
-
-    
-
 
   const contextStateVars = {
     membersList, serviceSummary, serviceDate, setServiceDate, setLastWeeksServiceDate, lastWeeksServiceDate

@@ -12,8 +12,9 @@ import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 
 const ServiceSummary = () => {
   const { serviceSummary } = useAdminStateContext();
-  console.log(serviceSummary)
+  console.log(serviceSummary.attendanceOverviewChartLabels)
 
+  
   return (
   <>
     <Box
@@ -44,20 +45,8 @@ const ServiceSummary = () => {
             {/* <LatestProducts sx={{ height: '100%' }} /> */}
             <AppWebsiteVisits
               title="Attendance trend this year "
-              subheader="(+43%) than last year"
-              chartLabels={[
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
-              ]}
+              subheader="Average monthly attendance"
+              chartLabels={serviceSummary.attendanceOverviewChartLabels}
               chartData={[
                 // {
                 //   name: 'Team A',
@@ -66,16 +55,16 @@ const ServiceSummary = () => {
                 //   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
                 // },
                 {
-                  name: 'Wednesday Services',
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                },
-                {
                   name: 'Sunday Services',
                   type: 'line',
                   fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                  data: serviceSummary.averageSundayAttendanceByMonth,
+                },
+                {
+                  name: 'Wednesday Services',
+                  type: 'line',
+                  fill: 'solid',
+                  data: serviceSummary.averageWednesdayAttendanceByMonth,
                 },
               ]}
             />

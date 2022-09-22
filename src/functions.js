@@ -130,3 +130,53 @@ export function convertDateToDateStringObj(date){
   return {fullDateString, date, weekBeforeDate}
 
 }
+
+export function getAverageMonthlyAttendance(membersArray = [], weekDayNumber = 0){
+  if(!membersArray.length) return
+  const attendanceRecords = membersArray.map((member) => member.attendanceRecords).flat();
+  const d = new Date();
+  const thisYear = d.getFullYear();
+  const thisMonth = d.getMonth();  
+  const thisYearsAttendanceRecords = attendanceRecords.filter((record) => new Date(record.time*1000).getFullYear() === thisYear);
+
+  // const dailyTotals = thisYearsAttendanceRecords.map(rec => )
+
+  const attendanceByMonth = Array.apply(null, Array(thisMonth+1)).map(function (x, i) { return []; })
+
+  thisYearsAttendanceRecords.forEach((record) => {
+    const month = new Date(record.time*1000).getMonth();
+    attendanceByMonth[month].push(record);
+  } )
+
+  const recordsByMonth = attendanceByMonth.map(month => month.filter(record =>{
+    return new Date(record.time*1000).getDay() === weekDayNumber
+  }))
+
+  const weeklyAttendanceByMonth = recordsByMonth.map(month => {
+    const relevantDays = []
+
+    month.forEach(record => {
+      if(!relevantDays.includes(record.date)){
+        relevantDays.push(record.date)
+      }
+    } )
+    const emptyRelevantDaysArrays = Array.apply(null, Array(relevantDays.length)).map(function (x, i) { return []; })
+    month.forEach(record => emptyRelevantDaysArrays[relevantDays.indexOf(record.date)].push(record.attendance))
+
+    return emptyRelevantDaysArrays.map(relevantDay => relevantDay.reduce((a,b) => a+b,0))
+  })
+  
+  const attendanceAveragesByMonth = weeklyAttendanceByMonth.map(record => {
+    return Math.ceil(record.reduce((prevVal, nextVal) => (prevVal + nextVal), 0)/record.length)
+  })
+
+
+
+  return attendanceAveragesByMonth
+}
+
+export function getMonthsForChartLabel(numberOfMonths){
+  let chartLabels = [ 'January', 'February', 'March', 'April', 'May', 'June', 'August', 'September', 'October', 'November', 'December'];
+
+  return chartLabels.slice(0,numberOfMonths)
+}
