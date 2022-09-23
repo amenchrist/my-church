@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -34,34 +34,34 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const { setIsAdmin, serviceDateObjects, setServiceDateObjects, awaitingServerResponse, setAuthRequested } = useStateContext();
-  const [ serviceDatesReceived, serviceDatesList ] = useServiceDatesRetriever();
+
+  const rendered = useRef(0)
+
+  useEffect(() => {
+    rendered.current++
+    console.log(`Sign in page Renders = ${rendered.current}`)
+  })
+
+  const  serviceDatesReceived = useServiceDatesRetriever();
   const [ payload, setPayload ] = useState({});
-  const [ ready, setReady ] = useState(false)
+  const [ ready, setReady ] = useState(false);
+  const [ authRequested, setAuthRequested ] = useState(false)
+
   
-  const [ emailExists, responseReceived ] = useAuthenticator(payload);
+  // const [ emailExists, responseReceived ] = useAuthenticator(payload);
+  useAuthenticator(authRequested, payload);
+
+  // useEffect(() => {
+  //   if(emailExists) {
+  //     setIsAdmin(true)
+  //   }
+  // }, [emailExists, setIsAdmin]);
 
   useEffect(() => {
-    if(emailExists) {
-      setIsAdmin(true)
-    }
-  }, [emailExists, setIsAdmin]);
-
-  useEffect(() => {
-    if(serviceDatesReceived) {
+    if(serviceDatesReceived>0) {
       setReady(true)
     }
   }, [serviceDatesReceived]);
-
-  useEffect(() => {
-    if (serviceDatesReceived && !serviceDateObjects.length && !awaitingServerResponse ) {
-        const serviceDateObjects = serviceDatesList.map(date => convertDateToDateStringObj(date))
-      setServiceDateObjects(serviceDateObjects)
-    } 
-  }, [serviceDatesReceived, serviceDateObjects.length, serviceDatesList, setServiceDateObjects, awaitingServerResponse]);
-
-  
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -74,12 +74,6 @@ export default function SignInSide() {
       });
       // console.log(awaitingServerResponse);
       setAuthRequested(true)
-      // setIsAdmin(true)
-
-      // setPayload({
-      //   email: data.get('email'),
-      //   password: data.get('password'),
-      // });
     }
     
   };
@@ -88,17 +82,14 @@ export default function SignInSide() {
   const [ validEmail, setValidEmail ] = useState(false);
   const [ validPassword, setValidPassword ] = useState(false);
   const [ email, setEmail ] = useState('');
-  
 
   useEffect(() => {
-    console.log("Valid = ", valid)
     if(validEmail && validPassword){
       setValid(true)
     } else {
       setValid(false)
     }
-  }, [validEmail, validPassword, valid])
-
+  }, [validEmail, validPassword])
 
   const handleValidation = (value) => {
       //set email to user input
@@ -110,7 +101,6 @@ export default function SignInSide() {
       //test whether input is valid
       setValidEmail(reg.test(value));
   };
-
 
   return (
     <ThemeProvider theme={theme}>

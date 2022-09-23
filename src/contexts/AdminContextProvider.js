@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { getAttendees, getAverageMonthlyAttendance, getFirstTimers, getGivingsList, getListOfMembers, getMonthsForChartLabel, getServiceDates, getTotalAttendance, getTotalGiven } from '../functions';
 import useAttendanceRetriever from '../hooks/useAttendanceRetriever';
 
@@ -6,24 +6,32 @@ const StateContext = createContext();
 
 export const AdminContextProvider = ({ children }) => {
 
+  const rendered = useRef(0)
+
+  useEffect(() => {
+    rendered.current++
+    console.log(`Admin Context Renders = ${rendered.current}`)
+  })
+
+  const [serviceDateObjects, setServiceDateObjects] = useState([])
     //Retrieves members and creates service summary object
 
-    const [ membersRetrieved, fullMemberRecords ] = useAttendanceRetriever();
-    const [ serviceDate, setServiceDate ] = useState('')
-    const [ lastWeeksServiceDate, setLastWeeksServiceDate ] = useState('');
-    const [ membersList, setMembersList ] = useState([]);
-    const [ serviceSummary, setServiceSummary ] = useState({
-      serviceDate: "",
-      totalAttendance: 0,
-      lastWeeksTotalAttendance: 0,
-      attendanceList: [],
-      firstTimersList: [],
-      lastWeeksFirstTimersTotal: 0,
-      totalGiven: 0,
-      lastWeeksTotalGiven: 0,
-      givingsList: [],
-      averageSundayAttendanceByMonth: [],
-      averageWednesdayAttendanceByMonth: []
+  const [ membersRetrieved, fullMemberRecords ] = useAttendanceRetriever();
+  const [ serviceDate, setServiceDate ] = useState('')
+  const [ lastWeeksServiceDate, setLastWeeksServiceDate ] = useState('');
+  const [ membersList, setMembersList ] = useState([]);
+  const [ serviceSummary, setServiceSummary ] = useState({
+    serviceDate: "",
+    totalAttendance: 0,
+    lastWeeksTotalAttendance: 0,
+    attendanceList: [],
+    firstTimersList: [],
+    lastWeeksFirstTimersTotal: 0,
+    totalGiven: 0,
+    lastWeeksTotalGiven: 0,
+    givingsList: [],
+    averageSundayAttendanceByMonth: [],
+    averageWednesdayAttendanceByMonth: []
   });
 
 
@@ -53,10 +61,9 @@ export const AdminContextProvider = ({ children }) => {
       
     }, [serviceDate, fullMemberRecords, lastWeeksServiceDate, membersRetrieved])
 
-    console.log(serviceSummary)
-
   const contextStateVars = {
-    membersList, serviceSummary, serviceDate, setServiceDate, setLastWeeksServiceDate, lastWeeksServiceDate
+    membersList, serviceSummary, serviceDate, setServiceDate, setLastWeeksServiceDate, lastWeeksServiceDate,
+    serviceDateObjects, setServiceDateObjects
 
   }
 

@@ -8,6 +8,7 @@ import SignInSide from './pages/SignIn';
 import { useStateContext } from './contexts/ContextProvider';
 
 
+
 export default function Router() {
 
   const { isAdmin, awaitingServerResponse } = useStateContext()
@@ -18,7 +19,7 @@ export default function Router() {
     },
     {
       path: 'admin-dashboard',
-      element: isAdmin && !awaitingServerResponse? <DashboardLayout />: <SignInSide />,
+      element: isAdmin && !awaitingServerResponse? <DashboardLayout />:  <SignInSide />,
       children: [
           { path: 'summary', element: <ServiceSummary />},
           { path: 'attendees', element: <Attendees />  },

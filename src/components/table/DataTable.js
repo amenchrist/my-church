@@ -48,7 +48,7 @@ export default function DataTable({rows, title}) {
           </Stack>
         <Grid container spacing={3} >
           <Grid item lg={12} sm={12} xl={12} xs={12} >
-          <div style={{ height: "500px", width: '100%', backgroundColor: "white" }}>
+          <div style={{ height: "80vh", width: '100%', backgroundColor: "white" }}>
             <DataGrid
               rows={rows}
               columns={columns}

@@ -1,4 +1,5 @@
 import { Box, Container, Grid } from '@mui/material';
+import { useEffect, useRef } from 'react';
 import TotalAttendance from '../../components/adminDashboard/TotalAttendance';
 // import LatestOrders from '../components/adminDashboard/LatestOrders';
 // import LatestProducts from '../components/dashboard/LatestProducts';
@@ -11,7 +12,15 @@ import AppWebsiteVisits from '../../components/charts/AppWebsiteVisits';
 import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 
 const ServiceSummary = () => {
+
+  const rendered = useRef(0)
+
+  useEffect(() => {
+    rendered.current++
+    console.log(`Service Summary Renders = ${rendered.current}`)
+  })
   const { serviceSummary } = useAdminStateContext();
+  const { attendanceOverviewChartLabels } = serviceSummary;
   
   return (
   <>
@@ -44,7 +53,7 @@ const ServiceSummary = () => {
             <AppWebsiteVisits
               title="Attendance trend this year "
               subheader="Average monthly attendance"
-              chartLabels={serviceSummary.attendanceOverviewChartLabels}
+              chartLabels={attendanceOverviewChartLabels? attendanceOverviewChartLabels : []}
               chartData={[
                 // {
                 //   name: 'Team A',

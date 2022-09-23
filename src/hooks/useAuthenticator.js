@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 
-export default function useAuthenticator(payload) {
+export default function useAuthenticator(authRequested, payload) {
 
-  const {server, authRequested, setAuthRequested, setCurrentMember } = useStateContext();
-  const [emailExists, setEmailExists] = useState(false)
-  const [responseReceived, setResponseReceived] = useState(false)
+  const {server, setCurrentMember, setIsAdmin } = useStateContext();
+  // const [emailExists, setEmailExists] = useState(false)
+  // const [responseReceived, setResponseReceived] = useState(false)
   
   useEffect(() => {
 
@@ -29,26 +29,28 @@ export default function useAuthenticator(payload) {
         }
 
         fetch(`${server}/members/signin`, options).then(res => res.json()).then( member => {
-            setAuthRequested(false)
           if(member.id){
-            setEmailExists(true);
+            // setEmailExists(true);
+            if (member.role === "Admin") setIsAdmin(true)
             setCurrentMember(member)     
           }else {
             console.log("Member not found")
           }
-          setResponseReceived(true)
+          // setResponseReceived(true)
 
         }).catch(err => {
           console.log(err)
         })
+      } else {
+        console.log('Authentication has not been requested')
       }
   
       return () => {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, authRequested])
+    }, [ server, authRequested, payload, setCurrentMember])
 
-  return [emailExists, responseReceived]
+  return //[emailExists, responseReceived]
 }
 

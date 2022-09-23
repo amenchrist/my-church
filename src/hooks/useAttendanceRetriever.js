@@ -3,16 +3,11 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAttendanceRetriever() {
 
-  const { server, url, isAdmin, setAwaitingServerResponse } = useStateContext();
+  const { server, orgDetails, isAdmin } = useStateContext();
 
   const [ attendanceRecords, setAttendanceRecords ] = useState([])
 
-  const [ responseReceived, setResponseReceived ] = useState(false);
-
-  useEffect(() => {
-    setAwaitingServerResponse(true)
-  }, [])
-  
+  const [ responseReceived, setResponseReceived ] = useState(false);  
   
   useEffect(() => {
 
@@ -25,13 +20,10 @@ export default function useAttendanceRetriever() {
         const options = {
             signal: signal
         }
-
-        setAwaitingServerResponse(true)
     
-        fetch(`${server}/attendance/${url}`, options).then(res => res.json()).then(res => {
+        fetch(`${server}/attendance/${orgDetails.url}`, options).then(res => res.json()).then(res => {
           setAttendanceRecords(res);
           setResponseReceived(true)
-          setAwaitingServerResponse(false)
         }).catch(e => {
             console.log(e);
         });
@@ -40,9 +32,8 @@ export default function useAttendanceRetriever() {
       return () => {
         //cancel the request before the component unmounts
         controller.abort();
-        setAwaitingServerResponse(false)
       }
-    }, [ server, responseReceived, isAdmin, url ])
+    }, [ server, responseReceived, isAdmin, orgDetails ])
 
   return [ responseReceived, attendanceRecords ]
 }

@@ -19,7 +19,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
-  const { churchName } = useStateContext()
+  const { orgDetails } = useStateContext()
 
   return (
     <AppBar position='relative' >
@@ -29,7 +29,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         </Link>
         <Link to="/" underline="none" >
         <Box sx={{ paddingLeft: 1 , color: 'white'}}>
-          <Typography variant="h6" >{churchName}</Typography>
+          <Typography variant="h6" >{orgDetails.name}</Typography>
         </Box>
         </Link>
         <Box sx={{ flexGrow: 1 }} />

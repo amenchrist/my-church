@@ -6,7 +6,7 @@ import { attendanceRegex } from '../regex';
 
 export default function AttendanceForm() {
 
-    const { currentMember, churchName, url, setCurrentMember, geolocation } = useStateContext();    
+    const { currentMember, churchName, orgDetails, setCurrentMember, geolocation } = useStateContext();    
 
     const [ attendance, setAttendance ] = useState(1)
     const [ valid, setValid ] = useState(true);
@@ -38,7 +38,7 @@ export default function AttendanceForm() {
             time: dateValues.time,
             church: churchName,
             attendance: parseInt(data.get('attendance')),
-            origin: url,
+            origin: orgDetails.url,
             ip: geolocation.IPv4,
             deviceWidth: window.innerWidth,
             deviceHeight: window.innerHeight

@@ -68,13 +68,39 @@ export function getAttendanceRecords(membersArray, email){
   }
 }
 
-export function getParentUrl() {
+function getParentUrl() {
   var parentUrl = (window.location !== window.parent.location)
   ? document.referrer
   : document.location.origin;
   parentUrl = parentUrl.replace(/http:\/\/|https:\/\//, "")
-  console.log(parentUrl)
+
   return parentUrl;
+}
+
+export function getOrgDetails(){
+  const url = getParentUrl();
+  const orgDetails = {url}
+  switch(url){
+    case "christembassy-eastham.org":
+      orgDetails.name = "Christ Embassy East Ham"
+    break;
+    case "ceilford.org/":
+      orgDetails.name = "Christ Embassy Ilford"
+    break;
+    case "christembassybarking.org":
+      orgDetails.name = "Christ Embassy Barking"
+    break;
+    case "christembassystratford.org":
+      orgDetails.name = "Christ Embassy Stratford"
+    break;
+    case "localhost:3000":
+      orgDetails.name = "Christ Embassy Barking"
+    break;
+    default:
+      console.log("No church identified")
+      orgDetails.name = "Unknown"
+  }
+  return orgDetails
 }
 
 export function getTotalAttendance(membersArray, date){

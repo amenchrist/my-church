@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Divider, Drawer, Grid, Hidden, List, MenuItem, TextField, Typography } from '@mui/material';
 import {
   // AlertCircle as AlertCircleIcon,
-  Lock as LockIcon,
   // UserPlus as UserPlusIcon,
+  Lock as LockIcon,
   BarChart as BarChartIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
@@ -67,9 +67,10 @@ const items = [
 
 const AdminSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { currentMember } = useStateContext()
+  const { currentMember, serviceDateObjects } = useStateContext()
 
-  const { title, firstName, lastName, role } = currentMember
+  const { title, firstName, lastName, role } = currentMember;
+  const { setServiceDate, serviceDate, setLastWeeksServiceDate  } = useAdminStateContext();
 
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
@@ -85,9 +86,6 @@ const AdminSidebar = ({ onMobileClose, openMobile }) => {
   //   }
   // }, [openMobile, onMobileClose, location.pathname]);
 
-  const { serviceDateObjects, awaitingServerResponse } = useStateContext();
-  const { setServiceDate, serviceDate, setLastWeeksServiceDate, } = useAdminStateContext();
-
   let services = [
     "Midweek Service - Wednesday, 29th June 2022",
     "Sunday Service - Sunday, 26th June 2022",
@@ -96,11 +94,12 @@ const AdminSidebar = ({ onMobileClose, openMobile }) => {
   ]
 
   useEffect(() => {
-    if(!serviceDate.length && serviceDateObjects[0] && !awaitingServerResponse){
+    //set initial service date
+    if(!serviceDate.length && serviceDateObjects.length > 0){
       setServiceDate(serviceDateObjects[0].date)
       setLastWeeksServiceDate(serviceDateObjects[0].weekBeforeDate)
     }
-  }, [setServiceDate, serviceDateObjects, serviceDate, setLastWeeksServiceDate, awaitingServerResponse])
+  }, [setServiceDate, serviceDateObjects, serviceDate, setLastWeeksServiceDate])
 
   function changeDate(e){
     const selectedServiceDate = e.target.value;

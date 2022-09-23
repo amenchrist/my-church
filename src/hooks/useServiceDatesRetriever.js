@@ -1,56 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useAdminStateContext } from '../contexts/AdminContextProvider';
 import { useStateContext } from '../contexts/ContextProvider';
+import { convertDateToDateStringObj } from '../functions';
 
 export default function useServiceDatesRetriever() {
 
-  const { server, url, isAdmin, setAwaitingServerResponse, awaitingServerResponse } = useStateContext();
-
-  const [ serviceDates, setServiceDates ] = useState([])
-
-  const [ responseReceived, setResponseReceived ] = useState(false);
+  const rendered = useRef(0)
 
   useEffect(() => {
-    console.log("mounted service dates retriever")
-    setAwaitingServerResponse(true);
-    return () => {
-      console.log(awaitingServerResponse);
-      console.log("Unmounting Service Retriever")
-      setAwaitingServerResponse(false)
-    }
-  }, [])
+    rendered.current++
+    console.log(`Service Retriever Renders = ${rendered.current}`)
+  })
+
+  const { server, serviceDateObjects, setServiceDateObjects } = useStateContext();
   
   useEffect(() => {
+    console.log("mounted service dates retriever")
 
       const controller = new AbortController();
       const signal = controller.signal;
- 
-      if(!responseReceived){
+
+      if(serviceDateObjects.length === 0){
         console.log("Retrieving Service Dates")
 
         const options = {
             signal: signal
         }
-
-        setAwaitingServerResponse(true)
     
-        fetch(`${server}/attendance/`, options).then(res => res.json()).then(res => {
+        fetch(`${server}/attendance/`, options).then(res => res.json()).then(serviceDatesList => {
           console.log("Service Dates received")
-            setServiceDates(res);
-            setResponseReceived(true)
-            setAwaitingServerResponse(false)
+          setServiceDateObjects(serviceDatesList.map(date => convertDateToDateStringObj(date)))
         }).catch(e => {
             console.log(e);
-            setAwaitingServerResponse(false)
+            console.log("Error retrieving Service Dates")
         });
       }      
   
       return () => {
         //cancel the request before the component unmounts
         controller.abort();
-        setAwaitingServerResponse(false)
+        console.log("Unmounting Service Retriever")
       }
-    }, [ server, responseReceived, isAdmin, url,setAwaitingServerResponse ])
+    }, [ server, setServiceDateObjects, serviceDateObjects.length ])
 
-  return [ responseReceived, serviceDates ]
+  return [ serviceDateObjects.length ]
 }
-

@@ -6,7 +6,7 @@ import { attendanceRegex, nameRegex, phoneRegex } from '../regex';
 
 export default function FirstTimersForm() {
 
-  const { currentMember, setCurrentMember, churchName, url, geolocation } = useStateContext();
+  const { currentMember, setCurrentMember, churchName, orgDetails, geolocation } = useStateContext();
 
   const [ attendance, setAttendance ] = useState(1)
   const [ firstName, setFirstName ] = useState('');
@@ -59,7 +59,7 @@ export default function FirstTimersForm() {
         time: dateValues.time,
         church: churchName,
         attendance: parseInt(data.get('attendance')),
-        origin: url,
+        origin: orgDetails.url,
         primaryAttendee: data.get('firstName'),
         lastName: data.get('lastName'),
         primaryAttendeeTitle: data.get('title'),
