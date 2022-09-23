@@ -16,11 +16,6 @@ import NavItem from '../NavItem';
 import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Admin',
-  name: 'Katarina Smith'
-};
 
 const items = [
   {
@@ -35,29 +30,29 @@ const items = [
   },
   {
     href: '/admin-dashboard/first-timers',
-    icon: ShoppingBagIcon,
+    icon: UserIcon,
     title: 'First Timers'
   },
   {
-    href: '/admin-dashboard/absentees',
-    icon: UserIcon,
-    title: 'Absentees'
-  },
-  {
     href: '/admin-dashboard/giving-records',
-    icon: SettingsIcon,
+    icon: LockIcon,
     title: 'Giving Records'
   },
-  {
-    href: '/admin-dashboard/members',
-    icon: UserIcon,
-    title: 'Members'
-  },
-  {
-    href: '/admin-dashboard/overview',
-    icon: LockIcon,
-    title: 'Yearly Overview'
-  },
+  // {
+  //   href: '/admin-dashboard/absentees',
+  //   icon: UserIcon,
+  //   title: 'Absentees'
+  // }
+  // {
+  //   href: '/admin-dashboard/members',
+  //   icon: UserIcon,
+  //   title: 'Members'
+  // },
+  // {
+  //   href: '/admin-dashboard/overview',
+  //   icon: LockIcon,
+  //   title: 'Yearly Overview'
+  // },
   // {
   //   href: '/register',
   //   icon: UserPlusIcon,
@@ -71,6 +66,18 @@ const items = [
 ];
 
 const AdminSidebar = ({ onMobileClose, openMobile }) => {
+
+  const { currentMember } = useStateContext()
+
+  const { title, firstName, lastName, role } = currentMember
+
+  const user = {
+    avatar: '/static/images/avatars/avatar_6.png',
+    jobTitle: role? role: 'Unknown',
+    name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown Member'
+  };
+
+
   const location = useLocation();
   // useEffect(() => {
   //   if (openMobile && onMobileClose) {

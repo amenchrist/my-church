@@ -3,7 +3,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAuthenticator(payload) {
 
-  const {server, authRequested, setAuthRequested } = useStateContext();
+  const {server, authRequested, setAuthRequested, setCurrentMember } = useStateContext();
   const [emailExists, setEmailExists] = useState(false)
   const [responseReceived, setResponseReceived] = useState(false)
   
@@ -28,10 +28,11 @@ export default function useAuthenticator(payload) {
           body: JSON.stringify(payload)
         }
 
-        fetch(`${server}/members/signin`, options).then(res => res.json()).then( response => {
+        fetch(`${server}/members/signin`, options).then(res => res.json()).then( member => {
             setAuthRequested(false)
-          if(response){
-            setEmailExists(true);     
+          if(member.id){
+            setEmailExists(true);
+            setCurrentMember(member)     
           }else {
             console.log("Member not found")
           }

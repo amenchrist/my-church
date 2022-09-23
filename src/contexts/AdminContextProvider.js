@@ -54,7 +54,6 @@ export const AdminContextProvider = ({ children }) => {
     }, [serviceDate, fullMemberRecords, lastWeeksServiceDate, membersRetrieved])
 
     console.log(serviceSummary)
-    // console.log(fullMemberRecords)
 
   const contextStateVars = {
     membersList, serviceSummary, serviceDate, setServiceDate, setLastWeeksServiceDate, lastWeeksServiceDate

@@ -37,6 +37,7 @@ export default function SignInSide() {
   const { setIsAdmin, serviceDateObjects, setServiceDateObjects, awaitingServerResponse, setAuthRequested } = useStateContext();
   const [ serviceDatesReceived, serviceDatesList ] = useServiceDatesRetriever();
   const [ payload, setPayload ] = useState({});
+  const [ ready, setReady ] = useState(false)
   
   const [ emailExists, responseReceived ] = useAuthenticator(payload);
 
@@ -47,11 +48,19 @@ export default function SignInSide() {
   }, [emailExists, setIsAdmin]);
 
   useEffect(() => {
+    if(serviceDatesReceived) {
+      setReady(true)
+    }
+  }, [serviceDatesReceived]);
+
+  useEffect(() => {
     if (serviceDatesReceived && !serviceDateObjects.length && !awaitingServerResponse ) {
         const serviceDateObjects = serviceDatesList.map(date => convertDateToDateStringObj(date))
       setServiceDateObjects(serviceDateObjects)
     } 
   }, [serviceDatesReceived, serviceDateObjects.length, serviceDatesList, setServiceDateObjects, awaitingServerResponse]);
+
+  
 
 
   const handleSubmit = (event) => {
@@ -65,7 +74,7 @@ export default function SignInSide() {
       });
       // console.log(awaitingServerResponse);
       setAuthRequested(true)
-      setIsAdmin(true)
+      // setIsAdmin(true)
 
       // setPayload({
       //   email: data.get('email'),
@@ -171,6 +180,7 @@ export default function SignInSide() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={!ready}
               >
                 Sign In
               </Button>
