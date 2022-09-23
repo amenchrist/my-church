@@ -4,6 +4,7 @@ import RecordsTable from '../../components/table/RecordsTable';
 export default function Members(){
 
     return(
-        <RecordsTable TableContent={TableContent} title={"Members"} />
+        // <RecordsTable TableContent={TableContent} title={"Members"} />
+        <></>
     )
 }

@@ -4,6 +4,7 @@ export function getAttendees(membersArray, date){
     const relevantMembers = membersArray.filter(member => member.attendanceRecords.filter(record => record.date === date ).length > 0 )
     const attRecords = relevantMembers.map(m => {
       return {...m, attendanceRecords: m.attendanceRecords.filter(record => record.date === date ) }
+      
     })
     //console.log(attRecords);
     return attRecords.sort((e1, e2) => e1.attendanceRecords[0].time - e2.attendanceRecords[0].time);
@@ -130,7 +131,7 @@ export function convertDateToDateStringObj(date){
   return {fullDateString, date, weekBeforeDate}
 
 }
-
+// For the admin line chart
 export function getAverageMonthlyAttendance(membersArray = [], weekDayNumber = 0){
   if(!membersArray.length) return
   const attendanceRecords = membersArray.map((member) => member.attendanceRecords).flat();
@@ -179,4 +180,22 @@ export function getMonthsForChartLabel(numberOfMonths){
   let chartLabels = [ 'January', 'February', 'March', 'April', 'May', 'June', 'August', 'September', 'October', 'November', 'December'];
 
   return chartLabels.slice(0,numberOfMonths)
+}
+
+export function getDateValues(d){
+  //get day of week "eg Sunday"
+  const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const day = weekDays[d.getDay()]
+
+  //get timestamp "eg 1639816377"
+  const time = Math.floor(d.getTime()/1000)
+
+  //get date "eg 21.11.2021"
+  const date = [ d.getDate(), d.getMonth()+1, d.getFullYear() ].join(".")
+
+  return {
+      day,
+      date,
+      time,
+  }
 }

@@ -4,6 +4,7 @@ import RecordsTable from '../../components/table/RecordsTable';
 export default function YearOverview(){
 
     return(
-        <RecordsTable TableContent={TableContent} title={"Year Overview"} />
+        // <RecordsTable TableContent={TableContent} title={"Year Overview"} />
+        <></>
     )
 }

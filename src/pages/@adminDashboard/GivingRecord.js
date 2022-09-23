@@ -4,6 +4,7 @@ import RecordsTable from '../../components/table/RecordsTable';
 export default function GivingRecord(){
 
     return(
-        <RecordsTable TableContent={TableContent} title={"Giving Record"} />
+        // <RecordsTable TableContent={TableContent} title={"Giving Record"} />
+        <></>
     )
 }

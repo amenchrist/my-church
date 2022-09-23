@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, TextField, FormControlLabel, Checkbox, Grid, Box, MenuItem } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
-import { getDateValues } from '../functions';
+import { getDateValues } from '../../functions';
 import { attendanceRegex, nameRegex, phoneRegex } from '../regex';
 
 export default function FirstTimersForm() {

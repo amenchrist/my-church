@@ -26,7 +26,7 @@ import Iconify from './Iconify';
 import SearchNotFound from './SearchNotFound';
 import { ListHead, ListToolbar, MoreMenu } from './';
 // mock
-// import TableContent from '../_mock/user';
+import TableContent from '../../_mock/user';
 
 // ----------------------------------------------------------------------
 
@@ -70,7 +70,9 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function RecordsTable({title, TableContent }) {
+export default function RecordsTable({ }) {
+  const title = "Attendees"
+  
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');

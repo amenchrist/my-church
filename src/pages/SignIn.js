@@ -65,6 +65,7 @@ export default function SignInSide() {
       });
       // console.log(awaitingServerResponse);
       setAuthRequested(true)
+      setIsAdmin(true)
 
       // setPayload({
       //   email: data.get('email'),

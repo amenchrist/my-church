@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField,  Grid, Box,  } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
-import { getDateValues } from '../functions';
+import { getDateValues } from '../../functions';
 import { attendanceRegex } from '../regex';
 
 export default function AttendanceForm() {

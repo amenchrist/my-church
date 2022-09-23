@@ -4,6 +4,7 @@ import RecordsTable from '../../components/table/RecordsTable';
 export default function Absentees(){
 
     return(
-        <RecordsTable TableContent={TableContent} title={"Absentees"} />
+        // <RecordsTable TableContent={TableContent} title={"Absentees"} />
+        <></>
     )
 }
