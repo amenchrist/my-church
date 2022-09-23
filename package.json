@@ -23,7 +23,6 @@
     "react-player": "^2.10.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-react-18-fix": "^0.14.1",
     "simplebar-react": "^2.4.1",
     "web-vitals": "^2.1.4"

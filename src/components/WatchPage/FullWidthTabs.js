@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views-react-18-fix';
 import { useTheme, AppBar, Tabs, Tab, Box } from '@mui/material';
 // import Typography from '@mui/material/Typography';
 import LiveChat from './LiveChat';
