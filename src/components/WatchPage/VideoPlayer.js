@@ -11,11 +11,12 @@ function VideoPlayer() {
   const aspectRatio = 0.5625;
 
 //   let youtube = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-  const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
+const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
+  // const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
   // const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8"
   // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
   
-  const videoSource = barking;
+  const videoSource = lsat;
   
   const [width, setWidth] = useState('100');
   const [height, setHeight] = useState(width*aspectRatio)

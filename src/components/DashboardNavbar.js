@@ -27,7 +27,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         <Link to="/">
           <Logo />
         </Link>
-        <Link to="/" underline="none" >
+        <Link to="/" style={{textDecoration: "none"}} >
         <Box sx={{ paddingLeft: 1 , color: 'white'}}>
           <Typography variant="h6" >{orgDetails.name}</Typography>
         </Box>

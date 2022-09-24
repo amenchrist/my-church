@@ -1,5 +1,6 @@
 import { Box, Container, Grid } from '@mui/material';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import TotalAttendance from '../../components/adminDashboard/TotalAttendance';
 // import LatestOrders from '../components/adminDashboard/LatestOrders';
 // import LatestProducts from '../components/dashboard/LatestProducts';
@@ -34,10 +35,14 @@ const ServiceSummary = () => {
       <Container maxWidth={false}>
         <Grid container spacing={3} >
           <Grid item lg={4} sm={6} xl={4} xs={12} >
-            <TotalAttendance />
+            <Link to={'/admin-dashboard/attendees'} style={{textDecoration: 'none'}}>
+              <TotalAttendance />
+            </Link>
           </Grid>
           <Grid item lg={4} sm={6} xl={4} xs={12} >
-            <TotalFirstTimers />
+            <Link to={'/admin-dashboard/first-timers'} style={{textDecoration: 'none'}} >
+              <TotalFirstTimers />
+            </Link>
           </Grid>
           <Grid item lg={4} sm={6} xl={4} xs={12} >
             <TotalGiving sx={{ height: '100%' }} />

@@ -8,7 +8,7 @@ import ThemeProvider from './theme';
 function App() {
   const { isMobileNavOpen, setMobileNavOpen } = useStateContext();
   return (
-    <div style={{height: '100vh'}}>
+    <div style={{height: '100vh', }}>
     <ThemeProvider>
       <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} isMobileNavOpen={isMobileNavOpen} />
       <Router />
