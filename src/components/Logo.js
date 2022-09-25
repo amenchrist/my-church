@@ -1,8 +1,9 @@
 const Logo = (props) => (
   <img
     alt="Logo"
-    src="/static/logo.svg"
+    src="https://loveworldwalsall.org/wp-content/uploads/2020/07/loveWorld-1.png"
     {...props}
+    height='40px'
   />
 );
 

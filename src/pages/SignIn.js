@@ -35,6 +35,8 @@ const theme = createTheme();
 
 export default function SignInSide() {
 
+  const { currentMember } = useStateContext()
+
   const rendered = useRef(0)
 
   useEffect(() => {
@@ -81,7 +83,7 @@ export default function SignInSide() {
   const [ valid, setValid ] = useState(false);
   const [ validEmail, setValidEmail ] = useState(false);
   const [ validPassword, setValidPassword ] = useState(false);
-  const [ email, setEmail ] = useState('');
+  const [ email, setEmail ] = useState(currentMember.email? currentMember.email: '');
 
   useEffect(() => {
     if(validEmail && validPassword){
@@ -112,7 +114,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://d3u1jgd2t7cgti.cloudfront.net/2022/04/03/18/01/33/322/164902329381_img_20220403_174314.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

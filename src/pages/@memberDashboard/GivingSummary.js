@@ -12,7 +12,6 @@ const GivingSummary = () => (
       sx={{
         backgroundColor: 'background.default',
         // minHeight: '100%',
-        py: 3
       }}
     >
       <Container maxWidth={false}>

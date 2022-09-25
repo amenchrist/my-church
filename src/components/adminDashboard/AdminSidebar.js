@@ -10,11 +10,14 @@ import {
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  LogOut as Out,
+  Briefcase
 } from 'react-feather';
 import NavItem from '../NavItem';
 import { useAdminStateContext } from '../../contexts/AdminContextProvider';
 import { useStateContext } from '../../contexts/ContextProvider';
+import { ArrowBack } from '@mui/icons-material';
 
 
 const items = [
@@ -37,6 +40,16 @@ const items = [
     href: '/admin-dashboard/giving-records',
     icon: LockIcon,
     title: 'Giving Records'
+  },
+  {
+    href: '/member-dashboard',
+    icon: Briefcase,
+    title: 'To Member Dashboard'
+  },
+  {
+    href: '/',
+    icon: Out,
+    title: 'To Watch Page'
   },
   // {
   //   href: '/admin-dashboard/absentees',
@@ -80,6 +93,8 @@ const AdminSidebar = ({ onMobileClose, openMobile }) => {
 
 
   const location = useLocation();
+
+  console.log(location)
   // useEffect(() => {
   //   if (openMobile && onMobileClose) {
   //     onMobileClose();

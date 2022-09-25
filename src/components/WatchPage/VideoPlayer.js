@@ -71,7 +71,7 @@ const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
     <>
       <div style={{backgroundColor: "black", display:"flex", height:divHeight, flexDirection: 'column', justifyContent: 'center'}}>
         {attendanceSubmitted? 
-        <ReactPlayer url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={playing} light={true} />
+        <ReactPlayer pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={playing} light={true} />
         :
         <MutedVideoPlayer />
         }

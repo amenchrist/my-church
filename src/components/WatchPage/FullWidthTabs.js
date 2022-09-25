@@ -5,7 +5,7 @@ import { useTheme, AppBar, Tabs, Tab, Box } from '@mui/material';
 // import Typography from '@mui/material/Typography';
 import LiveChat from './LiveChat';
 import GivingForm from './GivingForm';
-import Bible from './Bible';
+import Announcements from './Announcements';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +53,7 @@ export default function FullWidthTabs() {
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: "100%" }}>
+    <Box sx={{ bgcolor: 'background.paper', width: "100%", }}>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -64,7 +64,7 @@ export default function FullWidthTabs() {
           aria-label="full width tabs example"
         >
           <Tab label="Chat" {...a11yProps(0)} />
-          <Tab label="Bible" {...a11yProps(1)} />
+          <Tab label="Announcements" {...a11yProps(1)} />
           <Tab label="Giving" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
@@ -77,7 +77,7 @@ export default function FullWidthTabs() {
           <LiveChat />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Bible />
+        <Announcements />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <GivingForm />

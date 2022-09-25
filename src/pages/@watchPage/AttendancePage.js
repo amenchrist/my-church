@@ -26,7 +26,7 @@ export default function AttendancePage() {
 
     const { setAttendanceSubmitted, currentMember, attendanceSubmitted} = useStateContext();
 
-    const [ emailExists, responseReceived ] = useEmailChecker(currentMember.email);  
+    const [ emailExists, responseReceived, isAnAdmin ] = useEmailChecker(currentMember.email);  
     const attendanceLogged = useAttendanceLogger(currentMember.attendanceRecords);
    
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function AttendancePage() {
               marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -51,7 +51,7 @@ export default function AttendancePage() {
             <Typography component="h1" variant="h5">
               Welcome
             </Typography>
-            {!responseReceived? <EmailForm /> : emailExists? <AttendanceForm /> : <FirstTimersForm /> }
+            {!responseReceived? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
           </Box>
           <Copyright sx={{ mt: 5 }} />
         </Container>

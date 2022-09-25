@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material';
 // import DashboardNavbar from './DashboardNavbar';
 import MemberSidebar from './MemberSidebar';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -38,8 +39,8 @@ const DashboardLayoutContent = styled('div')({
   paddingTop: '50px'
 });
 
-const MemberDashboardLayout = ({ isMobileNavOpen, setMobileNavOpen }) => {
-  // const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+const MemberDashboardLayout = () => {
+  const { isMobileNavOpen, setMobileNavOpen } = useStateContext();
 
   return (
     <DashboardLayoutRoot>

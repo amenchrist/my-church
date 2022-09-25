@@ -72,7 +72,9 @@ function getParentUrl() {
   var parentUrl = (window.location !== window.parent.location)
   ? document.referrer
   : document.location.origin;
-  parentUrl = parentUrl.replace(/http:\/\/|https:\/\//, "")
+  parentUrl = parentUrl.replace(/http:\/\/|https:\/\//, "");
+
+  parentUrl = parentUrl.includes("loveworldnation.herokuapp.com") ? "christembassybarking.org" : parentUrl
 
   return parentUrl;
 }
@@ -98,7 +100,7 @@ export function getOrgDetails(){
     break;
     default:
       console.log("No church identified")
-      orgDetails.name = "Unknown"
+      orgDetails.name = "Christ Embassy"
   }
   return orgDetails
 }

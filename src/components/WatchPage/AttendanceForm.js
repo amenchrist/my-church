@@ -3,8 +3,9 @@ import { Button, TextField,  Grid, Box,  } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { getDateValues } from '../../functions';
 import { attendanceRegex } from '../regex';
+import { Link } from 'react-router-dom';
 
-export default function AttendanceForm() {
+export default function AttendanceForm({isAnAdmin}) {
 
     const { currentMember, churchName, orgDetails, setCurrentMember, geolocation } = useStateContext();    
 
@@ -50,6 +51,7 @@ export default function AttendanceForm() {
     }
     
     return (
+      <>
       <Box component="form" onSubmit={handleAttendance} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -89,5 +91,20 @@ export default function AttendanceForm() {
           Submit
         </Button>
       </Box>
+      
+      {isAnAdmin ? <Link to={'/admin-dashboard'} style={{textDecoration: 'none'}} >
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Visit Admin Portal
+        </Button>
+        </Link>
+        :
+        <></>
+      }
+      </>
     )
 }

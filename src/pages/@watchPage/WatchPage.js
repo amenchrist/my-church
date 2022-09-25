@@ -7,14 +7,20 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import AttendancePage from './AttendancePage';
 import { useStateContext } from '../../contexts/ContextProvider';
+import WatchPageSidebar from '../../components/WatchPage/WatchPageSidebar';
 
 function WatchPage() {
 
   const { attendanceSubmitted } = useStateContext();
+  const { isMobileNavOpen, setMobileNavOpen } = useStateContext();
 
   return (
     <>
       <Box sx={{ flexGrow: 1, maxHeight: '100vh' }}>
+        <WatchPageSidebar 
+        onMobileClose={() => setMobileNavOpen(false)}
+        openMobile={isMobileNavOpen}
+        />
         <Grid container>
           <Grid item xs={12} md={8}>        
                 <VideoPlayer />

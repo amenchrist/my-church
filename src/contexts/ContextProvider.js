@@ -29,6 +29,7 @@ export const ContextProvider = ({ children }) => {
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
   const [awaitingServerResponse, setAwaitingServerResponse] = useState(false)
   const [authRequested, setAuthRequested] = useState(false)
+  const [toggleMenuIcon, setToggleMenuIcon] = useState(false)
 
   const localHost = "http://localhost:5000";
   const host = 'https://arcane-anchorage-41306.herokuapp.com';
@@ -43,6 +44,8 @@ export const ContextProvider = ({ children }) => {
     console.log("Getting Org Details");
     setOrgDetails(getOrgDetails())
   }, [])
+
+ 
 
   //get ip and location info
   // useEffect(() => {
@@ -94,7 +97,7 @@ export const ContextProvider = ({ children }) => {
     isSignedIn, setIsSignedIn, isRegistered, setIsRegistered, currentMember, setCurrentMember,
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
     awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested,
-    isMobileNavOpen, setMobileNavOpen
+    isMobileNavOpen, setMobileNavOpen, toggleMenuIcon, setToggleMenuIcon
 
   }
 

@@ -1,84 +1,40 @@
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Avatar, Box, Divider, Drawer, Hidden, List, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Grid, Hidden, List, MenuItem, TextField, Typography } from '@mui/material';
 import {
-  // AlertCircle as AlertCircleIcon,
-  // Lock as LockIcon,
-  // UserPlus as UserPlusIcon,
   BarChart as BarChartIcon,
-  Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  Users as UsersIcon,
-  LogOut
+  Briefcase,
+  LogOut as Out,
 } from 'react-feather';
 import NavItem from '../NavItem';
 import { useStateContext } from '../../contexts/ContextProvider';
 
 let items = [
   {
-    href: '/member-dashboard/summary',
-    icon: BarChartIcon,
-    title: 'Summary'
-  },
-  {
-    href: '/member-dashboard/tithes',
-    icon: UsersIcon,
-    title: 'Tithes'
-  },
-  {
-    href: '/member-dashboard/offerings',
-    icon: ShoppingBagIcon,
-    title: 'Offerings'
-  },
-  {
-    href: '/member-dashboard/partnership',
-    icon: UserIcon,
-    title: 'Partnership'
-  },
-  {
-    href: '/member-dashboard/special-seeds',
-    icon: SettingsIcon,
-    title: 'Special Seeds'
-  },
-  {
-    href: '/member-dashboard/other-giving',
-    icon: UserIcon,
-    title: 'Other Giving'
+    href: '/member-dashboard',
+    icon: Briefcase,
+    title: 'To Member Dashboard'
   },
   {
     href: '/',
-    icon: LogOut,
-    title: 'Back to Watch Page'
+    icon: Out,
+    title: 'To Watch Page'
   },
   {
     href: '/admin-dashboard/summary',
     icon: BarChartIcon,
     title: 'To Admin Dashboard'
   }
-  // {
-  //   href: '/login',
-  //   icon: LockIcon,
-  //   title: 'Login'
-  // },
-  // {
-  //   href: '/register',
-  //   icon: UserPlusIcon,
-  //   title: 'Register'
-  // },
-  // {
-  //   href: '/404',
-  //   icon: AlertCircleIcon,
-  //   title: 'Error'
-  // }
+
 ];
 
-const MemberSidebar = ({ onMobileClose, openMobile }) => {
+const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
 
   const { currentMember, isAdmin } = useStateContext();
+
   const { title, firstName, lastName, church } = currentMember;
-  
+
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
     jobTitle: church? church: 'Unknown Church',
@@ -86,19 +42,23 @@ const MemberSidebar = ({ onMobileClose, openMobile }) => {
   };
 
   useEffect(()=> {
+    console.log(isAdmin)
     if(!isAdmin){
       items = items.filter(item => item.href !== '/admin-dashboard/summary')
     }
   }, [isAdmin])
   
 
+
   const location = useLocation();
 
+  console.log(location)
   // useEffect(() => {
   //   if (openMobile && onMobileClose) {
   //     onMobileClose();
   //   }
   // }, [openMobile, onMobileClose, location.pathname]);
+ 
 
   const content = (
     <Box
@@ -158,7 +118,7 @@ const MemberSidebar = ({ onMobileClose, openMobile }) => {
 
   return (
     <>
-      <Hidden lgUp>
+      {/* <Hidden lgUp> */}
         <Drawer
           anchor="left"
           onClose={onMobileClose}
@@ -172,8 +132,8 @@ const MemberSidebar = ({ onMobileClose, openMobile }) => {
         >
           {content}
         </Drawer>
-      </Hidden>
-      <Hidden lgDown>
+      {/* </Hidden> */}
+      {/* <Hidden lgDown>
         <Drawer
           anchor="left"
           open
@@ -188,20 +148,20 @@ const MemberSidebar = ({ onMobileClose, openMobile }) => {
         >
           {content}
         </Drawer>
-      </Hidden>
+      </Hidden> */}
     </>
   );
 };
 
-MemberSidebar.propTypes = {
+WatchPageSidebar.propTypes = {
   onMobileClose: PropTypes.func,
   openMobile: PropTypes.bool
 };
 
-MemberSidebar.defaultProps = {
+WatchPageSidebar.defaultProps = {
   onMobileClose: () => {
   },
   openMobile: false
 };
 
-export default MemberSidebar;
+export default WatchPageSidebar;
