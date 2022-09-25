@@ -1,0 +1,35 @@
+export const givings = [
+    {
+        id: 'w2f34f3fw3',
+        amount: 20,
+        currency: 'GBP',
+        category: 'PARTNERSHIP',
+        recipient: 'RHAPSODY OF REALITIES',
+        time: '09:30',
+        date: '21.06.2022',
+        description: '',
+        reference: 'QWFQFF',
+    },
+    {
+        id: '2323d23',
+        amount: 40,
+        currency: 'GBP',
+        category: 'OFFERING',
+        recipient: 'Christ Embassy Barking',
+        time: '16:23',
+        date: '13.09.2022',
+        description: '',
+        reference: 'SDFQQW',
+    },
+    {
+        id: 'd23d23d',
+        amount: 10,
+        currency: 'GBP',
+        category: 'TITHE',
+        recipient: 'Christ Embassy Barking',
+        time: '12:43',
+        date: '20.04.2022',
+        description: '',
+        reference: 'XSDFEFWE',
+    }
+]
