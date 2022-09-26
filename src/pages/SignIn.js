@@ -91,11 +91,17 @@ export default function SignInSide() {
     } else {
       setValid(false)
     }
-  }, [validEmail, validPassword])
+  }, [validEmail, validPassword]);
+
+  useEffect(() => {
+    handleValidation(email)
+  }, [])
+
+
 
   const handleValidation = (value) => {
       //set email to user input
-      setEmail(value);
+      // setEmail(value);
       
       //define regex     
       const reg = new RegExp(emailRegex); 
@@ -150,7 +156,7 @@ export default function SignInSide() {
                 value={email}
                 autoFocus
                 error={!validEmail}
-                onChange={(e) => handleValidation(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"

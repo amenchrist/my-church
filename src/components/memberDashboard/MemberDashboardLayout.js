@@ -8,8 +8,8 @@ const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     display: 'flex',
-    height: '100%',
-    overflow: 'hidden',
+    height: '100vh',
+    overflow: 'auto',
     width: '100%'
   })
 );
@@ -18,7 +18,7 @@ const DashboardLayoutWrapper = styled('div')(
   ({ theme }) => ({
     display: 'flex',
     flex: '1 1 auto',
-    overflow: 'hidden',
+    overflow: 'auto',
     paddingTop: 0,
     [theme.breakpoints.up('lg')]: {
       paddingLeft: 256
@@ -36,7 +36,7 @@ const DashboardLayoutContent = styled('div')({
   flex: '1 1 auto',
   height: '100%',
   overflow: 'auto',
-  paddingTop: '50px'
+  paddingTop: '20px'
 });
 
 const MemberDashboardLayout = () => {

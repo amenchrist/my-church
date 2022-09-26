@@ -26,7 +26,7 @@ export default function Offerings(){
         { field: 'recipient', headerName: 'Recipient', width: 200 },
         { field: 'time', headerName: 'Email', width: 150 },
         { field: 'date', headerName: 'Date', width: 150 },
-        { field: 'description',headerName: 'Attendance', width: 150 },
+        { field: 'description',headerName: 'Description', width: 150 },
         { field: 'reference', headerName: 'reference', width: 150 },
       ];
 
