@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import DashboardNavbar from './components/DashboardNavbar';
 import { useStateContext } from './contexts/ContextProvider';

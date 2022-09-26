@@ -8,7 +8,7 @@ const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     display: 'flex',
-    height: '100vh',
+    // height: '100vh',
     overflow: 'auto',
     width: '100%'
   })
@@ -36,7 +36,6 @@ const DashboardLayoutContent = styled('div')({
   flex: '1 1 auto',
   height: '100%',
   overflow: 'auto',
-  paddingTop: '20px'
 });
 
 const MemberDashboardLayout = () => {

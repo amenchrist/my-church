@@ -23,7 +23,7 @@ export default function Tithes(){
         { field: 'currency', headerName: 'Currency', type: 'number', width: 100 },
         { field: 'amount', headerName: 'Amount', type: 'number', width: 70 },
         { field: 'recipient', headerName: 'Recipient', width: 200 },
-        { field: 'time', headerName: 'Email', width: 150 },
+        { field: 'time', headerName: 'Time', width: 150 },
         { field: 'date', headerName: 'Date', width: 150 },
         { field: 'description',headerName: 'Description', width: 150 },
         { field: 'reference', headerName: 'reference', width: 150 },
