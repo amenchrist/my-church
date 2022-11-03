@@ -13,47 +13,46 @@ import useAttendanceLogger from '../../hooks/useAttendanceLogger';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+      {'Powered by '}
       <Link color="inherit" href="#">
-        Loveworldnation.org
+        Evangel Ltd
       </Link>{' '}
-      {new Date().getFullYear()}
+      {/* {new Date().getFullYear()} */}
       {'.'}
     </Typography>
   );
 }
 export default function AttendancePage() {
 
-    const { setAttendanceSubmitted, currentMember, attendanceSubmitted} = useStateContext();
+  const { setAttendanceSubmitted, user } = useStateContext();
 
-    const [ emailExists, responseReceived, isAnAdmin ] = useEmailChecker(currentMember.email);  
-    const attendanceLogged = useAttendanceLogger(currentMember.attendanceRecords);
-   
-    useEffect(() => {
-      if(attendanceLogged && attendanceSubmitted === false){
-          setAttendanceSubmitted(true)
-      }
-  }, [attendanceSubmitted, attendanceLogged, setAttendanceSubmitted])
+  const [ emailExists, emailChecked, isAnAdmin ] = useEmailChecker(user.email);  
+  const attendanceLogged = useAttendanceLogger(user.attendanceRecords);
+
+  useEffect(() => {
+    setAttendanceSubmitted(attendanceLogged)
+  }, [attendanceLogged, setAttendanceSubmitted])
   
-    return (
-        <Container component="main" maxWidth="xs">
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Welcome
-            </Typography>
-            {!responseReceived? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
-          </Box>
-          <Copyright sx={{ mt: 5 }} />
-        </Container>
-    );
+  return (
+      <Container component="main" maxWidth="xs" sx={{ }}>
+        <Box
+          sx={{
+            marginTop: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            overflowY: "auto"
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Welcome
+          </Typography>
+          {!emailChecked? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+  );
 }

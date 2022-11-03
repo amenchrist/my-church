@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function AttendanceForm({isAnAdmin}) {
 
-    const { currentMember, churchName, orgDetails, setCurrentMember, geolocation } = useStateContext();    
+    const { user, setUser, orgDetails, geolocation } = useStateContext();    
 
     const [ attendance, setAttendance ] = useState(1)
     const [ valid, setValid ] = useState(true);
@@ -33,11 +33,11 @@ export default function AttendanceForm({isAnAdmin}) {
 
         const payload = {
             id: dateValues.time.toString(),
-            email: currentMember.email ,
+            email: user.email ,
             date: dateValues.date,
             day: dateValues.day,
             time: dateValues.time,
-            church: churchName,
+            church: '',
             attendance: parseInt(data.get('attendance')),
             origin: orgDetails.url,
             ip: geolocation.IPv4,
@@ -45,7 +45,7 @@ export default function AttendanceForm({isAnAdmin}) {
             deviceHeight: window.innerHeight
         }
 
-        setCurrentMember({...currentMember, attendanceRecords: [payload]})
+        setUser({...user, attendanceRecords: [payload]})
       }
       
     }
@@ -62,7 +62,7 @@ export default function AttendanceForm({isAnAdmin}) {
               label="Email Address"
               name="email"
               autoComplete="email"
-              value={currentMember.email}
+              value={user.email}
               disabled
               
             />

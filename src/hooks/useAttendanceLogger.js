@@ -3,7 +3,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAttendanceLogger(attendanceRecords) {
 
-  const {server,  } = useStateContext();
+  const {server, attendanceSubmitted } = useStateContext();
 
   const [attendanceLogged, setAttendanceLogged] = useState(false);
   
@@ -12,9 +12,8 @@ export default function useAttendanceLogger(attendanceRecords) {
       const controller = new AbortController();
       const signal = controller.signal;
  
-      if(attendanceRecords !== undefined && attendanceRecords.length){
+      if(attendanceRecords !== undefined && attendanceRecords.length && !attendanceSubmitted){
         console.log("submitting attendance record")
-        console.log(attendanceRecords[0])
         const options = {
             signal: signal,
             method: 'POST',

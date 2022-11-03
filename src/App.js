@@ -8,10 +8,10 @@ function App() {
   const { isMobileNavOpen, setMobileNavOpen } = useStateContext();
   return (
     <div style={{height: '100vh', overflowY: 'hidden' }}>
-    <ThemeProvider>
-      <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} isMobileNavOpen={isMobileNavOpen} />
-      <Router />
-    </ThemeProvider>
+      <ThemeProvider>
+        <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} isMobileNavOpen={isMobileNavOpen} />
+        <Router />
+      </ThemeProvider>
     </div>
   );
 }

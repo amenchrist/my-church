@@ -23,7 +23,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
 const {toggleMenuIcon, setToggleMenuIcon } = useStateContext()
 
 const location = useLocation();
-console.log(location)
+// console.log(location)
 useEffect(() => {
   if (location.pathname === ("/")) {
     setToggleMenuIcon(true)
@@ -31,8 +31,6 @@ useEffect(() => {
     setToggleMenuIcon(false)
   }
 }, [location.pathname, setToggleMenuIcon]);
-
-  
 
   // const [notifications] = useState([]);
   const { orgDetails } = useStateContext()

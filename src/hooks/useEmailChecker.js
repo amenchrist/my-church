@@ -5,7 +5,7 @@ export default function useEmailChecker(email) {
 
   const {server} = useStateContext();
   const [emailExists, setEmailExists] = useState(false)
-  const [responseReceived, setResponseReceived] = useState(false)
+  const [emailChecked, setEmailChecked] = useState(false)
   const [isAnAdmin, setIsAnAdmin] = useState(false)
   
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function useEmailChecker(email) {
           }else {
             console.log("Member not found")
           }
-          setResponseReceived(true)
+          setEmailChecked(true)
 
         }).catch(err => {
           console.log(err)
@@ -49,6 +49,6 @@ export default function useEmailChecker(email) {
       }
     }, [ server, email])
 
-  return [emailExists, responseReceived, isAnAdmin]
+  return [emailExists, emailChecked, isAnAdmin]
 }
 

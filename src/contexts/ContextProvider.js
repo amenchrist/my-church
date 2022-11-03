@@ -1,51 +1,72 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useMemo } from 'react';
 import { getOrgDetails } from '../functions';
 
 const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
 
-  const rendered = useRef(0)
+  //Track number of rerenders
+  const rendered = useRef(0);
   useEffect(() => {
     rendered.current++
     console.log(`Context provider Renders = ${rendered.current}`)
-  })
+  }, []);
 
+  //Set server location
+  const server = useMemo(() => {
+    console.log("Setting Server");
+    const localHost = "http://localhost:5000";
+    const host = 'https://arcane-anchorage-41306.herokuapp.com';
+    
+    if(window.location.href.includes('localhost')){
+      return localHost
+    } else {
+      return host
+    }
+  }, []);
+
+  //Get info on parent website
+  const orgDetails = useMemo(() => getOrgDetails(), []);
+
+  // const [orgDetails, setOrgDetails] = useState({
+  //   name: '',
+  //   url: ''
+  // })
+  // useEffect(() => {
+  //   //Getting Organisation Details
+  //   console.log("Getting Org Details");
+  //   setOrgDetails(getOrgDetails())
+  // }, [])
+
+  //Set app default values
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
-  const [geolocation, setGeolocation] = useState({IPv4: 'IP UNAVAILABLE'});
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [currentMember, setCurrentMember] = useState({});
-  const [orgDetails, setOrgDetails] = useState({
-    name: '',
-    url: ''
-  })
-  const [attendanceRecords, setAttendanceRecords] = useState([]);
-  const [serviceDate, setServiceDate] = useState('');
-  const [serviceDateObjects, setServiceDateObjects] = useState([])
-  const [dates, setDates] = useState([]);
-  const [isRegistered, setIsRegistered] = useState(true);
-  const [isNewSite, setIsNewSite] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
+  const [toggleMenuIcon, setToggleMenuIcon] = useState(false);
   const [awaitingServerResponse, setAwaitingServerResponse] = useState(false)
   const [authRequested, setAuthRequested] = useState(false)
-  const [toggleMenuIcon, setToggleMenuIcon] = useState(false)
 
-  const localHost = "http://localhost:5000";
-  const host = 'https://arcane-anchorage-41306.herokuapp.com';
-  let server = host
-  if(window.location.href.includes('localhost') && server !== localHost){
-    console.log("Setting Server");
-    server = (localHost)
-  }
-  
-  useEffect(() => {
-    //Getting Organisation Details
-    console.log("Getting Org Details");
-    setOrgDetails(getOrgDetails())
-  }, [])
+  //Set user defaults
+  const [currentMember, setCurrentMember] = useState({});
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
+  const [geolocation, setGeolocation] = useState({IPv4: 'IP UNAVAILABLE'});
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
+  const [user, setUser] = useState({
+    email: '',
+    isAdmin: false,
+    isSignedIn: false,
+    isRegistered: false,
+    attendanceSubmitted: false
+  })
 
- 
+  //Set church dashboard defaults
+  const [dates, setDates] = useState([]);
+  const [serviceDate, setServiceDate] = useState('');
+  const [serviceDateObjects, setServiceDateObjects] = useState([])
+  const [attendanceRecords, setAttendanceRecords] = useState([]);
+
+  //Set member dashboard defaults  
+  const [isNewSite, setIsNewSite] = useState(true); 
 
   //get ip and location info
   // useEffect(() => {
@@ -97,7 +118,8 @@ export const ContextProvider = ({ children }) => {
     isSignedIn, setIsSignedIn, isRegistered, setIsRegistered, currentMember, setCurrentMember,
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
     awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested,
-    isMobileNavOpen, setMobileNavOpen, toggleMenuIcon, setToggleMenuIcon
+    isMobileNavOpen, setMobileNavOpen, toggleMenuIcon, setToggleMenuIcon,
+    user, setUser
 
   }
 

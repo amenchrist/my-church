@@ -39,11 +39,11 @@ const DashboardLayoutContent = styled('div')({
 });
 
 const MemberDashboardLayout = () => {
+
   const { isMobileNavOpen, setMobileNavOpen } = useStateContext();
 
   return (
     <DashboardLayoutRoot>
-      {/* <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} /> */}
       <MemberSidebar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}

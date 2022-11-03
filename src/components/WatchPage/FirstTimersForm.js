@@ -6,7 +6,7 @@ import { attendanceRegex, nameRegex, phoneRegex } from '../regex';
 
 export default function FirstTimersForm() {
 
-  const { currentMember, setCurrentMember, churchName, orgDetails, geolocation } = useStateContext();
+  const { user, setUser, orgDetails, geolocation } = useStateContext();
 
   const [ attendance, setAttendance ] = useState(1)
   const [ firstName, setFirstName ] = useState('');
@@ -22,7 +22,7 @@ export default function FirstTimersForm() {
   const [ valid, setValid ] = useState(false);
 
   useEffect(() => {
-    console.log("Valid = ", valid)
+    // console.log("Valid = ", valid)
     if(validFirstName && validLastName && validPhone && validAttendance ){
       setValid(true)
     } else {
@@ -53,11 +53,11 @@ export default function FirstTimersForm() {
 
       const attendanceRecord = {
         id: dateValues.time.toString(),
-        email:currentMember.email,
+        email:user.email,
         date: dateValues.date,
         day: dateValues.day,
         time: dateValues.time,
-        church: churchName,
+        church: '',
         attendance: parseInt(data.get('attendance')),
         origin: orgDetails.url,
         primaryAttendee: data.get('firstName'),
@@ -69,7 +69,7 @@ export default function FirstTimersForm() {
         deviceHeight: window.innerHeight
       }
 
-      setCurrentMember({...currentMember, attendanceRecords: [attendanceRecord]})
+      setUser({...user, attendanceRecords: [attendanceRecord]})
     }
 
   };
@@ -129,7 +129,7 @@ export default function FirstTimersForm() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            value={currentMember.email}
+            value={user.email}
             disabled
           />
         </Grid>
@@ -190,12 +190,12 @@ export default function FirstTimersForm() {
               onChange={(e) => handleValidation(e.target.value, setAttendance, setValidAttendance, attendanceRegex)}
             />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox value="allowExtraEmails" color="primary" />}
-            label="I want to receive inspiration, marketing promotions and updates via email."
+            label="I want to receive inspiration, and updates via email."
           />
-        </Grid> */}
+        </Grid>
       </Grid>
       <Button
         type="submit"

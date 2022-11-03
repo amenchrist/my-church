@@ -31,13 +31,13 @@ let items = [
 
 const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { currentMember, isAdmin } = useStateContext();
+  const { currentMember, isAdmin, orgDetails } = useStateContext();
 
   const { title, firstName, lastName, church } = currentMember;
 
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
-    jobTitle: church? church: 'Unknown Church',
+    org: church? church: orgDetails.name,
     name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown Member'
   };
 
@@ -52,7 +52,7 @@ const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
 
   const location = useLocation();
 
-  console.log(location)
+  // console.log(location)
   // useEffect(() => {
   //   if (openMobile && onMobileClose) {
   //     onMobileClose();
@@ -89,14 +89,16 @@ const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
         <Typography
           color="textPrimary"
           variant="h5"
+          align='center'
         >
           {user.name}
         </Typography>
         <Typography
           color="textSecondary"
           variant="body2"
+          align='center'
         >
-          {user.jobTitle}
+          {user.org}
         </Typography>
       </Box>
       <Divider />

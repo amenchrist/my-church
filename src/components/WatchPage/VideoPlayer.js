@@ -11,7 +11,7 @@ function VideoPlayer() {
   const aspectRatio = 0.5625;
 
 //   let youtube = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
+  const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
   // const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
   // const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8"
   // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
@@ -19,17 +19,17 @@ const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
   const videoSource = lsat;
   
   const [width, setWidth] = useState('100');
-  const [height, setHeight] = useState(width*aspectRatio)
-  const [divHeight, setDivHeight] = useState('100%')
-  const [playing, setPlaying] = useState(false)
+  const [height, setHeight] = useState(width*aspectRatio);
+  const [divHeight, setDivHeight] = useState('100%');
+  // const [playing, setPlaying] = useState(false)
 
   function changeDivHeight(){
     if(window.innerWidth > 900){
-      setDivHeight("95vh")
+      setDivHeight("100%")
     } else {
       setDivHeight('')
     }
-    setPlaying(true)
+    // setPlaying(true)
   }
 
   useEffect(()=>{
@@ -42,9 +42,9 @@ const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
       setHeight(videoWidth*aspectRatio);
     });
     changeDivHeight()
-    setPlaying(true)
+    // setPlaying(true)
     return () => {
-      setPlaying(false)
+      // setPlaying(false)
       console.log("Unmounting Video Player")
     }
   }, [])
@@ -54,24 +54,26 @@ const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
     setHeight(width*aspectRatio);
     
     changeDivHeight()
-    setPlaying(true)
+    // setPlaying(true)
     return () => {
-      setPlaying(false)
+      // setPlaying(false)
       console.log("Unmounting Video Player")
     }
   }, [width])
 
   function MutedVideoPlayer() {
     return (
-      <ReactPlayer url={videoSource} width={"100%"} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={(e)=> console.log(e)} />
+      <ReactPlayer url={videoSource} width={"100%"} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={console.log} />
     )
   }
+
+  // console.log(ReactPlayer.canPlay(lsat))
 
   return (
     <>
       <div style={{backgroundColor: "black", display:"flex", height:divHeight, flexDirection: 'column', justifyContent: 'center'}}>
         {attendanceSubmitted? 
-        <ReactPlayer pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={playing} light={true} />
+        <ReactPlayer pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={true} light={true} />
         :
         <MutedVideoPlayer />
         }
