@@ -6,33 +6,39 @@ import Box from '@mui/material/Box';
 import AttendancePage from './AttendancePage';
 import { useStateContext } from '../../contexts/ContextProvider';
 import WatchPageSidebar from '../../components/WatchPage/WatchPageSidebar';
-import { useMemo } from 'react';
+import { Hidden } from '@mui/material';
 
 function WatchPage() {
 
   const { attendanceSubmitted, isMobileNavOpen, setMobileNavOpen } = useStateContext();
 
-  const PersistentVideoPlayer = useMemo(() => {
-    return (
-      <Grid item xs={12} md={8}>        
-        <VideoPlayer />
-      </Grid>
-    )
-  }, [attendanceSubmitted])
-
   return (
     <>
-      <Box sx={{ flexGrow: 1, height: '100vh' }}>
+      <Box sx={{ flexGrow: 1, height: '90vh' }}>
         <WatchPageSidebar 
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
         />
-        <Grid container sx={{ height: "100%"}}>
-          {PersistentVideoPlayer}
-          <Grid item xs={12} md={4} sx={{ overflowY: "hidden"}} >
+        <Hidden mdDown>
+        <Grid container sx={{ height: "100%" }} >
+          <Grid item xs={12} md={8} sx={{ border: '2px solid green' }} >        
+            <VideoPlayer />
+          </Grid>
+          <Grid item xs={12} md={4} sx={{border: '2px solid blue'}} >
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </Grid>
         </Grid>
+        </Hidden>
+        <Hidden mdUp>
+        <Grid container sx={{ height: "" }} >
+          <Grid item xs={12} md={8} sx={{ border: '2px solid green' }} >        
+            <VideoPlayer />
+          </Grid>
+          <Grid item xs={12} md={4} sx={{border: '2px solid blue'}} >
+            {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
+          </Grid>
+        </Grid>
+        </Hidden>
       </Box>
     </>
   )

@@ -18,7 +18,7 @@ function VideoPlayer() {
   
   const videoSource = lsat;
   
-  const [width, setWidth] = useState('100');
+  const [width, setWidth] = useState('100%');
   const [height, setHeight] = useState(width*aspectRatio);
   const [divHeight, setDivHeight] = useState('100%');
   // const [playing, setPlaying] = useState(false)
@@ -50,8 +50,8 @@ function VideoPlayer() {
   }, [])
 
   useEffect(()=>{
-    console.log("setting height")
-    setHeight(width*aspectRatio);
+    console.log("setting div height")
+    // setHeight(width*aspectRatio);
     
     changeDivHeight()
     // setPlaying(true)

@@ -36,7 +36,7 @@ useEffect(() => {
   const { orgDetails } = useStateContext()
 
   return (
-    <AppBar position='relative' sx={{ backgroundColor: 'white', boxShadow: 'none'}} >
+    <AppBar position='relative' sx={{ backgroundColor: 'white', boxShadow: 'none', height: '10vh', display:'flex', justifyContent: 'center' }} >
       <Toolbar>
         <Link to="/">
           <Logo />

@@ -8,7 +8,7 @@ const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     display: 'flex',
-    height: '100%',
+    height: '90vh',
     overflow: 'hidden',
     width: '100%'
   })

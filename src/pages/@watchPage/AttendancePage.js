@@ -34,14 +34,25 @@ export default function AttendancePage() {
   }, [attendanceLogged, setAttendanceSubmitted])
   
   return (
-      <Container component="main" maxWidth="xs" sx={{ }}>
+      <Container component="main" maxWidth="xs" 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: "space-between", 
+          height: '100%', 
+          border: '2px solid red',
+          py: 2
+        }} 
+        >
         <Box
           sx={{
-            marginTop: 2,
+            padding: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            overflowY: "auto"
+            overflowY: "auto",
+            // maxHeight: '70%',
+            border: '2px solid black'
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -52,7 +63,7 @@ export default function AttendancePage() {
           </Typography>
           {!emailChecked? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright />
       </Container>
   );
 }
