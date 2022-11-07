@@ -11,6 +11,13 @@ import { Hidden } from '@mui/material';
 function WatchPage() {
 
   const { attendanceSubmitted, isMobileNavOpen, setMobileNavOpen } = useStateContext();
+  // const [ height, setHeight ] = React.useState('100%')
+
+  // React.useEffect(() => {
+  //   if(window.innerWidth < 900){
+  //     setHeight(document.getElementById("attendance-div").clientHeight)
+  //   }
+  // })
 
   return (
     <>
@@ -21,23 +28,23 @@ function WatchPage() {
         />
         <Hidden mdDown>
         <Grid container sx={{ height: "100%" }} >
-          <Grid item xs={12} md={8} sx={{ border: '2px solid green' }} >        
+          <Grid item xs={12} md={8}  >        
             <VideoPlayer />
           </Grid>
-          <Grid item xs={12} md={4} sx={{border: '2px solid blue'}} >
+          <Grid item xs={12} md={4}  >
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </Grid>
         </Grid>
         </Hidden>
         <Hidden mdUp>
-        <Grid container sx={{ height: "" }} >
-          <Grid item xs={12} md={8} sx={{ border: '2px solid green' }} >        
+        <div style={{display: 'flex', height: "100%", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+          <div style={{width:'100%'}}>
             <VideoPlayer />
-          </Grid>
-          <Grid item xs={12} md={4} sx={{border: '2px solid blue'}} >
+          </div>
+          <div id='attendance-div' style={{ flexGrow: 1, overflowY: "auto", margin: 0 }}>
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
-          </Grid>
-        </Grid>
+          </div>
+        </div>
         </Hidden>
       </Box>
     </>

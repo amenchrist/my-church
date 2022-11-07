@@ -27,7 +27,7 @@ function VideoPlayer() {
     if(window.innerWidth > 900){
       setDivHeight("100%")
     } else {
-      setDivHeight('')
+      // setDivHeight('')
     }
     // setPlaying(true)
   }
@@ -45,7 +45,7 @@ function VideoPlayer() {
     // setPlaying(true)
     return () => {
       // setPlaying(false)
-      console.log("Unmounting Video Player")
+      console.log("Unmounting Video Player 1")
     }
   }, [])
 
@@ -57,13 +57,13 @@ function VideoPlayer() {
     // setPlaying(true)
     return () => {
       // setPlaying(false)
-      console.log("Unmounting Video Player")
+      console.log("Unmounting Video Player 2")
     }
   }, [width])
 
   function MutedVideoPlayer() {
     return (
-      <ReactPlayer url={videoSource} width={"100%"} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={console.log} />
+      <ReactPlayer url={videoSource} width={"100%"} height={'100%'} id={"video-player"} volume={0} muted={true} playing={true} onError={console.log} />
     )
   }
 
@@ -71,7 +71,7 @@ function VideoPlayer() {
 
   return (
     <>
-      <div style={{backgroundColor: "black", display:"flex", height:divHeight, flexDirection: 'column', justifyContent: 'center'}}>
+      <div style={{backgroundColor: "black", display:"flex", width: '100%', height: divHeight, flexDirection: 'column', justifyContent: 'center'}}>
         {attendanceSubmitted? 
         <ReactPlayer pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={true} light={true} />
         :

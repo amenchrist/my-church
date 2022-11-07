@@ -28,20 +28,29 @@ export default function AttendancePage() {
 
   const [ emailExists, emailChecked, isAnAdmin ] = useEmailChecker(user.email);  
   const attendanceLogged = useAttendanceLogger(user.attendanceRecords);
+  const [ height, setHeight ] = React.useState('90%')
+  
 
   useEffect(() => {
     setAttendanceSubmitted(attendanceLogged)
   }, [attendanceLogged, setAttendanceSubmitted])
+
+  useEffect(() => {
+    if(window.innerWidth > 900){
+      setHeight('80%')
+    }
+  }, [])  
   
   return (
-      <Container component="main" maxWidth="xs" 
+      <Container component="main" maxWidth="xs"
         sx={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          justifyContent: "space-between", 
+          justifyContent: "", 
           height: '100%', 
-          border: '2px solid red',
-          py: 2
+          pb:2, m:0,
+          overflowY: "auto"
+               
         }} 
         >
         <Box
@@ -50,18 +59,18 @@ export default function AttendancePage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            overflowY: "auto",
-            // maxHeight: '70%',
-            border: '2px solid black'
+            height: height,                
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Welcome
           </Typography>
-          {!emailChecked? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
+          <div style={{ overflowY: "auto" }}>
+            {!emailChecked? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
+          </div>
         </Box>
         <Copyright />
       </Container>

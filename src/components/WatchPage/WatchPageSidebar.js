@@ -42,7 +42,6 @@ const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
   };
 
   useEffect(()=> {
-    console.log(isAdmin)
     if(!isAdmin){
       items = items.filter(item => item.href !== '/admin-dashboard/summary')
     }
