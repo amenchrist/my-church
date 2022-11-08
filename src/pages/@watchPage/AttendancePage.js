@@ -46,11 +46,12 @@ export default function AttendancePage() {
         sx={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          justifyContent: "", 
-          height: '100%', 
+          justifyContent: "space-between", 
+          height: '100%',
+          width: '100%',
           pb:2, m:0,
-          overflowY: "auto"
-               
+          overflowY: "auto",
+          alignItems: 'center'
         }} 
         >
         <Box
@@ -59,7 +60,9 @@ export default function AttendancePage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            height: height,                
+            height: height,
+            width: '100%',
+            justifyContent: "center",          
           }}
         >
           <Avatar sx={{ bgcolor: 'secondary.main' }}>
@@ -68,7 +71,7 @@ export default function AttendancePage() {
           <Typography component="h1" variant="h5">
             Welcome
           </Typography>
-          <div style={{ overflowY: "auto" }}>
+          <div style={{ overflowY: "auto", width: '100%' }}>
             {!emailChecked? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
           </div>
         </Box>

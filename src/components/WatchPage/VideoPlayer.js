@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import { useStateContext } from '../../contexts/ContextProvider';
 
 function VideoPlayer() {
@@ -41,7 +41,7 @@ function VideoPlayer() {
       setWidth(videoWidth)
       setHeight(videoWidth*aspectRatio);
     });
-    changeDivHeight()
+    // changeDivHeight()
     // setPlaying(true)
     return () => {
       // setPlaying(false)
@@ -50,10 +50,10 @@ function VideoPlayer() {
   }, [])
 
   useEffect(()=>{
-    console.log("setting div height")
+    console.log("not setting div height")
     // setHeight(width*aspectRatio);
     
-    changeDivHeight()
+    // changeDivHeight()
     // setPlaying(true)
     return () => {
       // setPlaying(false)

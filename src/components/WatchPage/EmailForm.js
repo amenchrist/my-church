@@ -32,32 +32,33 @@ export default function EmailForm() {
     }
 
   return (
-    <Box component="form" noValidate onSubmit={submitEmail} sx={{ mt: 3, width: '100%' }}  >
-      <Grid container spacing={2} >
-        <Grid item xs={12} >
-          <TextField
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            value={email}
-            error={!valid}
-            autoFocus
-            onChange={(e) => handleValidation(e.target.value)}
-          />
+    <>
+      <Box component="form" noValidate onSubmit={submitEmail} sx={{ mt: 3, width: '100%' }}  >
+        <Grid container spacing={2} >
+          <Grid item xs={12} >
+            <TextField
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              value={email}
+              error={!valid}
+              autoFocus
+              onChange={(e) => handleValidation(e.target.value)}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
-        Submit
-      </Button>
-      
-    </Box>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Submit
+        </Button>
+      </Box>
+    </>
   )
 }

@@ -31,7 +31,7 @@ function WatchPage() {
           <Grid item xs={12} md={8}  >        
             <VideoPlayer />
           </Grid>
-          <Grid item xs={12} md={4}  >
+          <Grid item xs={12} md={4} style={{display: 'flex', width: "100%", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </Grid>
         </Grid>
@@ -41,7 +41,7 @@ function WatchPage() {
           <div style={{width:'100%'}}>
             <VideoPlayer />
           </div>
-          <div id='attendance-div' style={{ flexGrow: 1, overflowY: "auto", margin: 0 }}>
+          <div id='attendance-div' style={{ flexGrow: 1, overflowY: "auto", margin: 0, width: "100%" }}>
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </div>
         </div>
