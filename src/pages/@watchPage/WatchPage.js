@@ -11,13 +11,8 @@ import { Hidden } from '@mui/material';
 function WatchPage() {
 
   const { attendanceSubmitted, isMobileNavOpen, setMobileNavOpen } = useStateContext();
-  // const [ height, setHeight ] = React.useState('100%')
-
-  // React.useEffect(() => {
-  //   if(window.innerWidth < 900){
-  //     setHeight(document.getElementById("attendance-div").clientHeight)
-  //   }
-  // })
+  
+  console.log('width is ', window.innerWidth)
 
   return (
     <>
@@ -28,20 +23,24 @@ function WatchPage() {
         />
         <Hidden mdDown>
         <Grid container sx={{ height: "100%" }} >
-          <Grid item xs={12} md={8}  >        
-            <VideoPlayer />
+          <Grid item xs={12} md={8}  >  
+            <div style={{backgroundColor: "black", display:"flex", width: '100%', height: '100%', flexDirection: 'column', justifyContent: 'center'}}>
+              <div style={{ width: '100%'}}>
+                <VideoPlayer />
+              </div>
+            </div>     
           </Grid>
-          <Grid item xs={12} md={4} style={{display: 'flex', width: "100%", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
+          <Grid item xs={12} md={4} style={{display: 'flex', width: "100%", flexDirection: 'column',  alignItems: 'center'}} >
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </Grid>
         </Grid>
         </Hidden>
         <Hidden mdUp>
         <div style={{display: 'flex', height: "100%", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          <div style={{width:'100%'}}>
-            <VideoPlayer />
+          <div id={'video-container'} style={{ backgroundColor: "black",  width: '100%'}}>
+            <VideoPlayer  />
           </div>
-          <div id='attendance-div' style={{ flexGrow: 1, overflowY: "auto", margin: 0, width: "100%" }}>
+          <div id='attendance-div' style={{ flexGrow: 1, overflowY: "hidden", margin: 0, width: "100%",display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </div>
         </div>

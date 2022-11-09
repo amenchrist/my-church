@@ -23,8 +23,8 @@ function LiveChat() {
 
   return (
     <>
-    <div style={{height: '80vh'}}>
-      <iframe id='chatFrame' title="ChatBox" name="lb24" frameBorder="0" height="100%" loading="lazy" width="100%" className="lb24-iframe" scrolling="auto" ></iframe>
+    <div style={{height: '100%'}}>
+      <iframe id='chatFrame' title="ChatBox" name="lb24" frameBorder="0" height="100%" loading="lazy" width="100%" className="lb24-iframe"  ></iframe>
       {/* <script src="https://v.24liveblog.com/iframe.js"></script>    */}
     </div>
     </>

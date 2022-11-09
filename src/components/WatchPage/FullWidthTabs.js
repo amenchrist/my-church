@@ -10,6 +10,13 @@ import Announcements from './Announcements';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
+  React.useEffect(() => {
+    document.getElementById('tab-panellll').parentElement.parentElement.height = '100%'
+    console.log(document.getElementById('tab-panellll').parentElement.parentElement.parentElement.height)
+  
+  }, [])
+  
+
   return (
     <div
       role="tabpanel"
@@ -19,9 +26,12 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
+        // <Box sx={{ p: 1 }}>
+          
+        // </Box>
+        <div style={{  height: '100%', border: '2px solid white', backgroundColor: "red", overflowY: 'hidden' }}>            
+            {children}
+          </div>
       )}
     </div>
   );
@@ -53,8 +63,8 @@ export default function FullWidthTabs() {
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: "100%", }}>
-      <AppBar position="static">
+    <Box sx={{ bgcolor: 'background.paper', width: "100%", height: '100%' }}>
+      <AppBar position="static" style={{height:'10%'}}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -68,13 +78,18 @@ export default function FullWidthTabs() {
           <Tab label="Giving" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
+      <div id='test tab' style={{ height: '90%', border: '2px solid red', backgroundColor: "pink", overflowY: 'auto'}}>
+
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
+        style={{height: '100%'}}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
+        <TabPanel value={value} index={0} dir={theme.direction} id='tab-panellll' style={{ height: '100%', border: '2px solid black', backgroundColor: "blue", overflowY: 'hidden'  }}  >
           <LiveChat />
+          {/* <div style={{backgroundColor: "green", height: '400px' }} >
+          </div> */}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
         <Announcements />
@@ -83,6 +98,7 @@ export default function FullWidthTabs() {
           <GivingForm />
         </TabPanel>
       </SwipeableViews>
+      </div>
     </Box>
   );
 }
