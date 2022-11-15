@@ -22,9 +22,9 @@ export default function Announcements() {
   ];
 
   return (
-    <Container >
+    <Container  sx={{ p:2, height: "100%" }}>
           {/* End hero unit */}
-          <Grid container spacing={4} sx={{  height: "800px", overflowY: "auto" }} >
+          <Grid container spacing={2} sx={{  height: "100%", overflowY: "auto" }} >
             {cards.map((card,i) => (
               <Grid item key={i} xs={12} sm={12} md={12}>
                 <Card

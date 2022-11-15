@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useMemo } from 'react';
 import { getOrgDetails } from '../functions';
+import useEmailChecker from '../hooks/useEmailChecker';
 
 const StateContext = createContext();
 
@@ -39,6 +40,7 @@ export const ContextProvider = ({ children }) => {
   // }, [])
 
   //Set app default values
+  const [serverIsOnline, setServerIsOnline] = useState(false)
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [toggleMenuIcon, setToggleMenuIcon] = useState(false);
   const [awaitingServerResponse, setAwaitingServerResponse] = useState(false)
@@ -67,6 +69,7 @@ export const ContextProvider = ({ children }) => {
 
   //Set member dashboard defaults  
   const [isNewSite, setIsNewSite] = useState(true); 
+
 
   //get ip and location info
   // useEffect(() => {
@@ -119,7 +122,7 @@ export const ContextProvider = ({ children }) => {
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
     awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested,
     isMobileNavOpen, setMobileNavOpen, toggleMenuIcon, setToggleMenuIcon,
-    user, setUser
+    user, setUser, serverIsOnline, setServerIsOnline
 
   }
 

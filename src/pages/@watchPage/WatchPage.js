@@ -36,9 +36,9 @@ function WatchPage() {
         </Grid>
         </Hidden>
         <Hidden mdUp>
-        <div style={{display: 'flex', height: "100%", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{display: 'flex', height: "100%", width: '100%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
           <div id={'video-container'} style={{ backgroundColor: "black",  width: '100%'}}>
-            <VideoPlayer  />
+            <VideoPlayer />
           </div>
           <div id='attendance-div' style={{ flexGrow: 1, overflowY: "hidden", margin: 0, width: "100%",display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }

@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField, Grid, Box } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { emailRegex } from '../regex';
+import useEmailChecker from '../../hooks/useEmailChecker';
 
 export default function EmailForm() {
 
-  const { setUser } = useStateContext();
-
+  const { setUser, serverIsOnline, setServerIsOnline } = useStateContext();
   const [ email, setEmail ] = useState('')
   const [ valid, setValid ] = useState(true);
+
+   // Check if server is online
+   const emailChecked = useEmailChecker('et@test.com')[1]; 
+
+  //  useEffect(() => {
+  //   if(!emailChecked){
+  //     setInterval(setServerIsOnline(false), 3000)
+      
+  //   } 
+  // })
+
+   useEffect(() => {
+     if(emailChecked){
+       setServerIsOnline(true)
+     } else{
+      setServerIsOnline(false)
+     }
+   }, [emailChecked, setServerIsOnline])
 
   const handleValidation = (value) => {
       //set email to user input
@@ -22,14 +40,14 @@ export default function EmailForm() {
   };
 
   function submitEmail(event){
-      event.preventDefault();
-      handleValidation(email)
-      if(valid){
-        const data = new FormData(event.currentTarget);
-        const userEmail = data.get('email').toLowerCase();
-        setUser({email: userEmail})
-      }
+    event.preventDefault();
+    handleValidation(email)
+    if(valid){
+      const data = new FormData(event.currentTarget);
+      const userEmail = data.get('email').toLowerCase();
+      setUser({email: userEmail})
     }
+  }
 
   return (
     <>
@@ -55,6 +73,7 @@ export default function EmailForm() {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={!serverIsOnline}
         >
           Submit
         </Button>

@@ -14,7 +14,7 @@ function GivingForm() {
     const { currentMember,  } = useStateContext();
 
     return (
-      <div>
+      <div style={{padding: '20px'}}>
         <h2 >Giving</h2>
         <Box sx={{ minWidth: 120, marginTop: '15px' }}  >
           <FormControl fullWidth>

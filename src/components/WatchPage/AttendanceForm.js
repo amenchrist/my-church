@@ -75,6 +75,7 @@ export default function AttendanceForm({isAnAdmin}) {
               label="Number of People Watching"
               id="attendance"
               type='number'
+              min='1'
               value={attendance}
               autoFocus
               onChange={(e) => handleValidation(e.target.value)}

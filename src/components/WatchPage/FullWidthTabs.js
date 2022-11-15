@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views-react-18-fix';
 import { useTheme, AppBar, Tabs, Tab, Box } from '@mui/material';
@@ -9,13 +9,6 @@ import Announcements from './Announcements';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
-  React.useEffect(() => {
-    document.getElementById('tab-panellll').parentElement.parentElement.height = '100%'
-    console.log(document.getElementById('tab-panellll').parentElement.parentElement.parentElement.height)
-  
-  }, [])
-  
 
   return (
     <div
@@ -29,7 +22,7 @@ function TabPanel(props) {
         // <Box sx={{ p: 1 }}>
           
         // </Box>
-        <div style={{  height: '100%', border: '2px solid white', backgroundColor: "red", overflowY: 'hidden' }}>            
+        <div style={{  height: '100%', overflowY: 'hidden' }}>            
             {children}
           </div>
       )}
@@ -53,6 +46,17 @@ function a11yProps(index) {
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+
+  const [divHeight, setDivHeight] = useState('');
+
+  React.useEffect(() => {
+    // document.getElementById('tab-panellll').parentElement.parentElement.height = '100%'
+    const sectionHeight= document.getElementById('trueParentDiv').clientHeight;
+    console.log(sectionHeight)
+    if(divHeight !== sectionHeight){
+      setDivHeight(sectionHeight)
+    }
+  }, [divHeight])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -78,7 +82,7 @@ export default function FullWidthTabs() {
           <Tab label="Giving" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <div id='test tab' style={{ height: '90%', border: '2px solid red', backgroundColor: "pink", overflowY: 'auto'}}>
+      <div id='trueParentDiv' style={{ height: '90%', overflowY: 'auto'}}>
 
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -86,15 +90,13 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
         style={{height: '100%'}}
       >
-        <TabPanel value={value} index={0} dir={theme.direction} id='tab-panellll' style={{ height: '100%', border: '2px solid black', backgroundColor: "blue", overflowY: 'hidden'  }}  >
+        <TabPanel value={value} index={0} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}  >
           <LiveChat />
-          {/* <div style={{backgroundColor: "green", height: '400px' }} >
-          </div> */}
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        <TabPanel value={value} index={1} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}>
         <Announcements />
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
+        <TabPanel value={value} index={2} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}>
           <GivingForm />
         </TabPanel>
       </SwipeableViews>

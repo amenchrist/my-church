@@ -8,6 +8,7 @@ function VideoPlayer() {
   console.log("Mounting Video Player")
 
   const { attendanceSubmitted } = useStateContext();
+  const [videoSource, setVideoSource] = useState('')
 
   const aspectRatio = 0.5625;
 
@@ -17,7 +18,11 @@ function VideoPlayer() {
   // const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8"
   // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
   
-  const videoSource = lsat;
+  useEffect(()=>{
+    if(videoSource !== lsat ){
+      setVideoSource(lsat)
+    }
+  })
 
   const welcomeImg = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2F4%2F3%2Fe%2F14037.jpg&f=1&nofb=1&ipt=5d3fecf2e91dcf081f3c6d15e5a93cdfb588c4e48fcdc416847ca3bf1c9db8c8&ipo=images'
 
@@ -75,11 +80,9 @@ function VideoPlayer() {
 
   function MutedVideoPlayer() {
     return (
-      <ReactPlayer url={videoSource} width={width} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={console.log} />
+      <ReactPlayer url={videoSource} width={width} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={console.log} onReady={console.log} />
     )
   }
-
-  console.log(ReactPlayer.canPlay(videoSource))
 
   return (
     <>
