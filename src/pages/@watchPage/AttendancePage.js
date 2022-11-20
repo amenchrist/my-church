@@ -1,8 +1,7 @@
-import * as React from 'react';
+import React, { useEffect }  from 'react';
 import { Avatar, Link, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useStateContext } from '../../contexts/ContextProvider';
-import { useEffect } from 'react';
 import useEmailChecker from '../../hooks/useEmailChecker';
 import EmailForm from '../../components/WatchPage/EmailForm';
 import AttendanceForm from '../../components/WatchPage/AttendanceForm';
@@ -15,7 +14,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Powered by '}
       <Link color="inherit" href="#">
-        Evangel Ltd
+        Evangel
       </Link>{' '}
       {/* {new Date().getFullYear()} */}
       {'.'}
@@ -27,8 +26,10 @@ export default function AttendancePage() {
   const { setAttendanceSubmitted, user } = useStateContext();
 
   const [ emailExists, emailChecked, isAnAdmin ] = useEmailChecker(user.email);  
+  // console.log(user.attendanceRecords)
   const attendanceLogged = useAttendanceLogger(user.attendanceRecords);
-  const [ height, setHeight ] = React.useState('90%')
+  const [ height, setHeight ] = React.useState('90%');
+
   
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 export default function useEmailChecker(email) {
 
   const {server} = useStateContext();
+  
   const [emailExists, setEmailExists] = useState(false)
   const [emailChecked, setEmailChecked] = useState(false)
   const [isAnAdmin, setIsAnAdmin] = useState(false)
@@ -14,7 +15,7 @@ export default function useEmailChecker(email) {
       const signal = controller.signal;
 
       if(email){
-        console.log('Authentication has been requested')
+        // console.log('Authentication has been requested')
         //fetch user
         const payload = {
           email: email,
@@ -34,7 +35,7 @@ export default function useEmailChecker(email) {
             setEmailExists(true);
             setIsAnAdmin(response.isAnAdmin) 
           }else {
-            console.log("Member not found")
+            // console.log("Member not found")
           }
           setEmailChecked(true)
 

@@ -6,19 +6,12 @@ import useEmailChecker from '../../hooks/useEmailChecker';
 
 export default function EmailForm() {
 
-  const { setUser, serverIsOnline, setServerIsOnline } = useStateContext();
-  const [ email, setEmail ] = useState('')
+  const { user, setUser, serverIsOnline, setServerIsOnline } = useStateContext();
+  const [ email, setEmail ] = useState(user.email)
   const [ valid, setValid ] = useState(true);
 
    // Check if server is online
    const emailChecked = useEmailChecker('et@test.com')[1]; 
-
-  //  useEffect(() => {
-  //   if(!emailChecked){
-  //     setInterval(setServerIsOnline(false), 3000)
-      
-  //   } 
-  // })
 
    useEffect(() => {
      if(emailChecked){
@@ -45,7 +38,7 @@ export default function EmailForm() {
     if(valid){
       const data = new FormData(event.currentTarget);
       const userEmail = data.get('email').toLowerCase();
-      setUser({email: userEmail})
+      setUser({...user, email: userEmail})
     }
   }
 

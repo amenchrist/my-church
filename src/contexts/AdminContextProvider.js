@@ -10,7 +10,7 @@ export const AdminContextProvider = ({ children }) => {
 
   useEffect(() => {
     rendered.current++
-    console.log(`Admin Context Renders = ${rendered.current}`)
+    // console.log(`Admin Context Renders = ${rendered.current}`)
   })
 
   const [serviceDateObjects, setServiceDateObjects] = useState([])
@@ -34,32 +34,30 @@ export const AdminContextProvider = ({ children }) => {
     averageWednesdayAttendanceByMonth: []
   });
 
+  useEffect(()=> {
+    
+    if(membersRetrieved){
+      setMembersList(getListOfMembers(fullMemberRecords));
+      setServiceSummary({
+          serviceDate: serviceDate,
+          totalAttendance: getTotalAttendance(fullMemberRecords, serviceDate),
+          lastWeeksTotalAttendance: getTotalAttendance(fullMemberRecords, lastWeeksServiceDate),
+          attendanceList: getAttendees(fullMemberRecords, serviceDate),
+          firstTimersList: getFirstTimers(fullMemberRecords, serviceDate),
+          lastWeeksFirstTimersTotal: getFirstTimers(fullMemberRecords, lastWeeksServiceDate).length,
+          totalGiven: getTotalGiven(serviceDate),
+          lastWeeksTotalGiven: getTotalGiven(lastWeeksServiceDate),
+          givingsList: getGivingsList(serviceDate),
+          averageSundayAttendanceByMonth: getAverageMonthlyAttendance(fullMemberRecords),
+          averageWednesdayAttendanceByMonth: getAverageMonthlyAttendance(fullMemberRecords, 3),
+          attendanceOverviewChartLabels: getMonthsForChartLabel(getAverageMonthlyAttendance(fullMemberRecords).length)
+      })
 
-
-    useEffect(()=> {
+      getAverageMonthlyAttendance(fullMemberRecords)
       
-      if(membersRetrieved){
-        setMembersList(getListOfMembers(fullMemberRecords));
-        setServiceSummary({
-            serviceDate: serviceDate,
-            totalAttendance: getTotalAttendance(fullMemberRecords, serviceDate),
-            lastWeeksTotalAttendance: getTotalAttendance(fullMemberRecords, lastWeeksServiceDate),
-            attendanceList: getAttendees(fullMemberRecords, serviceDate),
-            firstTimersList: getFirstTimers(fullMemberRecords, serviceDate),
-            lastWeeksFirstTimersTotal: getFirstTimers(fullMemberRecords, lastWeeksServiceDate).length,
-            totalGiven: getTotalGiven(serviceDate),
-            lastWeeksTotalGiven: getTotalGiven(lastWeeksServiceDate),
-            givingsList: getGivingsList(serviceDate),
-            averageSundayAttendanceByMonth: getAverageMonthlyAttendance(fullMemberRecords),
-            averageWednesdayAttendanceByMonth: getAverageMonthlyAttendance(fullMemberRecords, 3),
-            attendanceOverviewChartLabels: getMonthsForChartLabel(getAverageMonthlyAttendance(fullMemberRecords).length)
-        })
-
-        getAverageMonthlyAttendance(fullMemberRecords)
-        
-      }
-      
-    }, [serviceDate, fullMemberRecords, lastWeeksServiceDate, membersRetrieved])
+    }
+    
+  }, [serviceDate, fullMemberRecords, lastWeeksServiceDate, membersRetrieved])
 
   const contextStateVars = {
     membersList, serviceSummary, serviceDate, setServiceDate, setLastWeeksServiceDate, lastWeeksServiceDate,

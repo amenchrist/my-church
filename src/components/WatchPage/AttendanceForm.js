@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField,  Grid, Box,  } from '@mui/material';
+import { Button, TextField,  Grid, Box, MenuItem,  } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { getDateValues } from '../../functions';
 import { attendanceRegex } from '../regex';
@@ -11,6 +11,7 @@ export default function AttendanceForm({isAnAdmin}) {
 
     const [ attendance, setAttendance ] = useState(1)
     const [ valid, setValid ] = useState(true);
+    const [ church, setChurch ] = useState('CE BARKING')
 
     const handleValidation = (value) => {
         //set email to user input
@@ -37,7 +38,7 @@ export default function AttendanceForm({isAnAdmin}) {
             date: dateValues.date,
             day: dateValues.day,
             time: dateValues.time,
-            church: '',
+            church: church,
             attendance: parseInt(data.get('attendance')),
             origin: orgDetails.url,
             ip: geolocation.IPv4,
@@ -45,10 +46,19 @@ export default function AttendanceForm({isAnAdmin}) {
             deviceHeight: window.innerHeight
         }
 
+        // console.log(payload)
+
         setUser({...user, attendanceRecords: [payload]})
       }
       
     }
+
+    const churches = [
+      'CE LOVE CHURCH BARKING', 'CE BARKING', 'CE EAST HAM', 'CE ILFORD', 'CE MEDWAY', 'CE PORTSMOUTH', 'CE HARLOW',
+      'CE BELFAST', 'CE BRISTOL 1', 'CE BRISTOL 2', 'CE LOVE CHURCH BRISTOL', 'CE THURROCK', 'CE COLCHESTER',
+      'CE DOCKLANDS', 'CE GLOUCESTER', 'CE BATH', 'CE BASILDON', 'CE ROMFORD', 'CE STRATFORD',
+      'CE CYPRUS', 'CE LOVE CHURCH DAGENHAM', 'OTHER'
+    ]
     
     return (
       <>
@@ -67,6 +77,11 @@ export default function AttendanceForm({isAnAdmin}) {
               
             />
           </Grid>
+          <Grid item xs={12} >
+          <TextField required select fullWidth id="title" label="Select Your Church" name="church" value={church} autoComplete="church" autoFocus onChange={(e) => setChurch(e.target.value)} >
+            {churches.map((church) => (<MenuItem key={church} value={church}>{church}</MenuItem>))}
+          </TextField>
+        </Grid>
           <Grid item xs={12}>
             <TextField
               required

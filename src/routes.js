@@ -11,7 +11,7 @@ import { useStateContext } from './contexts/ContextProvider';
 
 export default function Router() {
 
-  const { isAdmin, awaitingServerResponse } = useStateContext()
+  const { user, awaitingServerResponse } = useStateContext()
   const routes = [
     {
       path: '/',
@@ -19,7 +19,7 @@ export default function Router() {
     },
     {
       path: 'admin-dashboard',
-      element: isAdmin && !awaitingServerResponse? <DashboardLayout />:  <SignInSide />,
+      element: user.isAdmin && user.isSignedIn && !awaitingServerResponse? <DashboardLayout />:  <SignInSide />,
       children: [
           { path: 'summary', element: <ServiceSummary />},
           { path: 'attendees', element: <Attendees />  },
@@ -34,7 +34,7 @@ export default function Router() {
     },
     {
       path: 'member-dashboard',
-      element: <MemberDashboardLayout />,
+      element: user.isSignedIn && !awaitingServerResponse? <MemberDashboardLayout />:  <SignInSide />,
       children: [
           { path: 'summary', element: <GivingSummary />},
           { path: 'tithes', element: <Tithes />  },

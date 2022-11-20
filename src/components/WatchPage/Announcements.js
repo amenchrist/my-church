@@ -5,19 +5,19 @@ export default function Announcements() {
 
   const cards = [
     {
-      title: 'Your Loveworld Season 6',
-      image: 'https://d3u1jgd2t7cgti.cloudfront.net/2022/04/19/20/58/22/966/165041630277_img_20220419_161222.jpg',
-      description: "It's time for another special time of fellowship with God's word"
+      title: 'PRAISE NIGHT',
+      image: 'https://christembassy.org/wp-content/uploads/2022/02/Pastor.jpg',
+      description: "It's time for another special time of Praise and Worship to God hosted by the man of God Pastor Chris."
     },
     {
-      title: 'October Global Communion Service',
+      title: 'Global Day of Prayer',
+      image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.globaldiasporanews.com%2Fwp-content%2Fuploads%2F2020%2F12%2F1607113949_maxresdefault.jpg&f=1&nofb=1&ipt=4e14d6d0a73c44efef127f7ffef7fea6efeb4688199c638bc3dd0fb127d0af14&ipo=images',
+      description: `It’s time to take action, as you join forces with the Man of God Pastor Chris at the Global Day of Prayer from 6pm GMT+1 Friday, December 2nd, 2022 to Saturday December 3rd, 2022.`
+    },
+    {
+      title: 'December Global Communion Service',
       image: 'https://d3u1jgd2t7cgti.cloudfront.net/2022/04/03/18/01/33/322/164902329381_img_20220403_174314.jpg',
-      description: "Tune in on the first sunday of the month to hear God's word for the new month"
-    },
-    {
-      title: 'Healing Streams live Services with Pastor Chris',
-      image: 'https://d3u1jgd2t7cgti.cloudfront.net/2022/03/17/09/32/34/656/164752395351_managed6257135200200020568.tmp.mp4_thumb.jpg',
-      description: "For I wish above all things that you might prosper and be in health..."
+      description: "Get ready for the December 2022 edition of the global communion service with Pastor Chris. Taking place Sunday December 4th, 2022 from 3pm GMT"
     }
   ];
 

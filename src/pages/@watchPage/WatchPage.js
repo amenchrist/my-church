@@ -11,8 +11,7 @@ import { Hidden } from '@mui/material';
 function WatchPage() {
 
   const { attendanceSubmitted, isMobileNavOpen, setMobileNavOpen } = useStateContext();
-  
-  console.log('width is ', window.innerWidth)
+  // console.log('attendance submitted = ', attendanceSubmitted)
 
   return (
     <>

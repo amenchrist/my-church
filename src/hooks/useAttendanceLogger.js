@@ -39,7 +39,7 @@ export default function useAttendanceLogger(attendanceRecords) {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, attendanceRecords, attendanceLogged])
+    }, [ server, attendanceRecords, attendanceLogged, attendanceSubmitted])
 
   return attendanceLogged
 }

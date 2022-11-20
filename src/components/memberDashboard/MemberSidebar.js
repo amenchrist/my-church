@@ -76,16 +76,10 @@ let items = [
 
 const MemberSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { currentMember, isAdmin } = useStateContext();
-  const { title, firstName, lastName, church } = currentMember;
+  const { user, isAdmin } = useStateContext();
+  const { church, avatar, name } = user;
   
-  const user = {
-    avatar: '/static/images/avatars/avatar_6.png',
-    jobTitle: church? church: 'Unknown Church',
-    name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown Member'
-  };
-
-  useEffect(()=> {
+   useEffect(()=> {
     if(!isAdmin){
       items = items.filter(item => item.href !== '/admin-dashboard/summary')
     }
@@ -118,25 +112,26 @@ const MemberSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={avatar}
           sx={{
             cursor: 'pointer',
             width: 64,
             height: 64
           }}
-          to="/app/account"
+          to="#"
         />
         <Typography
           color="textPrimary"
           variant="h5"
+          align='center'
         >
-          {user.name}
+          {name}
         </Typography>
         <Typography
           color="textSecondary"
           variant="body2"
         >
-          {user.jobTitle}
+          {church}
         </Typography>
       </Box>
       <Divider />

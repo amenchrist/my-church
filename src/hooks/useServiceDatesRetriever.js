@@ -9,13 +9,13 @@ export default function useServiceDatesRetriever() {
 
   useEffect(() => {
     rendered.current++
-    console.log(`Service Retriever Renders = ${rendered.current}`)
+    // console.log(`Service Retriever Renders = ${rendered.current}`)
   })
 
   const { server, serviceDateObjects, setServiceDateObjects } = useStateContext();
   
   useEffect(() => {
-    console.log("mounted service dates retriever")
+    // console.log("mounted service dates retriever")
 
       const controller = new AbortController();
       const signal = controller.signal;
@@ -31,15 +31,15 @@ export default function useServiceDatesRetriever() {
           console.log("Service Dates received")
           setServiceDateObjects(serviceDatesList.map(date => convertDateToDateStringObj(date)))
         }).catch(e => {
-            console.log(e);
-            console.log("Error retrieving Service Dates")
+            // console.log(e);
+            // console.log("Error retrieving Service Dates")
         });
       }      
   
       return () => {
         //cancel the request before the component unmounts
         controller.abort();
-        console.log("Unmounting Service Retriever")
+        // console.log("Unmounting Service Retriever")
       }
     }, [ server, setServiceDateObjects, serviceDateObjects.length ])
 

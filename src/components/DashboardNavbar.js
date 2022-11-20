@@ -35,13 +35,21 @@ useEffect(() => {
   // const [notifications] = useState([]);
   const { orgDetails } = useStateContext()
 
+  function refreshPage(){
+    // console.log(window.location)
+    if (window.location.pathname === '/'){
+      console.log('reloading page')
+      window.location.reload()
+    }
+  }
+
   return (
     <AppBar position='relative' sx={{ backgroundColor: 'white', boxShadow: 'none', height: '10vh', display:'flex', justifyContent: 'center' }} >
       <Toolbar>
         <Link to="/">
           <Logo />
         </Link>
-        <Link to="/" style={{textDecoration: "none"}} >
+        <Link to="/" style={{textDecoration: "none"}} onClick={refreshPage}>
         <Box sx={{ paddingLeft: 1, color: 'navy'}} >
           <Typography variant="h5" >{orgDetails.name}</Typography>
         </Box>

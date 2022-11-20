@@ -31,15 +31,9 @@ let items = [
 
 const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { currentMember, isAdmin, orgDetails } = useStateContext();
+  const { user, isAdmin, orgDetails } = useStateContext();
 
-  const { title, firstName, lastName, church } = currentMember;
-
-  const user = {
-    avatar: '/static/images/avatars/avatar_6.png',
-    org: church? church: orgDetails.name,
-    name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown Member'
-  };
+  const { church, avatar, name } = user;
 
   useEffect(()=> {
     if(!isAdmin){
@@ -77,27 +71,27 @@ const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={avatar}
           sx={{
             cursor: 'pointer',
             width: 64,
             height: 64
           }}
-          to="/app/account"
+          to="#"
         />
         <Typography
           color="textPrimary"
           variant="h5"
           align='center'
         >
-          {user.name}
+          {name}
         </Typography>
         <Typography
           color="textSecondary"
           variant="body2"
           align='center'
         >
-          {user.org}
+          {church}
         </Typography>
       </Box>
       <Divider />

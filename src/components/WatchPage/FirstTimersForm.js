@@ -57,7 +57,7 @@ export default function FirstTimersForm() {
         date: dateValues.date,
         day: dateValues.day,
         time: dateValues.time,
-        church: '',
+        church: 'CE BARKING',
         attendance: parseInt(data.get('attendance')),
         origin: orgDetails.url,
         primaryAttendee: data.get('firstName'),

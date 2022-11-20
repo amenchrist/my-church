@@ -80,21 +80,12 @@ const items = [
 
 const AdminSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { currentMember, serviceDateObjects } = useStateContext()
+  const { user, serviceDateObjects } = useStateContext()
 
-  const { title, firstName, lastName, role } = currentMember;
+  const { church, avatar, name } = user;
   const { setServiceDate, serviceDate, setLastWeeksServiceDate  } = useAdminStateContext();
 
-  const user = {
-    avatar: '/static/images/avatars/avatar_6.png',
-    jobTitle: role? role: 'Unknown',
-    name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown Member'
-  };
-
-
   const location = useLocation();
-
-  console.log(location)
   // useEffect(() => {
   //   if (openMobile && onMobileClose) {
   //     onMobileClose();
@@ -140,25 +131,26 @@ const AdminSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={avatar}
           sx={{
             cursor: 'pointer',
             width: 64,
             height: 64
           }}
-          to="/app/account"
+          to="#"
         />
         <Typography
           color="textPrimary"
           variant="h5"
+          align='center'
         >
-          {user.name}
+          {name}
         </Typography>
         <Typography
           color="textSecondary"
           variant="body2"
         >
-          {user.jobTitle}
+          {church}
         </Typography>
       </Box>
       <Divider />

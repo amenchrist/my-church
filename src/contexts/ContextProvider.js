@@ -10,12 +10,12 @@ export const ContextProvider = ({ children }) => {
   const rendered = useRef(0);
   useEffect(() => {
     rendered.current++
-    console.log(`Context provider Renders = ${rendered.current}`)
+    // console.log(`Context provider Renders = ${rendered.current}`)
   }, []);
 
   //Set server location
   const server = useMemo(() => {
-    console.log("Setting Server");
+    // console.log("Setting Server");
     const localHost = "http://localhost:5000";
     const host = 'https://arcane-anchorage-41306.herokuapp.com';
     
@@ -58,8 +58,31 @@ export const ContextProvider = ({ children }) => {
     isAdmin: false,
     isSignedIn: false,
     isRegistered: false,
-    attendanceSubmitted: false
+    attendanceSubmitted: false,
+    attendanceRecords: [],
+    avatar: '/static/images/avatars/avatar_6.png',
   })
+
+//   const [user, setUser] = useState(() => {
+//     const defaultUser = {
+//       email: '',
+//       isAdmin: false,
+//       isSignedIn: false,
+//       isRegistered: false,
+//       attendanceSubmitted: false,
+//       attendanceRecords: [],
+//       avatar: '/static/images/avatars/avatar_6.png',
+//     }
+//     let localData = localStorage.getItem('user');
+//     if (localData){
+//       localData = JSON.parse(localData)
+//       localData = { ...defaultUser, email: localData.email }
+//       return localData
+//     } else {
+//       return defaultUser
+//     }
+    
+// })
 
   //Set church dashboard defaults
   const [dates, setDates] = useState([]);
@@ -109,7 +132,15 @@ export const ContextProvider = ({ children }) => {
   //   }
   // }, [ geolocation ])
 
+  
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user))
+  }, [user]);
+
   //EXPORT
+
+ 
   
   const contextStateVars = {
 

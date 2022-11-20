@@ -35,13 +35,13 @@ const theme = createTheme();
 
 export default function SignInSide() {
 
-  const { currentMember } = useStateContext()
+  const { user } = useStateContext()
 
   const rendered = useRef(0)
 
   useEffect(() => {
     rendered.current++
-    console.log(`Sign in page Renders = ${rendered.current}`)
+    // console.log(`Sign in page Renders = ${rendered.current}`)
   })
 
   const  serviceDatesReceived = useServiceDatesRetriever();
@@ -53,11 +53,6 @@ export default function SignInSide() {
   // const [ emailExists, responseReceived ] = useAuthenticator(payload);
   useAuthenticator(authRequested, payload);
 
-  // useEffect(() => {
-  //   if(emailExists) {
-  //     setIsAdmin(true)
-  //   }
-  // }, [emailExists, setIsAdmin]);
 
   useEffect(() => {
     if(serviceDatesReceived>0) {
@@ -83,7 +78,7 @@ export default function SignInSide() {
   const [ valid, setValid ] = useState(false);
   const [ validEmail, setValidEmail ] = useState(false);
   const [ validPassword, setValidPassword ] = useState(false);
-  const [ email, setEmail ] = useState(currentMember.email? currentMember.email: '');
+  const [ email, setEmail ] = useState(user.email? user.email: '');
 
   useEffect(() => {
     if(validEmail && validPassword){
@@ -95,7 +90,7 @@ export default function SignInSide() {
 
   useEffect(() => {
     handleValidation(email)
-  }, [])
+  }, [email])
 
 
 
@@ -183,7 +178,7 @@ export default function SignInSide() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
@@ -192,9 +187,14 @@ export default function SignInSide() {
                   <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
-                </Grid>
+                </Grid> */}
+                <Link href="/" variant="body2" >
+                TO WATCH PAGE
+              </Link>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+
+              
+              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>

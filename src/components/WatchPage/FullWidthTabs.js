@@ -52,7 +52,7 @@ export default function FullWidthTabs() {
   React.useEffect(() => {
     // document.getElementById('tab-panellll').parentElement.parentElement.height = '100%'
     const sectionHeight= document.getElementById('trueParentDiv').clientHeight;
-    console.log(sectionHeight)
+  
     if(divHeight !== sectionHeight){
       setDivHeight(sectionHeight)
     }

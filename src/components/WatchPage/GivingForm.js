@@ -34,11 +34,13 @@ function GivingForm() {
 
             <TextField id="outlined-basic" label="Amount" variant="outlined" sx={{marginTop: '15px'}} />
             <TextField id="outlined-basic" label="Email*" variant="outlined" sx={{marginTop: '15px'}} value={currentMember.email} />
+            <Link  href="https://christembassybarking.org/give">
 
-            <Button variant="contained" sx={{marginTop: '15px', mb: '15px'}}>Approve Payment</Button>
+            <Button variant="contained" sx={{width: '100%', marginTop: '15px', mb: '15px'}}>Make Payment</Button>
+            </Link>
           </FormControl>
           <Link href="/member-dashboard" variant="body2" >
-            See Giving Records
+            See Giving Records (COMING SOON)
           </Link>
         </Box>
         {/* <Box

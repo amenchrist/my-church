@@ -2,39 +2,37 @@ import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player';
 import { useStateContext } from '../../contexts/ContextProvider';
 import './VideoPlayer.css';
+import stayTunedBanner from '../../Stay-tuned-.png';
+import stayTunedVid from "../../stay-tuned.mp4"
 
 function VideoPlayer() {
 
-  console.log("Mounting Video Player")
+  const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
+  // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
+  const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
+  let youtube = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
+  const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8";
+  // const stayTuned = "../../stay-tuned.mp4"
+ 
 
   const { attendanceSubmitted } = useStateContext();
-  const [videoSource, setVideoSource] = useState('')
-
-  const aspectRatio = 0.5625;
-
-  let youtube = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-  const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
-  // const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
-  // const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8"
-  // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
-  
-  useEffect(()=>{
-    if(videoSource !== lsat ){
-      setVideoSource(lsat)
+  const [videoSource, setVideoSource] = useState(barking2);
+  const [config, setConfig] = useState( {
+    file: {
+      forceHLS: true
     }
   })
+  const [ stayTuned, setStayTuned ] = useState(false)
+  const [ playing, setPlaying ] = useState(true)
 
-  const welcomeImg = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2F4%2F3%2Fe%2F14037.jpg&f=1&nofb=1&ipt=5d3fecf2e91dcf081f3c6d15e5a93cdfb588c4e48fcdc416847ca3bf1c9db8c8&ipo=images'
+  // const aspectRatio = 0.5625;
 
   
-  const [width, setWidth] = useState('100%');
-  const [height, setHeight] = useState('100%');
-  // const [divHeight, setDivHeight] = useState('100px');
-  // const [playing, setPlaying] = useState(false)
-  const [videoSrc, setVideoSrc] = useState(youtube);
-
-  console.log('player width = ', width)
-  console.log('player height = ', height)
+  useEffect(()=>{
+    if(videoSource !== barking2 ){
+      setVideoSource(barking2)
+    }
+  }, [])
 
   // function changeDivHeight(){
   //   if(window.innerWidth > 900){
@@ -76,19 +74,28 @@ function VideoPlayer() {
   //   }
   // }, [width])
 
+  function handleMediaError(e){
+    console.log(e)
+    setTimeout(() => {
+      console.log('Checking if error is resolved.'); 
+      setStayTuned(false)
+      setPlaying(false)
+    }, 5000)
+    setStayTuned(true)
+  }
   
 
   function MutedVideoPlayer() {
     return (
-      <ReactPlayer url={videoSource} width={width} height={height} id={"video-player"} volume={0} muted={true} playing={true} onError={console.log} onReady={console.log} />
+      <ReactPlayer light={!playing} config={config} url={videoSource} width={'100%'} height={'100%'} id={"video-player"} volume={0} muted={true} playing={true} onError={handleMediaError} />
     )
   }
 
   return (
     <>
       
-        {attendanceSubmitted? 
-        <ReactPlayer pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={height} id={"video-player"} controls playing={true} light={true} />
+        {stayTuned? <img src={stayTunedBanner} alt='stay-tuned' width={'100%'} height={'100%'} /> : attendanceSubmitted? 
+        <ReactPlayer config={config} pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={'100%'} id={"video-player"} controls playing={true} light={true} onError={handleMediaError}  />
         :
         <MutedVideoPlayer />
         }

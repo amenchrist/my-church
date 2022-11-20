@@ -3,7 +3,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAuthenticator(authRequested, payload) {
 
-  const {server, setCurrentMember, setIsAdmin } = useStateContext();
+  const {server, user, setUser, setIsAdmin } = useStateContext();
   // const [emailExists, setEmailExists] = useState(false)
   // const [responseReceived, setResponseReceived] = useState(false)
   
@@ -28,11 +28,18 @@ export default function useAuthenticator(authRequested, payload) {
           body: JSON.stringify(payload)
         }
 
-        fetch(`${server}/members/signin`, options).then(res => res.json()).then( member => {
-          if(member.id){
-            // setEmailExists(true);
-            if (member.role === "Admin") setIsAdmin(true)
-            setCurrentMember(member)     
+        fetch(`${server}/members/signin`, options).then(res => res.json()).then( userObj => {
+          if(userObj.id){
+            setIsAdmin(userObj.role === "Admin");
+            const {firstName, lastName, id, role, title, attendanceRecords, church } = userObj;
+            setUser({
+              ...user, 
+              isSignedIn: true, 
+              isAdmin: role === "Admin"? true : false,
+              title, firstName, lastName, attendanceRecords, id, 
+              name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown User',
+              church: church? church: 'No Church Assigned'         
+            })
           }else {
             console.log("Member not found")
           }
@@ -49,7 +56,7 @@ export default function useAuthenticator(authRequested, payload) {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, authRequested, payload, setCurrentMember])
+    }, [ server, authRequested, payload, setUser, setIsAdmin])
 
   return //[emailExists, responseReceived]
 }
