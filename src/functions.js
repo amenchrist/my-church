@@ -100,7 +100,7 @@ export function getOrgDetails(){
     break;
     default:
       console.log("Website unidentified")
-      orgDetails.name = "Christ Embassy"
+      orgDetails.name = "Christ Embassy Barking"
   }
   return orgDetails
 }
