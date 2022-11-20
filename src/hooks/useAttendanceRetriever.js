@@ -20,8 +20,10 @@ export default function useAttendanceRetriever() {
         const options = {
             signal: signal
         }
+
+        //${orgDetails.url}
     
-        fetch(`${server}/attendance/${orgDetails.url}`, options).then(res => res.json()).then(res => {
+        fetch(`${server}/attendance/test.amenslibrary.com`, options).then(res => res.json()).then(res => {
           setAttendanceRecords(res);
           setResponseReceived(true)
         }).catch(e => {

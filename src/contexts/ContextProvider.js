@@ -18,7 +18,7 @@ export const ContextProvider = ({ children }) => {
     // console.log("Setting Server");
     const localHost = "http://localhost:5000";
     const host = 'https://arcane-anchorage-41306.herokuapp.com';
-    
+    return host
     if(window.location.href.includes('localhost')){
       return localHost
     } else {

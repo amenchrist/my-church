@@ -94,11 +94,18 @@ function VideoPlayer() {
   return (
     <>
       
-        {stayTuned? <img src={stayTunedBanner} alt='stay-tuned' width={'100%'} height={'100%'} /> : attendanceSubmitted? 
+        {/* {stayTuned? <img src={stayTunedBanner} alt='stay-tuned' width={'100%'} height={'100%'} /> : attendanceSubmitted? 
         <ReactPlayer config={config} pip={true} stopOnUnmount={false} url={videoSource} width={"100%"} height={'100%'} id={"video-player"} controls playing={true} light={true} onError={handleMediaError}  />
         :
         <MutedVideoPlayer />
-        }
+        } */}
+        <div style={{height: '100%', width: '100%', padding: '20px'}}>
+
+        <h2 style={{color: 'white', textDecoration: 'underline', textAlign: 'center'}} >NOTICE</h2>
+          <h3 style={{color: 'white', textAlign: 'center'}}>
+          This morning's service <br/>(SUNDAY 20/11/2022)<br/> will not be streamed online.
+          </h3>
+        </div>
         {/* <div style={{border: '2px solid grey', width: '100%', height: '50px', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
             <div style={{color: "white"}}>SHARE</div>
             <div style={{color: "white"}}>CHURCH DASHBOARD</div>
