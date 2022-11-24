@@ -14,14 +14,15 @@ export default function AttendanceForm({isAnAdmin}) {
     const [ church, setChurch ] = useState('CE BARKING')
 
     const handleValidation = (value) => {
-        //set email to user input
-        setAttendance(value);
-        
+              
         //define regex     
         const reg = new RegExp(attendanceRegex); 
         
         //test whether input is valid
-        setValid(reg.test(value));
+        setValid(reg.test(value) );
+
+        //set email to user input
+        setAttendance(value);
     };
 
     function handleAttendance(event){

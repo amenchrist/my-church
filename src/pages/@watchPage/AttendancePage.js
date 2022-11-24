@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { Avatar, Link, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -23,25 +23,27 @@ function Copyright(props) {
 }
 export default function AttendancePage() {
 
+  const [ height, setHeight ] = React.useState('90%');
+
+  useEffect(() => {
+    if(window.innerWidth > 900){
+      setHeight('80%');
+    }
+  }, [])  
+
   const { setAttendanceSubmitted, user } = useStateContext();
+
+  const [ ready, setReady ] = useState(false);
 
   const [ emailExists, emailChecked, isAnAdmin ] = useEmailChecker(user.email);  
   // console.log(user.attendanceRecords)
-  const attendanceLogged = useAttendanceLogger(user.attendanceRecords);
-  const [ height, setHeight ] = React.useState('90%');
-
+  const attendanceLogged = useAttendanceLogger(user.attendanceRecords, ready);
   
 
   useEffect(() => {
     setAttendanceSubmitted(attendanceLogged)
   }, [attendanceLogged, setAttendanceSubmitted])
-
-  useEffect(() => {
-    if(window.innerWidth > 900){
-      setHeight('80%')
-    }
-  }, [])  
-  
+ 
   return (
       <Container component="main" maxWidth="xs"
         sx={{ 
