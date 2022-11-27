@@ -20,11 +20,6 @@ function VideoPlayer() {
   const [videoSource, setVideoSource] = useState(barking2);
   const [muted, setMuted] = useState(true)
 
-  const [config, setConfig] = useState( {
-    file: {
-      forceHLS: true
-    }
-  })
   const [ stayTuned, setStayTuned ] = useState(false)
   const [ playing, setPlaying ] = useState(true)
 
