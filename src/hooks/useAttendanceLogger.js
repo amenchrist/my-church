@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 
-export default function useAttendanceLogger(attendanceRecords, ready) {
+export default function useAttendanceLogger(attendanceRecords) {
 
   const {server, attendanceSubmitted } = useStateContext();
 
@@ -12,7 +12,7 @@ export default function useAttendanceLogger(attendanceRecords, ready) {
       const controller = new AbortController();
       const signal = controller.signal;
  
-      if(attendanceRecords !== undefined && attendanceRecords.length && !attendanceSubmitted && ready){
+      if(attendanceRecords !== undefined && attendanceRecords.length && !attendanceSubmitted){
         console.log("submitting attendance record")
         const options = {
             signal: signal,

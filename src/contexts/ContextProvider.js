@@ -134,9 +134,9 @@ export const ContextProvider = ({ children }) => {
 
   
 
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user))
-  }, [user]);
+  // useEffect(() => {
+  //   localStorage.setItem('user', JSON.stringify(user))
+  // }, [user]);
 
   //EXPORT
 

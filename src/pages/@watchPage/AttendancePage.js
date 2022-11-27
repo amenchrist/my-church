@@ -33,11 +33,11 @@ export default function AttendancePage() {
 
   const { setAttendanceSubmitted, user } = useStateContext();
 
-  const [ ready, setReady ] = useState(false);
+  // const [ ready, setReady ] = useState(false);
 
   const [ emailExists, emailChecked, isAnAdmin ] = useEmailChecker(user.email);  
   // console.log(user.attendanceRecords)
-  const attendanceLogged = useAttendanceLogger(user.attendanceRecords, ready);
+  const attendanceLogged = useAttendanceLogger(user.attendanceRecords);
   
 
   useEffect(() => {
