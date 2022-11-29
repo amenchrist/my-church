@@ -52,7 +52,7 @@ export default function DataTable({title, columns, rows}) {
             <DataGrid
               rows={rows}
               columns={columns}
-              pageSize={10}
+              pageSize={100}
               rowsPerPageOptions={[20]}
             />
           </div>
