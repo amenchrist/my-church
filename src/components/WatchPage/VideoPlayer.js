@@ -16,7 +16,7 @@ function VideoPlayer() {
   // const stayTuned = "../../stay-tuned.mp4"
  
 
-  const { attendanceSubmitted } = useStateContext();
+  const { user } = useStateContext();
   const [videoSource, setVideoSource] = useState(barking2);
   const [muted, setMuted] = useState(true)
 
@@ -26,14 +26,14 @@ function VideoPlayer() {
   // const aspectRatio = 0.5625;
 
   useEffect(()=>{
-    if(attendanceSubmitted ){
+    if(user.attendanceSubmitted ){
      setMuted(false)
     }
-  }, [attendanceSubmitted])
+  }, [user.attendanceSubmitted])
   
   useEffect(()=>{
-    if(videoSource !== barking2 ){
-      setVideoSource(barking2)
+    if(videoSource !== lsat ){
+      setVideoSource(lsat)
     }
   }, [])
 
@@ -59,11 +59,11 @@ function VideoPlayer() {
 
     // You can handle player events here, for example:
     player.on('waiting', () => {
-      videojs.log('player is waiting');
+      // videojs.log('player is waiting');
     });
 
     player.on('dispose', () => {
-      videojs.log('player will dispose');
+      // videojs.log('player will dispose');
     });
   };
 

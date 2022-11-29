@@ -19,7 +19,7 @@ export default function Router() {
     },
     {
       path: 'admin-dashboard',
-      element: user.isAdmin && user.isSignedIn && !awaitingServerResponse? <DashboardLayout />:  <SignInSide />,
+      element: user.isAnAdmin && user.isSignedIn && !awaitingServerResponse? <DashboardLayout />:  <SignInSide />,
       children: [
           { path: 'summary', element: <ServiceSummary />},
           { path: 'attendees', element: <Attendees />  },

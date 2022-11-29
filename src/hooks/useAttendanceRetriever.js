@@ -3,7 +3,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAttendanceRetriever() {
 
-  const { server, orgDetails, isAdmin } = useStateContext();
+  const { server, orgDetails, user } = useStateContext();
 
   const [ attendanceRecords, setAttendanceRecords ] = useState([])
 
@@ -14,7 +14,7 @@ export default function useAttendanceRetriever() {
       const controller = new AbortController();
       const signal = controller.signal;
  
-      if(isAdmin && !responseReceived){
+      if(user.isAnAdmin && !responseReceived){
         console.log("Retrieving Attendance Records")
 
         const options = {
@@ -24,6 +24,7 @@ export default function useAttendanceRetriever() {
         //${orgDetails.url}
     
         fetch(`${server}/attendance/test.amenslibrary.com`, options).then(res => res.json()).then(res => {
+          
           setAttendanceRecords(res);
           setResponseReceived(true)
         }).catch(e => {
@@ -35,7 +36,7 @@ export default function useAttendanceRetriever() {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, responseReceived, isAdmin, orgDetails ])
+    }, [ server, responseReceived, user.isAnAdmin, orgDetails ])
 
   return [ responseReceived, attendanceRecords ]
 }

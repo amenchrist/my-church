@@ -3,7 +3,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 export default function useAuthenticator(authRequested, payload) {
 
-  const {server, user, setUser, setIsAdmin } = useStateContext();
+  const {server, user, setUser } = useStateContext();
   // const [emailExists, setEmailExists] = useState(false)
   // const [responseReceived, setResponseReceived] = useState(false)
   
@@ -13,7 +13,7 @@ export default function useAuthenticator(authRequested, payload) {
       const signal = controller.signal;
 
       if(authRequested){
-        console.log('Authentication has been requested')
+        // console.log('Authentication has been requested')
         //fetch user
         // const payload = {
         //   email: email,
@@ -30,12 +30,12 @@ export default function useAuthenticator(authRequested, payload) {
 
         fetch(`${server}/members/signin`, options).then(res => res.json()).then( userObj => {
           if(userObj.id){
-            setIsAdmin(userObj.role === "Admin");
+            // setIsAdmin(userObj.role === "Admin");
             const {firstName, lastName, id, role, title, attendanceRecords, church } = userObj;
             setUser({
               ...user, 
               isSignedIn: true, 
-              isAdmin: role === "Admin"? true : false,
+              isAnAdmin: role === "Admin"? true : false,
               title, firstName, lastName, attendanceRecords, id, 
               name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown User',
               church: church? church: 'No Church Assigned'         
@@ -49,14 +49,14 @@ export default function useAuthenticator(authRequested, payload) {
           console.log(err)
         })
       } else {
-        console.log('Authentication has not been requested')
+        // console.log('Authentication has not been requested')
       }
   
       return () => {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, authRequested, payload, setUser, setIsAdmin])
+    }, [ server, authRequested, payload, setUser ])
 
   return //[emailExists, responseReceived]
 }

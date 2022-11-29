@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField,  Grid, Box, MenuItem,  } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { getDateValues } from '../../functions';
 import { attendanceRegex } from '../regex';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import useAttendanceLogger from '../../hooks/useAttendanceLogger';
 
 export default function AttendanceForm({isAnAdmin}) {
 
@@ -11,7 +13,9 @@ export default function AttendanceForm({isAnAdmin}) {
 
     const [ attendance, setAttendance ] = useState(1)
     const [ valid, setValid ] = useState(true);
-    const [ church, setChurch ] = useState('CE BARKING')
+    const [ church, setChurch ] = useState('CE BARKING');
+    const [ attendanceRecord, setAttendanceRecord ] = useState({});
+    const [ processingRequested, setProcessingRequested ] = useState(false);
 
     const handleValidation = (value) => {
               
@@ -25,34 +29,42 @@ export default function AttendanceForm({isAnAdmin}) {
         setAttendance(value);
     };
 
-    function handleAttendance(event){
-      event.preventDefault();
-      handleValidation(attendance)
-      if(valid){
-        const data = new FormData(event.currentTarget);
+    const handleAttendance = (event) => {
 
+      event.preventDefault();
+   
+      if(attendance && valid){
+        
         const dateValues = getDateValues(new Date());
 
-        const payload = {
-            id: dateValues.time.toString(),
+        setAttendanceRecord({
+            id: uuidv4().split('-').join(""),
             email: user.email ,
             date: dateValues.date,
             day: dateValues.day,
             time: dateValues.time,
             church: church,
-            attendance: parseInt(data.get('attendance')),
+            attendance: attendance,
             origin: orgDetails.url,
             ip: geolocation.IPv4,
             deviceWidth: window.innerWidth,
             deviceHeight: window.innerHeight
-        }
+        })
 
-        // console.log(payload)
-
-        setUser({...user, attendanceRecords: [payload]})
+        setProcessingRequested(true)
       }
-      
     }
+
+    //submit attendance
+    const attendanceSubmitted = useAttendanceLogger(attendanceRecord, processingRequested);
+
+    useEffect(() => {
+      if(attendanceSubmitted){
+        setProcessingRequested(false)
+        const { attendanceRecords } = user
+        setUser({...user, attendanceRecords: [attendanceRecord, ...attendanceRecords], attendanceSubmitted})
+      }
+    }, [attendanceSubmitted])
 
     const churches = [
       'CE LOVE CHURCH BARKING', 'CE BARKING', 'CE EAST HAM', 'CE ILFORD', 'CE MEDWAY', 'CE PORTSMOUTH', 'CE HARLOW',
@@ -79,10 +91,10 @@ export default function AttendanceForm({isAnAdmin}) {
             />
           </Grid>
           <Grid item xs={12} >
-          <TextField required select fullWidth id="title" label="Select Your Church" name="church" value={church} autoComplete="church" autoFocus onChange={(e) => setChurch(e.target.value)} >
-            {churches.map((church) => (<MenuItem key={church} value={church}>{church}</MenuItem>))}
-          </TextField>
-        </Grid>
+            <TextField required select fullWidth id="title" label="Select Your Church" name="church" value={church} autoComplete="church" autoFocus onChange={(e) => setChurch(e.target.value)} >
+              {churches.map((church) => (<MenuItem key={church} value={church}>{church}</MenuItem>))}
+            </TextField>
+          </Grid>
           <Grid item xs={12}>
             <TextField
               required

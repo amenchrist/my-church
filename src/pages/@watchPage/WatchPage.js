@@ -10,8 +10,7 @@ import { Hidden } from '@mui/material';
 
 function WatchPage() {
 
-  const { attendanceSubmitted, isMobileNavOpen, setMobileNavOpen } = useStateContext();
-  // console.log('attendance submitted = ', attendanceSubmitted)
+  const { user, isMobileNavOpen, setMobileNavOpen } = useStateContext();
 
   return (
     <>
@@ -30,7 +29,7 @@ function WatchPage() {
             </div>     
           </Grid>
           <Grid item xs={12} md={4} style={{display: 'flex', width: "100%", flexDirection: 'column',  alignItems: 'center'}} >
-            {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
+            {user.attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </Grid>
         </Grid>
         </Hidden>
@@ -40,7 +39,7 @@ function WatchPage() {
             <VideoPlayer />
           </div>
           <div id='attendance-div' style={{ flexGrow: 1, overflowY: "hidden", margin: 0, width: "100%",display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
+            {user.attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }
           </div>
         </div>
         </Hidden>

@@ -3,7 +3,7 @@
 export function getAttendees(membersArray, date){
     const relevantMembers = membersArray.filter(member => member.attendanceRecords.filter(record => record.date === date ).length > 0 )
     const attRecords = relevantMembers.map(m => {
-      return {...m, attendanceRecords: m.attendanceRecords.filter(record => record.date === date ) }
+      return {...m, attendanceRecords: m.attendanceRecords.filter(record => record.date === date) }
       
     })
     //console.log(attRecords);

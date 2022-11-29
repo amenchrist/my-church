@@ -6,45 +6,43 @@ import useEmailChecker from '../../hooks/useEmailChecker';
 
 export default function EmailForm() {
 
-  const { user, setUser, serverIsOnline, setServerIsOnline } = useStateContext();
+  const { user, setUser, serverIsOnline } = useStateContext();
   const [ email, setEmail ] = useState(user.email)
   const [ valid, setValid ] = useState(true);
-
-   // Check if server is online
-   const emailChecked = useEmailChecker('et@test.com')[1]; 
-
-   useEffect(() => {
-     if(emailChecked){
-       setServerIsOnline(true)
-     } else{
-      setServerIsOnline(false)
-     }
-   }, [emailChecked, setServerIsOnline])
+  const [ processingRequested, setProcessingRequested ] = useState(false)
 
   const handleValidation = (value) => {
-      //set email to user input
-      setEmail(value.toLowerCase());
+    //set email to user input
+    setEmail(value.toLowerCase());
+
+    //define regex     
+    const reg = new RegExp(emailRegex); 
       
-      //define regex     
-      const reg = new RegExp(emailRegex); 
-      
-      //test whether input is valid
-      setValid(reg.test(value));
+    //test whether input is valid
+    setValid(reg.test(value));
+
   };
 
-  function submitEmail(event){
+  const handleSubmit = (event) => {
     event.preventDefault();
-    handleValidation(email)
-    if(valid){
-      const data = new FormData(event.currentTarget);
-      const userEmail = data.get('email').toLowerCase();
-      setUser({...user, email: userEmail})
+    if(email && valid) {
+      setProcessingRequested(true)
     }
   }
 
+  //Check if email exists   
+  const [ isRegistered, emailChecked, isAnAdmin ] = useEmailChecker(email, processingRequested); 
+
+  useEffect(() => {
+    if(emailChecked){
+      setProcessingRequested(false)
+      setUser({...user, email, emailChecked, isRegistered, isAnAdmin });
+    }
+  }, [emailChecked])
+
   return (
     <>
-      <Box component="form" noValidate onSubmit={submitEmail} sx={{ mt: 3, width: '100%' }}  >
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}  >
         <Grid container spacing={2} >
           <Grid item xs={12} >
             <TextField

@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useMemo } from 'react';
 import { getOrgDetails } from '../functions';
-import useEmailChecker from '../hooks/useEmailChecker';
 
 const StateContext = createContext();
 
@@ -10,7 +9,7 @@ export const ContextProvider = ({ children }) => {
   const rendered = useRef(0);
   useEffect(() => {
     rendered.current++
-    // console.log(`Context provider Renders = ${rendered.current}`)
+    console.log(`Context provider Renders = ${rendered.current}`)
   }, []);
 
   //Set server location
@@ -18,13 +17,15 @@ export const ContextProvider = ({ children }) => {
     // console.log("Setting Server");
     const localHost = "http://localhost:5000";
     const host = 'https://arcane-anchorage-41306.herokuapp.com';
-    return host
+    // return host
     if(window.location.href.includes('localhost')){
       return localHost
     } else {
       return host
     }
   }, []);
+
+  
 
   //Get info on parent website
   const orgDetails = useMemo(() => getOrgDetails(), []);
@@ -40,7 +41,8 @@ export const ContextProvider = ({ children }) => {
   // }, [])
 
   //Set app default values
-  const [serverIsOnline, setServerIsOnline] = useState(false)
+  const [serverIsOnline, setServerIsOnline] = useState(false);
+  // const serverIsOnline = useRef(false)
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [toggleMenuIcon, setToggleMenuIcon] = useState(false);
   const [awaitingServerResponse, setAwaitingServerResponse] = useState(false)
@@ -55,13 +57,53 @@ export const ContextProvider = ({ children }) => {
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
   const [user, setUser] = useState({
     email: '',
-    isAdmin: false,
+    emailChecked: false,
+    isAnAdmin: false,
     isSignedIn: false,
     isRegistered: false,
     attendanceSubmitted: false,
     attendanceRecords: [],
+    attendanceSubmitted: false,
     avatar: '/static/images/avatars/avatar_6.png',
   })
+
+  //Check if server is online
+
+  useEffect(() => {
+    // console.log('Checking if server is online')
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    if(!serverIsOnline){
+      const payload = {
+        email: 'et@test.com',
+      }    
+      const options = {
+        signal: signal,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }
+
+      fetch(`${server}/members/attendance`, options).then(res => res.json()).then( response => {
+        // console.log('Server is online')
+        setServerIsOnline(true)
+        // serverIsOnline.current = true
+      }).catch(err => {
+        console.log(err)
+      })
+      
+    } else {
+      // console.log('Server is online')
+    }
+
+    return () => {
+      //cancel the request before the component unmounts
+      controller.abort();
+    }
+  }, [ serverIsOnline ])
 
 //   const [user, setUser] = useState(() => {
 //     const defaultUser = {
@@ -153,7 +195,7 @@ export const ContextProvider = ({ children }) => {
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
     awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested,
     isMobileNavOpen, setMobileNavOpen, toggleMenuIcon, setToggleMenuIcon,
-    user, setUser, serverIsOnline, setServerIsOnline
+    user, setUser, serverIsOnline,
 
   }
 

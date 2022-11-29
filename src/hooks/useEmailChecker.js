@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 
-export default function useEmailChecker(email) {
+export default function useEmailChecker(email, processingRequested) {
 
   const {server} = useStateContext();
   
@@ -14,8 +14,10 @@ export default function useEmailChecker(email) {
       const controller = new AbortController();
       const signal = controller.signal;
 
-      if(email){
-        // console.log('Authentication has been requested')
+      if(email && processingRequested){
+
+        console.log('Authentication has been requested')
+        
         //fetch user
         const payload = {
           email: email,
@@ -48,7 +50,7 @@ export default function useEmailChecker(email) {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, email])
+    }, [ server, email, processingRequested])
 
   return [emailExists, emailChecked, isAnAdmin]
 }

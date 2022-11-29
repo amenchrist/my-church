@@ -23,8 +23,8 @@ export default function Attendees(){
   const rows = serviceSummary.attendanceList.map(rec => {
    return rec.attendanceRecords.map((att, i) => {
       return {
-          id: att.id+i,
-          time: new Date(parseInt(att.id)*1000).toTimeString().substr(0,5), 
+          id: att.id,
+          time: new Date(parseInt(att.time)*1000).toTimeString().substr(0,5), 
           title: rec.title,
           name: rec.firstName,
           email: rec.email,

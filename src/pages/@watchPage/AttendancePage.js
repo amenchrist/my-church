@@ -1,12 +1,10 @@
-import React, { useEffect, useState }  from 'react';
+import React, { useEffect }  from 'react';
 import { Avatar, Link, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useStateContext } from '../../contexts/ContextProvider';
-import useEmailChecker from '../../hooks/useEmailChecker';
 import EmailForm from '../../components/WatchPage/EmailForm';
 import AttendanceForm from '../../components/WatchPage/AttendanceForm';
 import FirstTimersForm from '../../components/WatchPage/FirstTimersForm';
-import useAttendanceLogger from '../../hooks/useAttendanceLogger';
 
 
 function Copyright(props) {
@@ -24,6 +22,7 @@ function Copyright(props) {
 export default function AttendancePage() {
 
   const [ height, setHeight ] = React.useState('90%');
+  const { user } = useStateContext();
 
   useEffect(() => {
     if(window.innerWidth > 900){
@@ -31,19 +30,7 @@ export default function AttendancePage() {
     }
   }, [])  
 
-  const { setAttendanceSubmitted, user } = useStateContext();
-
-  // const [ ready, setReady ] = useState(false);
-
-  const [ emailExists, emailChecked, isAnAdmin ] = useEmailChecker(user.email);  
-  // console.log(user.attendanceRecords)
-  const attendanceLogged = useAttendanceLogger(user.attendanceRecords);
   
-
-  useEffect(() => {
-    setAttendanceSubmitted(attendanceLogged)
-  }, [attendanceLogged, setAttendanceSubmitted])
- 
   return (
       <Container component="main" maxWidth="xs"
         sx={{ 
@@ -75,7 +62,7 @@ export default function AttendancePage() {
             Welcome
           </Typography>
           <div style={{ overflowY: "auto", width: '100%' }}>
-            {!emailChecked? <EmailForm /> : emailExists? <AttendanceForm isAnAdmin={isAnAdmin} /> : <FirstTimersForm /> }
+            {!user.emailChecked? <EmailForm /> : user.isRegistered? <AttendanceForm isAnAdmin={user.isAnAdmin} /> : <FirstTimersForm /> }
           </div>
         </Box>
         <Copyright />
