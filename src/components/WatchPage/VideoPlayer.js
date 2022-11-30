@@ -32,8 +32,8 @@ function VideoPlayer() {
   }, [user.attendanceSubmitted])
   
   useEffect(()=>{
-    if(videoSource !== lsat ){
-      setVideoSource(lsat)
+    if(videoSource !== barking2 ){
+      setVideoSource(barking2)
     }
   }, [])
 
