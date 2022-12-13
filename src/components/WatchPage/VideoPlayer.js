@@ -17,7 +17,7 @@ function VideoPlayer() {
  
 
   const { user } = useStateContext();
-  const [videoSource, setVideoSource] = useState(barkingZone);
+  const [videoSource, setVideoSource] = useState(barkingChurch);
   const [muted, setMuted] = useState(true)
 
   const [ stayTuned, setStayTuned ] = useState(false)
@@ -32,8 +32,8 @@ function VideoPlayer() {
   }, [user.attendanceSubmitted])
   
   useEffect(()=>{
-    if(videoSource !== barkingZone ){
-      setVideoSource(barkingZone)
+    if(videoSource !== barkingChurch ){
+      setVideoSource(barkingChurch)
     }
   }, [videoSource])
 
