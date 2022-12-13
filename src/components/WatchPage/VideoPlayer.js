@@ -8,16 +8,16 @@ import './VideoPlayer.css';
 
 function VideoPlayer() {
 
-  const barking = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
+  const barkingChurch = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/av5xgmrwkg/playlist.m3u8"
   // const customStream = 'https://vcpout-ams01.internetmultimediaonline.org/vcp/GNW2022WPCngykyh/playlist.m3u8';
   const lsat = "https://c6v6m6p7.stackpathcdn.com/lwsat/lwsatmobile/playlist.m3u8"
   let youtube = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-  const barking2 = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8";
+  const barkingZone = "https://vcpout-sf01-altnetro.internetmultimediaonline.org/vcp/e877c883/playlist.m3u8";
   // const stayTuned = "../../stay-tuned.mp4"
  
 
   const { user } = useStateContext();
-  const [videoSource, setVideoSource] = useState(barking2);
+  const [videoSource, setVideoSource] = useState(barkingZone);
   const [muted, setMuted] = useState(true)
 
   const [ stayTuned, setStayTuned ] = useState(false)
@@ -32,10 +32,10 @@ function VideoPlayer() {
   }, [user.attendanceSubmitted])
   
   useEffect(()=>{
-    if(videoSource !== barking2 ){
-      setVideoSource(barking2)
+    if(videoSource !== barkingZone ){
+      setVideoSource(barkingZone)
     }
-  }, [])
+  }, [videoSource])
 
   const playerRef = React.useRef(null);
 
