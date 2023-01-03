@@ -58,8 +58,11 @@ export default function AttendancePage() {
           <Avatar sx={{ bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h4">
             Welcome
+          </Typography>
+          <Typography component="h5" variant="p">
+            Please sign in to unmute.
           </Typography>
           <div style={{ overflowY: "auto", width: '100%' }}>
             {!user.emailChecked? <EmailForm /> : user.isRegistered? <AttendanceForm isAnAdmin={user.isAnAdmin} /> : <FirstTimersForm /> }
