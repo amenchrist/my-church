@@ -77,8 +77,8 @@ export default function FullWidthTabs() {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Chat" {...a11yProps(0)} />
           <Tab label="Announcements" {...a11yProps(1)} />
+          <Tab label="Chat" {...a11yProps(0)} />
           <Tab label="Giving" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
@@ -90,11 +90,11 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
         style={{height: '100%'}}
       >
-        <TabPanel value={value} index={0} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}  >
-          <LiveChat />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}>
+        <TabPanel value={value} index={0} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}>
         <Announcements />
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}  >
+          <LiveChat />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction} style={{ height: divHeight, overflowY: 'hidden'  }}>
           <GivingForm />
