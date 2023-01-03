@@ -29,7 +29,13 @@ function GivingForm() {
               <MenuItem value={"Tithe"}>Tithe</MenuItem>
               <MenuItem value={"Offering"}>Offering</MenuItem>
               <MenuItem value={"First Fruit"}>First Fruit</MenuItem>
-              <MenuItem value={"Partnership"}>Partnership</MenuItem>
+              <MenuItem value={"Rhapsody of Realities"}>Partnership(Rhapsody of Realities)</MenuItem>
+              <MenuItem value={"Healing School"}>Partnership(Healing School)</MenuItem>
+              <MenuItem value={"Loveworld UK"}>Partnership(Loveworld UK)</MenuItem>
+              <MenuItem value={"Inner City Mission"}>Partnership(Inner City Mission)</MenuItem>
+
+             
+
             </Select>
 
             <TextField id="outlined-basic" label="Amount" variant="outlined" sx={{marginTop: '15px'}} />
@@ -39,11 +45,11 @@ function GivingForm() {
             <Button variant="contained" sx={{width: '100%', marginTop: '15px', mb: '15px'}}>Make Payment</Button>
             </Link>
           </FormControl>
-          <Link href="/member-dashboard" variant="body2" >
+          <Link href="#" variant="body2" >
             See Giving Records (COMING SOON)
           </Link>
         </Box>
-        {/* <Box
+        {/* <Box //// "/member-dashboard"
         component="form"
         sx={{
           '& > :not(style)': { m: 1, width: '25ch' },
