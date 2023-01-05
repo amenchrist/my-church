@@ -30,6 +30,25 @@ export const ContextProvider = ({ children }) => {
   //Get info on parent website
   const orgDetails = useMemo(() => getOrgDetails(), []);
 
+  useEffect(() => {
+    window.parent.postMessage('hi parent', "*")
+
+    const allowedParents = [ 'http://localhost:5000' ]
+
+    window.onmessage = function(e) {
+      // console.log(e)
+      // console.log(e.data)
+      // console.log(e.origin)
+      // console.log(allowedParents.includes(e.origin))
+        if (allowedParents.includes(e.origin)) {
+            console.log('From Parent: ', e.data);
+        }
+    };
+
+  }, [])
+
+  
+
   // const [orgDetails, setOrgDetails] = useState({
   //   name: '',
   //   url: ''
