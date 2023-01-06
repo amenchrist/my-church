@@ -28,36 +28,7 @@ export const ContextProvider = ({ children }) => {
   
 
   //Get info on parent website
-  const orgDetails = useMemo(() => getOrgDetails(), []);
-
-  useEffect(() => {
-    window.parent.postMessage('hi parent', "*")
-
-    const allowedParents = [ 'http://localhost:5000' ]
-
-    window.onmessage = function(e) {
-      // console.log(e)
-      // console.log(e.data)
-      // console.log(e.origin)
-      // console.log(allowedParents.includes(e.origin))
-        if (allowedParents.includes(e.origin)) {
-            console.log('From Parent: ', e.data);
-        }
-    };
-
-  }, [])
-
-  
-
-  // const [orgDetails, setOrgDetails] = useState({
-  //   name: '',
-  //   url: ''
-  // })
-  // useEffect(() => {
-  //   //Getting Organisation Details
-  //   console.log("Getting Org Details");
-  //   setOrgDetails(getOrgDetails())
-  // }, [])
+  const orgDetails = useMemo(() => getOrgDetails(), []); 
 
   //Set app default values
   const [serverIsOnline, setServerIsOnline] = useState(false);
@@ -74,17 +45,63 @@ export const ContextProvider = ({ children }) => {
   const [geolocation, setGeolocation] = useState({IPv4: 'IP UNAVAILABLE'});
   const [isAdmin, setIsAdmin] = useState(false);
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
-  const [user, setUser] = useState({
-    email: '',
-    emailChecked: false,
-    isAnAdmin: false,
-    isSignedIn: false,
-    isRegistered: false,
-    attendanceSubmitted: false,
-    attendanceRecords: [],
-    attendanceSubmitted: false,
-    avatar: '/static/images/avatars/avatar_6.png',
+
+  const [user, setUser] = useState(() => {
+    const request = {
+      action: "GET",
+      key: 'myChurchUser'
+    }
+    window.parent.postMessage(request, "*");
+    return {
+      email: '',
+      emailChecked: false,
+      isAnAdmin: false,
+      isSignedIn: false,
+      isRegistered: false,
+      attendanceSubmitted: false,
+      attendanceRecords: [],
+      avatar: '/static/images/avatars/avatar_6.png',
+    }
+    
   })
+
+  useEffect(() => {
+
+    // sessionStorage.setItem('user', JSON.stringify(user))
+    const request = {
+      action: "SET",
+      key: 'myChurchUser',
+      payload: {...user, attendanceSubmitted: false}
+    }
+    window.parent.postMessage(request, "*");
+
+  }, [user])
+
+  useEffect(() => {
+
+    window.onmessage = function(e) {
+
+      const allowedParents = [ 'http://localhost:5000', 'https://christembassybarking.org', 'https://ceilford.org' ]
+
+        if (allowedParents.includes(e.origin)) {
+
+          switch(e.data.type){
+            case 'GET_RESPONSE':
+              if(!e.data.payload) {
+                return
+              } else {
+                console.log("parent response was ", e.data.payload)
+                setUser(e.data.payload)
+                return
+              }
+            case 'SET_RESPONSE':
+              return
+            default:
+          }
+        }
+    };
+
+  }, [])
 
   //Check if server is online
 
@@ -122,7 +139,7 @@ export const ContextProvider = ({ children }) => {
       //cancel the request before the component unmounts
       controller.abort();
     }
-  }, [ serverIsOnline ])
+  }, [ serverIsOnline, server ])
 
 //   const [user, setUser] = useState(() => {
 //     const defaultUser = {
