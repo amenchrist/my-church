@@ -31,14 +31,14 @@ export default function EmailForm() {
   }
 
   //Check if email exists   
-  const [ isRegistered, emailChecked, isAnAdmin ] = useEmailChecker(email, processingRequested); 
+  const [ isRegistered, emailChecked, isAnAdmin, phoneExists ] = useEmailChecker(email, processingRequested); 
 
   useEffect(() => {
     if(emailChecked){
       setProcessingRequested(false)
-      setUser({...user, email, emailChecked, isRegistered, isAnAdmin });
+      setUser({...user, email, emailChecked, isRegistered, isAnAdmin, phoneExists });
     }
-  }, [emailChecked])
+  }, [emailChecked, setUser, user, email, isRegistered, isAnAdmin, phoneExists])
 
   return (
     <>

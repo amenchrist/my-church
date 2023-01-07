@@ -14,7 +14,7 @@ export default function Announcements() {
     }
 
     fetch('https://christembassybarking.org/wp-json/wp/v2/posts', options ).then(res => res.json()).then((res) => {
-      console.log(res)
+      // console.log(res)
       let posts = []
       res.forEach(blog => {
 

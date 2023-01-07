@@ -85,11 +85,11 @@ export default function FirstTimersForm() {
 
   useEffect(() => {
     if(attendanceSubmitted){
-      setProcessingRequested(false)
-      const { attendanceRecords } = user
-      setUser({...user, attendanceRecords: [attendanceRecord, ...attendanceRecords], attendanceSubmitted})
+      setProcessingRequested(false);
+      const { attendanceRecords } = user;
+      setUser({...user, attendanceRecords: [attendanceRecord, ...attendanceRecords], attendanceSubmitted});
     }
-  }, [attendanceSubmitted])
+  }, [attendanceSubmitted, user, attendanceRecord, setUser])
 
   const titles = [
     {

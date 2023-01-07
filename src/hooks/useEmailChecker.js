@@ -6,6 +6,7 @@ export default function useEmailChecker(email, processingRequested) {
   const {server} = useStateContext();
   
   const [emailExists, setEmailExists] = useState(false)
+  const [phoneExists, setPhoneExists] = useState(false)
   const [emailChecked, setEmailChecked] = useState(false)
   const [isAnAdmin, setIsAnAdmin] = useState(false)
   
@@ -35,7 +36,8 @@ export default function useEmailChecker(email, processingRequested) {
         fetch(`${server}/members/attendance`, options).then(res => res.json()).then( response => {
           if(response.emailExists){
             setEmailExists(true);
-            setIsAnAdmin(response.isAnAdmin) 
+            setIsAnAdmin(response.isAnAdmin)
+            setPhoneExists(response.phoneExists)
           }else {
             // console.log("Member not found")
           }
@@ -52,6 +54,6 @@ export default function useEmailChecker(email, processingRequested) {
       }
     }, [ server, email, processingRequested])
 
-  return [emailExists, emailChecked, isAnAdmin]
+  return [emailExists, emailChecked, isAnAdmin, phoneExists]
 }
 

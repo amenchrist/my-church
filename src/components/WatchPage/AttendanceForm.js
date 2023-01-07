@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, TextField,  Grid, Box, MenuItem,  } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { getDateValues } from '../../functions';
-import { attendanceRegex } from '../regex';
+import { attendanceRegex, phoneRegex } from '../regex';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import useAttendanceLogger from '../../hooks/useAttendanceLogger';
@@ -12,22 +12,52 @@ export default function AttendanceForm({isAnAdmin}) {
     const { user, setUser, orgDetails, geolocation } = useStateContext();    
 
     const [ attendance, setAttendance ] = useState(1)
-    const [ valid, setValid ] = useState(true);
+    // const [ valid, setValid ] = useState(true);
     const [ church, setChurch ] = useState('CE BARKING');
     const [ attendanceRecord, setAttendanceRecord ] = useState({});
     const [ processingRequested, setProcessingRequested ] = useState(false);
 
-    const handleValidation = (value) => {
-              
+    const [ phone, setPhone ] = useState('');
+
+    const [ validPhone, setValidPhone ] = useState(false);
+    const [ validAttendance, setValidAttendance ] = useState(true);
+
+    const [ valid, setValid ] = useState(false);
+
+    useEffect(() => {
+       console.log("Valid = ", valid)
+      if( validPhone && validAttendance ){
+        setValid(true)
+      } else if (user.phoneExists && validPhone === false){
+        setValidPhone(true)
+      }
+      else {
+        setValid(false)
+      }
+    }, [validPhone, validAttendance, valid, user.phoneExists ])
+
+    const handleValidation = (value, setFunc, valFunc, regex) => {
+        //set email to user input
+        setFunc(value);
+        
         //define regex     
-        const reg = new RegExp(attendanceRegex); 
+        const reg = new RegExp(regex); 
         
         //test whether input is valid
-        setValid(reg.test(value) );
-
-        //set email to user input
-        setAttendance(value);
+        valFunc(reg.test(value));
     };
+
+    // const handleValidation = (value) => {
+              
+    //     //define regex     
+    //     const reg = new RegExp(attendanceRegex); 
+        
+    //     //test whether input is valid
+    //     setValid(reg.test(value) );
+
+    //     //set email to user input
+    //     setAttendance(value);
+    // };
 
     const handleAttendance = (event) => {
 
@@ -48,7 +78,8 @@ export default function AttendanceForm({isAnAdmin}) {
             origin: orgDetails.url,
             ip: geolocation.IPv4,
             deviceWidth: window.innerWidth,
-            deviceHeight: window.innerHeight
+            deviceHeight: window.innerHeight,
+            phone
         })
 
         setProcessingRequested(true)
@@ -90,6 +121,22 @@ export default function AttendanceForm({isAnAdmin}) {
               
             />
           </Grid>
+          {user.phoneExists? <></> : 
+          <Grid item xs={12}>
+            <TextField
+              autoFocus
+              required
+              fullWidth
+              id="phone"
+              label="Phone Number"
+              name="phone"
+              autoComplete="phone"
+              error={!validPhone}
+              value={phone}
+              onChange={(e) => handleValidation(e.target.value, setPhone, setValidPhone, phoneRegex)}
+            />
+          </Grid>
+          }
           <Grid item xs={12} >
             <TextField required select fullWidth id="title" label="Select Your Church" name="church" value={church} autoComplete="church" autoFocus onChange={(e) => setChurch(e.target.value)} >
               {churches.map((church) => (<MenuItem key={church} value={church}>{church}</MenuItem>))}
@@ -105,9 +152,8 @@ export default function AttendanceForm({isAnAdmin}) {
               type='number'
               min='1'
               value={attendance}
-              autoFocus
-              onChange={(e) => handleValidation(e.target.value)}
-              error={!valid}
+              onChange={(e) => handleValidation(e.target.value, setAttendance, setValidAttendance, attendanceRegex)}
+              error={!validAttendance}
             />
           </Grid>
         </Grid>
@@ -115,6 +161,7 @@ export default function AttendanceForm({isAnAdmin}) {
           type="submit"
           fullWidth
           variant="contained"
+          disabled={!valid}
           sx={{ mt: 3, mb: 2 }}
         >
           Submit

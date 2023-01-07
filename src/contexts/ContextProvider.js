@@ -46,28 +46,31 @@ export const ContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
 
+  const blankUser = {
+    email: '',
+    emailChecked: false,
+    isAnAdmin: false,
+    isSignedIn: false,
+    isRegistered: false,
+    phoneExists: false,
+    attendanceSubmitted: false,
+    attendanceRecords: [],
+    avatar: '/static/images/avatars/avatar_6.png',
+  }
+
   const [user, setUser] = useState(() => {
     const request = {
       action: "GET",
       key: 'myChurchUser'
     }
     window.parent.postMessage(request, "*");
-    return {
-      email: '',
-      emailChecked: false,
-      isAnAdmin: false,
-      isSignedIn: false,
-      isRegistered: false,
-      attendanceSubmitted: false,
-      attendanceRecords: [],
-      avatar: '/static/images/avatars/avatar_6.png',
-    }
+    return blankUser
     
   })
 
   useEffect(() => {
 
-    // sessionStorage.setItem('user', JSON.stringify(user))
+    sessionStorage.setItem('user', JSON.stringify(user))
     const request = {
       action: "SET",
       key: 'myChurchUser',
@@ -231,7 +234,7 @@ export const ContextProvider = ({ children }) => {
     isNewSite, setIsNewSite, isAdmin, setIsAdmin, attendanceSubmitted, setAttendanceSubmitted,
     awaitingServerResponse, setAwaitingServerResponse, authRequested, setAuthRequested,
     isMobileNavOpen, setMobileNavOpen, toggleMenuIcon, setToggleMenuIcon,
-    user, setUser, serverIsOnline,
+    user, setUser, serverIsOnline, blankUser
 
   }
 

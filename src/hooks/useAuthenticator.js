@@ -31,10 +31,13 @@ export default function useAuthenticator(authRequested, payload) {
         fetch(`${server}/members/signin`, options).then(res => res.json()).then( userObj => {
           if(userObj.id){
             // setIsAdmin(userObj.role === "Admin");
-            const {firstName, lastName, id, role, title, attendanceRecords, church } = userObj;
+            const { firstName, lastName, id, role, title, attendanceRecords, church, email } = userObj;
             setUser({
               ...user, 
-              isSignedIn: true, 
+              email,
+              emailExists: true,
+              isSignedIn: true,
+              isRegistered: true,
               isAnAdmin: role === "Admin"? true : false,
               title, firstName, lastName, attendanceRecords, id, 
               name: firstName? `${title} ${firstName} ${lastName} `: 'Unknown User',
@@ -56,7 +59,7 @@ export default function useAuthenticator(authRequested, payload) {
         //cancel the request before the component unmounts
         controller.abort();
       }
-    }, [ server, authRequested, payload, setUser ])
+    }, [ server, authRequested, payload, setUser, user ])
 
   return //[emailExists, responseReceived]
 }

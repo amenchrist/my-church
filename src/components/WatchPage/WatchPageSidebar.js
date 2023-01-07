@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Divider, Drawer, Grid, Hidden, List, MenuItem, TextField, Typography } from '@mui/material';
 import {
   BarChart as BarChartIcon,
   Briefcase,
   LogOut as Out,
+  RefreshCw
 } from 'react-feather';
 import NavItem from '../NavItem';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -31,7 +32,7 @@ let items = [
 
 const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { user, isAdmin, orgDetails } = useStateContext();
+  const { user, setUser, isAdmin, blankUser, orgDetails } = useStateContext();
 
   const { church, avatar, name } = user;
 
@@ -40,18 +41,8 @@ const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
       items = items.filter(item => item.href !== '/admin-dashboard/summary')
     }
   }, [isAdmin])
+
   
-
-
-  const location = useLocation();
-
-  // console.log(location)
-  // useEffect(() => {
-  //   if (openMobile && onMobileClose) {
-  //     onMobileClose();
-  //   }
-  // }, [openMobile, onMobileClose, location.pathname]);
- 
 
   const content = (
     <Box
@@ -105,6 +96,16 @@ const WatchPageSidebar = ({ onMobileClose, openMobile }) => {
               icon={item.icon}
             />
           ))}
+          {user.emailChecked? 
+            <NavItem
+              href={'#'}
+              key={'reset'}
+              title={'Reset'}
+              icon={RefreshCw}
+              onClick={() => setUser(blankUser)}
+            />  :
+            <></>
+          }
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />

@@ -27,7 +27,7 @@ export default function useServiceDatesRetriever() {
             signal: signal
         }
     
-        fetch(`${server}/attendance/`, options).then(res => res.json()).then(serviceDatesList => {
+        fetch(`${server}/attendance/dates`, options).then(res => res.json()).then(serviceDatesList => {
           console.log("Service Dates received")
           setServiceDateObjects(serviceDatesList.map(date => convertDateToDateStringObj(date)))
         }).catch(e => {

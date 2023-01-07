@@ -12,7 +12,7 @@ import {
   User as UserIcon,
   Users as UsersIcon,
   LogOut as Out,
-  Briefcase
+  Briefcase, RefreshCw
 } from 'react-feather';
 import NavItem from '../NavItem';
 import { useAdminStateContext } from '../../contexts/AdminContextProvider';
@@ -80,7 +80,7 @@ const items = [
 
 const AdminSidebar = ({ onMobileClose, openMobile }) => {
 
-  const { user, serviceDateObjects } = useStateContext()
+  const { user, setUser, serviceDateObjects, blankUser } = useStateContext()
 
   const { church, avatar, name } = user;
   const { setServiceDate, serviceDate, setLastWeeksServiceDate  } = useAdminStateContext();
@@ -171,6 +171,16 @@ const AdminSidebar = ({ onMobileClose, openMobile }) => {
               icon={item.icon}
             />
           ))}
+          {user.emailChecked? 
+            <NavItem
+              href={'#'}
+              key={'reset'}
+              title={'Reset'}
+              icon={RefreshCw}
+              onClick={() => setUser(blankUser)}
+            />  :
+            <></>
+          }
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
