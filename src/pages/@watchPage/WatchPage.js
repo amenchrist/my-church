@@ -12,6 +12,16 @@ function WatchPage() {
 
   const { user, isMobileNavOpen, setMobileNavOpen } = useStateContext();
 
+  const ServiceMessage = () => {
+    return (
+      <div style={{color: 'white', width: "100%", textAlign: 'center', padding: '20px'}}>
+      <h3>PLEASE NOTE</h3>
+      <p>TODAY'S SERVICE (15/01/2022) WILL NOT BE STREAMED</p>
+      <p>PLEASE BE ONSITE TO PARTICIPATE</p>
+      </div>
+    )
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1, height: '90vh' }}>
@@ -24,7 +34,8 @@ function WatchPage() {
           <Grid item xs={12} md={8}  >  
             <div style={{backgroundColor: "black", display:"flex", width: '100%', height: '100%', flexDirection: 'column', justifyContent: 'center'}}>
               <div style={{ width: '100%'}}>
-                <VideoPlayer />
+                {/* <VideoPlayer /> */}
+                <ServiceMessage />
               </div>
             </div>     
           </Grid>
@@ -36,7 +47,8 @@ function WatchPage() {
         <Hidden mdUp>
         <div style={{display: 'flex', height: "100%", width: '100%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
           <div id={'video-container'} style={{ backgroundColor: "black",  width: '100%'}}>
-            <VideoPlayer />
+            {/* <VideoPlayer /> */}
+            <ServiceMessage />
           </div>
           <div id='attendance-div' style={{ flexGrow: 1, overflowY: "hidden", margin: 0, width: "100%",display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {user.attendanceSubmitted? <FullWidthTabs /> : <AttendancePage /> }

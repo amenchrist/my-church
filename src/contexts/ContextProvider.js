@@ -128,6 +128,7 @@ export const ContextProvider = ({ children }) => {
 
       fetch(`${server}/members/attendance`, options).then(res => res.json()).then( response => {
         // console.log('Server is online')
+        console.log(response)
         setServerIsOnline(true)
         // serverIsOnline.current = true
       }).catch(err => {
