@@ -68,43 +68,43 @@ export const ContextProvider = ({ children }) => {
     
   })
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    sessionStorage.setItem('user', JSON.stringify(user))
-    const request = {
-      action: "SET",
-      key: 'myChurchUser',
-      payload: {...user, attendanceSubmitted: false}
-    }
-    window.parent.postMessage(request, "*");
+  //   sessionStorage.setItem('user', JSON.stringify(user))
+  //   const request = {
+  //     action: "SET",
+  //     key: 'myChurchUser',
+  //     payload: {...user, attendanceSubmitted: false}
+  //   }
+  //   window.parent.postMessage(request, "*");
 
-  }, [user])
+  // }, [user])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    window.onmessage = function(e) {
+  //   window.onmessage = function(e) {
 
-      const allowedParents = [ 'http://localhost:5000', 'https://christembassybarking.org', 'https://ceilford.org' ]
+  //     const allowedParents = [ 'http://localhost:5000', 'https://christembassybarking.org', 'https://ceilford.org' ]
 
-        if (allowedParents.includes(e.origin)) {
+  //       if (allowedParents.includes(e.origin)) {
 
-          switch(e.data.type){
-            case 'GET_RESPONSE':
-              if(!e.data.payload) {
-                return
-              } else {
-                console.log("parent response was ", e.data.payload)
-                setUser(e.data.payload)
-                return
-              }
-            case 'SET_RESPONSE':
-              return
-            default:
-          }
-        }
-    };
+  //         switch(e.data.type){
+  //           case 'GET_RESPONSE':
+  //             if(!e.data.payload) {
+  //               return
+  //             } else {
+  //               console.log("parent response was ", e.data.payload)
+  //               setUser(e.data.payload)
+  //               return
+  //             }
+  //           case 'SET_RESPONSE':
+  //             return
+  //           default:
+  //         }
+  //       }
+  //   };
 
-  }, [])
+  // }, [])
 
   //Check if server is online
 
