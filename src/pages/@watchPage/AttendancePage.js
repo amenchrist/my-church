@@ -61,9 +61,9 @@ export default function AttendancePage() {
           <Typography component="h1" variant="h4">
             Welcome
           </Typography>
-          {/* <Typography component="h5" variant="p">
+          <Typography component="h5" variant="p">
             Please sign in to unmute.
-          </Typography> */}
+          </Typography>
           <div style={{ overflowY: "auto", width: '100%' }}>
             {!user.emailChecked? <EmailForm /> : user.isRegistered? <AttendanceForm isAnAdmin={user.isAnAdmin} /> : <FirstTimersForm /> }
           </div>
