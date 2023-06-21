@@ -96,11 +96,11 @@ export function getOrgDetails(){
       orgDetails.name = "Christ Embassy Stratford"
     break;
     case "localhost:3000":
-      orgDetails.name = "Christ Embassy Barking"
+      orgDetails.name = "Church Name"
     break;
     default:
       console.log("Website unidentified")
-      orgDetails.name = "Christ Embassy Barking"
+      orgDetails.name = "Church Name"
   }
   return orgDetails
 }
